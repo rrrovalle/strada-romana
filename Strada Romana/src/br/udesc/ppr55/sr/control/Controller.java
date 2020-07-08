@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.udesc.view;
+package br.udesc.ppr55.sr.control;
 
 /**
  *
- * @author Robson
+ * @author Rodrigo Valle
  */
-public class Test {
-    
-    public static void main(String[] args) {
-        System.out.println("Daew mano");
-    }
+public class Controller {
     
 }
