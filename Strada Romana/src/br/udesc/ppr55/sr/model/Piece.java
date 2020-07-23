@@ -1,14 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.udesc.ppr55.sr.model;
 
 /**
- *
+ * This class implements all abstract methods from a piece
  * @author Rodrigo Valle
+ * @since 15/07/2020
+ * @version 1.0
  */
-public class Peca {
+public abstract class Piece {
+    
+    private String image;
+    
+    public Piece(String image){
+        this.image = image;
+    }
+    
+    public String getImage(){
+        return image;
+    }
+    
+    public void setImage(String image){
+        this.image = image;
+    }
     
 }
