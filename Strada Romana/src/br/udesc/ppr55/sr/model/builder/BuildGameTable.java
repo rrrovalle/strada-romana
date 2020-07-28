@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.udesc.ppr55.sr.control;
+package br.udesc.ppr55.sr.model.builder;
 
 /**
  *
  * @author Rodrigo Valle
  */
-public class Controller {
+public class BuildGameTable {
     
 }

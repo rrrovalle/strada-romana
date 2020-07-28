@@ -7,8 +7,7 @@ package br.udesc.ppr55.sr.control.observer;
  * @since 20/07/2020
  * @version 1.0
  */
-public interface Observer { 
-  
+public interface Observer {   
   void boardPanelUpdate();
   void playerPanelUpdate();
   void wagonsPanelUpdate();

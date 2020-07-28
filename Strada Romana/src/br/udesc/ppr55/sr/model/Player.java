@@ -1,19 +1,20 @@
  package br.udesc.ppr55.sr.model;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author Rodrigo Valle
  */
 public class Player {
 	
-    protected String name;
-    protected String imperator;
+    protected String name; 
     protected int score;
+    protected JPanel panelJogador;
     
-    public Player(String name, String imperator, int score){
-        this.name = name;
-        this.imperator = imperator;
-        this.score = 0;
+    public Player(JPanel panel){ 
+    	this.panelJogador = panel; 
+    	this.score = 0;
     }
  
     public String getName() {
@@ -31,14 +32,19 @@ public class Player {
     public void setScore(int score) {
         this.score = this.score + score;
     } 
-
-    public String getImperator() {
-        return imperator;
+    
+    public JPanel getPanel() {
+    	return panelJogador;
     }
-
-    public void setImperator(String imperator) {
-        this.imperator = imperator;
+    
+    public void setPanel(JPanel panel) {
+    	this.panelJogador = panel;
     }
+    
+    //public String getPathImage() {
+    	//String basePath = "src/images/";
+    	//return basePath+emperor+".png";
+    //}
     
     
 }
