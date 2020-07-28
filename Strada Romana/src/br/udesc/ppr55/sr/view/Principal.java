@@ -1,5 +1,6 @@
 package br.udesc.ppr55.sr.view;
   
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.ArrayList; 
 import java.awt.FlowLayout; 
@@ -45,26 +46,36 @@ public class Principal extends JFrame implements Observer{
 		stradaController.addObserver(this);   
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    setSize(1500,800);
-	    setLocationRelativeTo(null);
+	    setLocationRelativeTo(null); 
 	    setLayout(new FlowLayout());  
 	    
 	    initComponents();  
 	}
 
 	private void initComponents(){    
-		int numberOfPlayers = Integer.parseInt(JOptionPane.showInputDialog("Number of players in this match?"));
+		int numberOfPlayers = Integer.parseInt(JOptionPane.showInputDialog("Please, inform the number of players in this match:"));
 		 
 		if(numberOfPlayers >=2 && numberOfPlayers <= 5) {
 			for(int i=0; i<numberOfPlayers;i++) {  
 				 players.add(new Player(new PlayerPanel()));
 			} 
-			playerPanelUpdate();
+			initializePlayerPanel();
 		}else {
 			JOptionPane.showMessageDialog(null, "You should choose between 2~5 players!");
 			initComponents();
 		}
 		
 	} 
+	
+	@Override
+	public void initializePlayerPanel() {
+		for(int i=0; i<players.size(); i++) {
+			add(players.get(i).getPanel());
+			String name = JOptionPane.showInputDialog(null,"Name?");
+			players.get(i).getPanel().setName(name);  
+		}
+		this.setVisible(true);
+	}
 
 	@Override
 	public void boardPanelUpdate() { 
@@ -72,11 +83,7 @@ public class Principal extends JFrame implements Observer{
 	}
 
 	@Override
-	public void playerPanelUpdate() {
-		for(int i=0; i<players.size(); i++) {
-			add(players.get(i).getPanel());
-		}
-		this.setVisible(true);
+	public void playerPanelUpdate() { 
 	}
 
 	@Override

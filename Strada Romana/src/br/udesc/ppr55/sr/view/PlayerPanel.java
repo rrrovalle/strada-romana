@@ -18,17 +18,28 @@ public class PlayerPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	private JLabel lbName;
+	private JLabel lbScore;
+	private JLabel lbIcon;
+	
 	public PlayerPanel() {  
 		super();
-		JLabel btn = new JLabel();
-		btn.setIcon(new ImageIcon("C:\\\\Users\\\\Rodrigo Valle\\\\Desktop\\\\Strata Romana\\\\Strada-Romana\\\\Strada Romana\\\\src\\\\images\\\\augusto.png"));
-		JLabel name = new JLabel("Mario"); 
-		JLabel score = new JLabel("Score: 0");
-		this.add(btn);
-		this.add(name);
-		this.add(score);
+		JLabel lbIcon = new JLabel();
+		lbIcon.setIcon(new ImageIcon("C:\\\\Users\\\\Rodrigo Valle\\\\Desktop\\\\Strata Romana\\\\Strada-Romana\\\\Strada Romana\\\\src\\\\images\\\\augusto.png"));
+		lbName = new JLabel(""); 
+		lbScore = new JLabel("Score: 0");
+		this.add(lbIcon);
+		this.add(lbName);
+		this.add(lbScore);
 		this.setBorder(BorderFactory.createLineBorder(Color.black)); 
 	}
- 
- 
+	
+	public void setName(String name) {
+		this.lbName.setText(name);
+	}
+	
+	public void setIcon(int number) {
+		this.lbIcon.setIcon(new ImageIcon(""));
+	}
+	
 }

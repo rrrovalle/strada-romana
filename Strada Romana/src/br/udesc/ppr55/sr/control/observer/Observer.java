@@ -9,6 +9,7 @@ package br.udesc.ppr55.sr.control.observer;
  */
 public interface Observer {   
   void boardPanelUpdate();
+  void initializePlayerPanel();
   void playerPanelUpdate();
   void wagonsPanelUpdate();
   void showWagons();

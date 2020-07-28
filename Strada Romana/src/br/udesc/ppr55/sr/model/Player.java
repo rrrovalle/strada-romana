@@ -10,10 +10,10 @@ public class Player {
 	
     protected String name; 
     protected int score;
-    protected JPanel panelJogador;
+    protected JPanel panelPlayer;
     
     public Player(JPanel panel){ 
-    	this.panelJogador = panel; 
+    	this.panelPlayer = panel; 
     	this.score = 0;
     }
  
@@ -34,17 +34,13 @@ public class Player {
     } 
     
     public JPanel getPanel() {
-    	return panelJogador;
+    	return panelPlayer;
     }
     
     public void setPanel(JPanel panel) {
-    	this.panelJogador = panel;
+    	this.panelPlayer = panel;
     }
     
-    //public String getPathImage() {
-    	//String basePath = "src/images/";
-    	//return basePath+emperor+".png";
-    //}
-    
+ 
     
 }
