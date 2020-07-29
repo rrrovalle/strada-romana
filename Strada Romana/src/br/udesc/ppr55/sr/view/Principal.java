@@ -1,6 +1,5 @@
 package br.udesc.ppr55.sr.view;
-  
-import java.awt.Color;
+   
 import java.awt.EventQueue;
 import java.util.ArrayList; 
 import java.awt.FlowLayout; 
@@ -12,9 +11,7 @@ import javax.swing.JPanel;
 import br.udesc.ppr55.sr.control.StradaController;
 import br.udesc.ppr55.sr.control.observer.Observer;
 
-import br.udesc.ppr55.sr.model.Player; 
- 
-
+import br.udesc.ppr55.sr.model.Player;  
 public class Principal extends JFrame implements Observer{
  
 	private static final long serialVersionUID = -5607055001123226547L;
@@ -49,31 +46,30 @@ public class Principal extends JFrame implements Observer{
 	    setLocationRelativeTo(null); 
 	    setLayout(new FlowLayout());  
 	    
-	    initComponents();  
+	    createPlayersPanel(); 
 	}
-
-	private void initComponents(){    
-		int numberOfPlayers = Integer.parseInt(JOptionPane.showInputDialog("Please, inform the number of players in this match:"));
-		 
-		if(numberOfPlayers >=2 && numberOfPlayers <= 5) {
-			for(int i=0; i<numberOfPlayers;i++) {  
-				 players.add(new Player(new PlayerPanel()));
-			} 
-			initializePlayerPanel();
-		}else {
-			JOptionPane.showMessageDialog(null, "You should choose between 2~5 players!");
-			initComponents();
-		}
-		
+	
+	private void initComponents() { 
+	}
+	
+	private void createPlayersPanel(){  
+		try{
+			int numberOfPlayers = Integer.parseInt(this.question("Please, inform the number of players in this match:"));
+				if(numberOfPlayers >=2 && numberOfPlayers <= 5) {
+					stradaController.setPlayerPanel(numberOfPlayers); 
+				    initializePlayerPanel();
+				}else{
+					this.message("You should choose between 2~5 players!");
+					createPlayersPanel();
+				}
+			}catch(NumberFormatException ex){
+				this.message("An invalid character was found in text content.");
+			}
 	} 
 	
 	@Override
 	public void initializePlayerPanel() {
-		for(int i=0; i<players.size(); i++) {
-			add(players.get(i).getPanel());
-			String name = JOptionPane.showInputDialog(null,"Name?");
-			players.get(i).getPanel().setName(name);  
-		}
+		stradaController.initializePlayerPanel(this);
 		this.setVisible(true);
 	}
 
@@ -83,7 +79,7 @@ public class Principal extends JFrame implements Observer{
 	}
 
 	@Override
-	public void playerPanelUpdate() { 
+	public void playerPanelUpdate() {   
 	}
 
 	@Override
@@ -138,12 +134,18 @@ public class Principal extends JFrame implements Observer{
 	public void endGame() {
 		// TODO Auto-generated method stub
 		
+	} 
+
+	@Override
+	public void message(String message) {
+		JOptionPane.showMessageDialog(null,message);
 	}
 
 	@Override
-	public void showAlert(String message) {
-		// TODO Auto-generated method stub
-		
+	public String question(String question) {
+		String answer;
+		answer = JOptionPane.showInputDialog(null,question);
+		return answer;
 	}
 	
 

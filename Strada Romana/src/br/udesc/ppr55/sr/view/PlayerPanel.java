@@ -22,10 +22,10 @@ public class PlayerPanel extends JPanel {
 	private JLabel lbScore;
 	private JLabel lbIcon;
 	
-	public PlayerPanel() {  
+	public PlayerPanel(int icon) {  
 		super();
-		JLabel lbIcon = new JLabel();
-		lbIcon.setIcon(new ImageIcon("C:\\\\Users\\\\Rodrigo Valle\\\\Desktop\\\\Strata Romana\\\\Strada-Romana\\\\Strada Romana\\\\src\\\\images\\\\augusto.png"));
+		lbIcon = new JLabel("");
+		lbIcon.setIcon(new ImageIcon("C:\\\\Users\\\\Rodrigo Valle\\\\Desktop\\\\Strata Romana\\\\Strada-Romana\\\\Strada Romana\\\\src\\\\images\\\\"+icon+".png"));
 		lbName = new JLabel(""); 
 		lbScore = new JLabel("Score: 0");
 		this.add(lbIcon);
@@ -36,10 +36,6 @@ public class PlayerPanel extends JPanel {
 	
 	public void setName(String name) {
 		this.lbName.setText(name);
-	}
-	
-	public void setIcon(int number) {
-		this.lbIcon.setIcon(new ImageIcon(""));
-	}
-	
+	}  
+ 
 }
