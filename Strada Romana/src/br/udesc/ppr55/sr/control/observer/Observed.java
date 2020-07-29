@@ -21,5 +21,6 @@ public interface Observed {
     void notifyShowWareBag();
     void notifyShuffleWagonTiles();
     void notifyEndGame();
-    void notifyShowAlert(String message);
+    void notifyMessage(String message);
+    void notifyQuestion(String question);
 }

@@ -19,7 +19,7 @@ public interface Observer {
   void showCube();
   void showWareBag();
   void shuffleWagonTiles();
-  void endGame();
-  void showAlert(String message);
-
+  void endGame(); 
+  void message(String message);
+  String question(String question);
 }
