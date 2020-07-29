@@ -1,25 +1,29 @@
 package br.udesc.ppr55.sr.control;
 
-import br.udesc.ppr55.sr.control.observer.Observer; 
+import br.udesc.ppr55.sr.control.observer.Observer;
+import br.udesc.ppr55.sr.model.Player;
+import br.udesc.ppr55.sr.view.PlayerPanel;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame; 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane; 
 
 /**
  *
  * @author Rodrigo Valle
  */
 public class StradaController implements IStradaController {
-	
-    // Model and view  
-	private JFrame principalFrame;
-	
+	 
 	private static StradaController instance;
     
+	private PlayerPanel playerPanel;
 	// Observer list
 	private List<Observer> observers = new ArrayList<>();
- 
+    private ArrayList<Player> players = new ArrayList<>();
+
+    
     // Singleton pattern
      public static StradaController getInstance() {
         if (instance == null) {
@@ -41,11 +45,24 @@ public class StradaController implements IStradaController {
     
     @Override
     public void initializeBoard() {
-    	
+  
     } 
     
     @Override
-    public void initializePlayerPanel() {    
+    public void setPlayerPanel(int p) { 
+			for(int i=0; i<p;i++) {  
+				 players.add(new Player(new PlayerPanel(i)));
+			}
+    }
+    
+    @Override
+    public void initializePlayerPanel(JFrame frame) {
+		for(int i=0; i<players.size(); i++) {
+			frame.add(players.get(i).getPanel());
+			String name = JOptionPane.showInputDialog("Name:");
+			players.get(i).getPanel().setName(name);
+		}
+		notifyPlayerPanelUpdate();
     }
 
     @Override
@@ -54,6 +71,9 @@ public class StradaController implements IStradaController {
 
     @Override
     public void notifyPlayerPanelUpdate() {
+    	for(Observer observer: observers) {
+    		observer.playerPanelUpdate();
+    	}
     }
 
     @Override
@@ -93,7 +113,17 @@ public class StradaController implements IStradaController {
     }
 
     @Override
-    public void notifyShowAlert(String message) {
+    public void notifyMessage(String message) {
+    	for(Observer observer: observers) {
+    		observer.message(message);
+    	}
+    }
+    
+    @Override
+    public void notifyQuestion(String question) {
+    	for(Observer observer: observers) {
+    		observer.question(question);
+    	}
     }
  
  

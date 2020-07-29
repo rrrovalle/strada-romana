@@ -1,5 +1,7 @@
 package br.udesc.ppr55.sr.control; 
 
+import javax.swing.JFrame;
+
 import br.udesc.ppr55.sr.control.observer.Observed;
 
 /**
@@ -9,5 +11,6 @@ import br.udesc.ppr55.sr.control.observer.Observed;
 public interface IStradaController extends Observed {
     
     void initializeBoard();  
-    void initializePlayerPanel(); 
+    void setPlayerPanel(int p); 
+    void initializePlayerPanel(JFrame j);
 }
