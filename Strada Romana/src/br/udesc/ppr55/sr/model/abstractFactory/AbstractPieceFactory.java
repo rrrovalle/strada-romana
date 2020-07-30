@@ -18,25 +18,25 @@ public abstract class AbstractPieceFactory {
 	
 	public abstract Piece createContract();
 
-	public abstract Piece createBallioWagon(int side);
+	public abstract Piece createBallioWagon(boolean isRomaSide);
 	
-	public abstract Piece createCanopitesWagon(int side);
+	public abstract Piece createCanopitesWagon(boolean isRomaSide);
 	
-	public abstract Piece createCurculioWagon(int side);
+	public abstract Piece createCurculioWagon(boolean isRomaSide);
 
-	public abstract Piece createDemetriusWagon(int side);
+	public abstract Piece createDemetriusWagon(boolean isRomaSide);
 	
-	public abstract Piece createHamilcarWagon(int side);
+	public abstract Piece createHamilcarWagon(boolean isRomaSide);
 	
-	public abstract Piece createHerenniusWagon(int side);
+	public abstract Piece createHerenniusWagon(boolean isRomaSide);
 	
-	public abstract Piece createMaccusWagon(int side);
+	public abstract Piece createMaccusWagon(boolean isRomaSide);
 	
-	public abstract Piece createPersaWagon(int side);
+	public abstract Piece createPersaWagon(boolean isRomaSide);
 	
-	public abstract Piece createPlotusWagon(int side);
+	public abstract Piece createPlotusWagon(boolean isRomaSide);
 	
-	public abstract Piece createPseudolousWagon(int side);
+	public abstract Piece createPseudolousWagon(boolean isRomaSide);
 	
 	//implementar deck para apostas
 	public abstract Piece chooseWagon();

@@ -10,5 +10,5 @@ public class BallioPortus extends Piece {
 
 	public BallioPortus() {
 		super("images/ballioPortus.png");
-	}
+	} 
 }
