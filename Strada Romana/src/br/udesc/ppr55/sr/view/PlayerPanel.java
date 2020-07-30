@@ -25,7 +25,7 @@ public class PlayerPanel extends JPanel {
 	public PlayerPanel(int icon) {  
 		super();
 		lbIcon = new JLabel("");
-		lbIcon.setIcon(new ImageIcon("C:\\\\Users\\\\Rodrigo Valle\\\\Desktop\\\\Strata Romana\\\\Strada-Romana\\\\Strada Romana\\\\src\\\\images\\\\"+icon+".png"));
+		lbIcon.setIcon(new ImageIcon("src/images/"+icon+".png"));
 		lbName = new JLabel(""); 
 		lbScore = new JLabel("Score: 0");
 		this.add(lbIcon);

@@ -1,5 +1,7 @@
 package br.udesc.ppr55.sr.view;
  
+import java.awt.GridBagLayout;
+
 import javax.swing.JPanel;
 import javax.swing.JTable; 
 
@@ -13,8 +15,8 @@ public class BoardPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public BoardPanel() {
-		 
+	public BoardPanel() { 
+	    table = new JTable(7,17); 
 	}
 	
 }

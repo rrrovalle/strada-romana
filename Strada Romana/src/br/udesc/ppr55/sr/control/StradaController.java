@@ -17,13 +17,13 @@ import javax.swing.JOptionPane;
 public class StradaController implements IStradaController {
 	 
 	private static StradaController instance;
-    
-	private PlayerPanel playerPanel;
+	
 	// Observer list
 	private List<Observer> observers = new ArrayList<>();
+	
+	//Players list
     private ArrayList<Player> players = new ArrayList<>();
 
-    
     // Singleton pattern
      public static StradaController getInstance() {
         if (instance == null) {
@@ -59,12 +59,12 @@ public class StradaController implements IStradaController {
     public void initializePlayerPanel(JFrame frame) {
 		for(int i=0; i<players.size(); i++) {
 			frame.add(players.get(i).getPanel());
-			String name = JOptionPane.showInputDialog("Name:");
+			String name = JOptionPane.showInputDialog("Name: ");
 			players.get(i).getPanel().setName(name);
 		}
 		notifyPlayerPanelUpdate();
     }
-
+    
     @Override
     public void notifyBoardPanelUpdate() {
     }

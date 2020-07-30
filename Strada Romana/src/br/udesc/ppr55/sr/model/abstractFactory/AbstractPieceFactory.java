@@ -10,48 +10,14 @@ import br.udesc.ppr55.sr.model.Piece;
  */
 public abstract class AbstractPieceFactory {
 	
-	public abstract Piece createBag();
+	public abstract Piece createBag();  
 	
-	public abstract Piece createCoin();
+	public abstract Piece createCube();
 	
-	public abstract Piece createVictoryPoint();
+	public abstract Piece createWareTile();
 	
-	public abstract Piece createBlueCube();
-	
-	public abstract Piece createBlueWareTile();
-	
-	public abstract Piece createBlueContract();
-	
-	public abstract Piece createBrownCube();
-	
-	public abstract Piece createBrownWareTile();
-	
-	public abstract Piece createBrownContract();
-	
-	public abstract Piece createGreenCube();
-	
-	public abstract Piece createGreenWareTile();
-	
-	public abstract Piece createGreenContract();
-	
-	public abstract Piece createRedCube();
-	
-	public abstract Piece createRedWareTile();
-	
-	public abstract Piece createRedContract();
-	
-	public abstract Piece createWhiteCube();
-	
-	public abstract Piece createWhiteWareTile();
-	
-	public abstract Piece createWhiteContract();
-	
-	public abstract Piece createYellowCube();
-	
-	public abstract Piece createYellowWareTile();
-	
-	public abstract Piece createYellowContract();
-	
+	public abstract Piece createContract();
+
 	public abstract Piece createBallioWagon(int side);
 	
 	public abstract Piece createCanopitesWagon(int side);
@@ -73,4 +39,5 @@ public abstract class AbstractPieceFactory {
 	public abstract Piece createPseudolousWagon(int side);
 	
 	//implementar deck para apostas
+	public abstract Piece chooseWagon();
 }
