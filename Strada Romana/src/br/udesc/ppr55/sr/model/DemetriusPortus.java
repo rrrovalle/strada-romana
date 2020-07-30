@@ -11,5 +11,4 @@ public class DemetriusPortus extends Piece {
     public DemetriusPortus(){
         super("images/demetriusPortus.png");
     }
-    
 }
