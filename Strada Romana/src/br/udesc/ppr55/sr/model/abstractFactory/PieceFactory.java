@@ -1,27 +1,29 @@
 package br.udesc.ppr55.sr.model.abstractFactory;
 
 import br.udesc.ppr55.sr.model.Bag;
-import br.udesc.ppr55.sr.model.BallioPortus;
-import br.udesc.ppr55.sr.model.BallioRoma;
-import br.udesc.ppr55.sr.model.CanopitesPortus;
-import br.udesc.ppr55.sr.model.CanopitesRoma;
-import br.udesc.ppr55.sr.model.CurculioPortus;
-import br.udesc.ppr55.sr.model.CurculioRoma;
-import br.udesc.ppr55.sr.model.DemetriusPortus;
-import br.udesc.ppr55.sr.model.DemetriusRoma;
-import br.udesc.ppr55.sr.model.HamilcarPortus;
-import br.udesc.ppr55.sr.model.HamilcarRoma;
-import br.udesc.ppr55.sr.model.HerenniusPortus;
-import br.udesc.ppr55.sr.model.HerenniusRoma;
-import br.udesc.ppr55.sr.model.MaccusPortus;
-import br.udesc.ppr55.sr.model.MaccusRoma;
-import br.udesc.ppr55.sr.model.PersaPortus;
-import br.udesc.ppr55.sr.model.PersaRoma;
 import br.udesc.ppr55.sr.model.Piece;
-import br.udesc.ppr55.sr.model.PlotusPortus;
-import br.udesc.ppr55.sr.model.PlotusRoma;
-import br.udesc.ppr55.sr.model.PseudolousPortus;
-import br.udesc.ppr55.sr.model.PseudolousRoma;
+import br.udesc.ppr55.sr.model.cubes.CubeType;
+import br.udesc.ppr55.sr.model.cubes.MarketCube;
+import br.udesc.ppr55.sr.model.wagons.BallioPortus;
+import br.udesc.ppr55.sr.model.wagons.BallioRoma;
+import br.udesc.ppr55.sr.model.wagons.CanopitesPortus;
+import br.udesc.ppr55.sr.model.wagons.CanopitesRoma;
+import br.udesc.ppr55.sr.model.wagons.CurculioPortus;
+import br.udesc.ppr55.sr.model.wagons.CurculioRoma;
+import br.udesc.ppr55.sr.model.wagons.DemetriusPortus;
+import br.udesc.ppr55.sr.model.wagons.DemetriusRoma;
+import br.udesc.ppr55.sr.model.wagons.HamilcarPortus;
+import br.udesc.ppr55.sr.model.wagons.HamilcarRoma;
+import br.udesc.ppr55.sr.model.wagons.HerenniusPortus;
+import br.udesc.ppr55.sr.model.wagons.HerenniusRoma;
+import br.udesc.ppr55.sr.model.wagons.MaccusPortus;
+import br.udesc.ppr55.sr.model.wagons.MaccusRoma;
+import br.udesc.ppr55.sr.model.wagons.PersaPortus;
+import br.udesc.ppr55.sr.model.wagons.PersaRoma;
+import br.udesc.ppr55.sr.model.wagons.PlotusPortus;
+import br.udesc.ppr55.sr.model.wagons.PlotusRoma;
+import br.udesc.ppr55.sr.model.wagons.PseudolousPortus;
+import br.udesc.ppr55.sr.model.wagons.PseudolousRoma;
 
 /**
  * Piece Factory class
@@ -37,8 +39,8 @@ public class PieceFactory extends AbstractPieceFactory{
 	}
   
 	@Override
-	public Piece createCube() { 
-		return null;
+	public Piece createCube(CubeType cubeType) { 
+		return new MarketCube(cubeType);
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class PieceFactory extends AbstractPieceFactory{
 	public Piece createBallioWagon(boolean isRomaSide) {
 		 if(isRomaSide) {
 			 return new BallioRoma();
-		 }else {
+		 }else{
 			 return new BallioPortus();
 		 }
 	}
@@ -64,7 +66,7 @@ public class PieceFactory extends AbstractPieceFactory{
 	public Piece createCanopitesWagon(boolean isRomaSide) {
 		 if(isRomaSide) {
 			 return new CanopitesRoma();
-		 }else {
+		 }else{
 			 return new CanopitesPortus();
 		 }
 	}
@@ -73,7 +75,7 @@ public class PieceFactory extends AbstractPieceFactory{
 	public Piece createCurculioWagon(boolean isRomaSide) {
 		 if(isRomaSide) {
 			 return new CurculioRoma();
-		 }else {
+		 }else{
 			 return new CurculioPortus();
 		 }
 	}
@@ -82,7 +84,7 @@ public class PieceFactory extends AbstractPieceFactory{
 	public Piece createDemetriusWagon(boolean isRomaSide) {
 		 if(isRomaSide) {
 			 return new DemetriusRoma();
-		 }else {
+		 }else{
 			 return new DemetriusPortus();
 		 }
 	}
@@ -91,7 +93,7 @@ public class PieceFactory extends AbstractPieceFactory{
 	public Piece createHamilcarWagon(boolean isRomaSide) {
 		 if(isRomaSide) {
 			 return new HamilcarRoma();
-		 }else {
+		 }else{
 			 return new HamilcarPortus();
 		 }
 	}
@@ -100,7 +102,7 @@ public class PieceFactory extends AbstractPieceFactory{
 	public Piece createHerenniusWagon(boolean isRomaSide) {
 		 if(isRomaSide) {
 			 return new HerenniusRoma();
-		 }else {
+		 }else{
 			 return new HerenniusPortus();
 		 }
 	}
@@ -109,7 +111,7 @@ public class PieceFactory extends AbstractPieceFactory{
 	public Piece createMaccusWagon(boolean isRomaSide) {
 		 if(isRomaSide) {
 			 return new MaccusRoma();
-		 }else {
+		 }else{
 			 return new MaccusPortus();
 		 }
 	}
@@ -118,7 +120,7 @@ public class PieceFactory extends AbstractPieceFactory{
 	public Piece createPersaWagon(boolean isRomaSide) {
 		 if(isRomaSide) {
 			 return new PersaRoma();
-		 }else {
+		 }else{
 			 return new PersaPortus();
 		 }
 	}
@@ -127,7 +129,7 @@ public class PieceFactory extends AbstractPieceFactory{
 	public Piece createPlotusWagon(boolean isRomaSide) {
 		 if(isRomaSide) {
 			 return new PlotusRoma();
-		 }else {
+		 }else{
 			 return new PlotusPortus();
 		 }
 	}
@@ -136,7 +138,7 @@ public class PieceFactory extends AbstractPieceFactory{
 	public Piece createPseudolousWagon(boolean isRomaSide) {
 		 if(isRomaSide) {
 			 return new PseudolousRoma();
-		 }else {
+		 }else{
 			 return new PseudolousPortus();
 		 }
 	}

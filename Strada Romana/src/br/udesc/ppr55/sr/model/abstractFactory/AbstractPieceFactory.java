@@ -1,6 +1,7 @@
 package br.udesc.ppr55.sr.model.abstractFactory;
 
-import br.udesc.ppr55.sr.model.Piece;
+import br.udesc.ppr55.sr.model.Piece; 
+import br.udesc.ppr55.sr.model.cubes.CubeType;
 
 /**
  * Abstract Factory for Piece creation
@@ -12,7 +13,7 @@ public abstract class AbstractPieceFactory {
 	
 	public abstract Piece createBag();  
 	
-	public abstract Piece createCube();
+	public abstract Piece createCube(CubeType cubeType);
 	
 	public abstract Piece createWareTile();
 	
