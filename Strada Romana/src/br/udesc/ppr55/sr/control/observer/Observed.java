@@ -22,5 +22,4 @@ public interface Observed {
     void notifyShuffleWagonTiles();
     void notifyEndGame();
     void notifyMessage(String message);
-    void notifyQuestion(String question);
-}
+    }

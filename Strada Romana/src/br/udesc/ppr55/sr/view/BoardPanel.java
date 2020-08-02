@@ -1,11 +1,11 @@
 package br.udesc.ppr55.sr.view;
- 
-import java.awt.GridBagLayout;
+  
+import java.awt.Color;
 
-import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 import javax.swing.JTable; 
 
-public class BoardPanel extends JPanel {
+public class BoardPanel extends JTable {
 	
 	/**
 	 * 
@@ -16,7 +16,11 @@ public class BoardPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public BoardPanel() { 
-	    table = new JTable(7,17); 
+	    this.table = new JTable(7,17);
+		this.setBorder(BorderFactory.createLineBorder(Color.black)); 
 	}
 	
+	public JTable getTable() {
+		return this.table;
+	}
 }

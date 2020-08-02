@@ -3,7 +3,7 @@ package br.udesc.ppr55.sr;
  
 import java.awt.EventQueue;
 
-import br.udesc.ppr55.sr.view.Principal;  
+import br.udesc.ppr55.sr.view.GameFrame;  
 
 public class Main {
     
@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {  
-				 new Principal();
+				 new GameFrame().setVisible(true);
 			}
 		});
 	}

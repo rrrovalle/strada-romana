@@ -40,7 +40,10 @@ public class Player {
     public void setPanel(JPanel panel) {
     	this.panelPlayer = panel;
     }
-    
- 
+
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", score=" + score + ", panelPlayer=" + panelPlayer + "]";
+	} 
     
 }

@@ -4,11 +4,13 @@ import br.udesc.ppr55.sr.control.observer.Observer;
 import br.udesc.ppr55.sr.model.Player;
 import br.udesc.ppr55.sr.view.PlayerPanel;
 
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane; 
+import javax.swing.JOptionPane;
+import javax.swing.JPanel; 
 
 /**
  *
@@ -17,14 +19,11 @@ import javax.swing.JOptionPane;
 public class StradaController implements IStradaController {
 	 
 	private static StradaController instance;
-	
-	// Observer list
+	 
 	private List<Observer> observers = new ArrayList<>();
-	
-	//Players list
+	 
     private ArrayList<Player> players = new ArrayList<>();
-
-    // Singleton pattern
+ 
      public static StradaController getInstance() {
         if (instance == null) {
             instance = new StradaController();
@@ -49,20 +48,19 @@ public class StradaController implements IStradaController {
     } 
     
     @Override
-    public void setPlayerPanel(int p) { 
+    public void createPlayerPanel(int p) { 
 			for(int i=0; i<p;i++) {  
-				 players.add(new Player(new PlayerPanel(i)));
-			}
+				 players.add(new Player(new PlayerPanel()));
+			}    
     }
     
     @Override
-    public void initializePlayerPanel(JFrame frame) {
+    public void restartPlayerPanel(JPanel panel) {
 		for(int i=0; i<players.size(); i++) {
-			frame.add(players.get(i).getPanel());
+			panel.add(players.get(i).getPanel());
 			String name = JOptionPane.showInputDialog("Name: ");
 			players.get(i).getPanel().setName(name);
-		}
-		notifyPlayerPanelUpdate();
+		}  
     }
     
     @Override
@@ -117,14 +115,7 @@ public class StradaController implements IStradaController {
     	for(Observer observer: observers) {
     		observer.message(message);
     	}
-    }
-    
-    @Override
-    public void notifyQuestion(String question) {
-    	for(Observer observer: observers) {
-    		observer.question(question);
-    	}
-    }
+    } 
  
  
     

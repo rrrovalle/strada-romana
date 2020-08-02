@@ -28,7 +28,7 @@ public class Principal extends JFrame implements Observer{
 	    
 	    setLayout(new FlowLayout());  
 	    this.setVisible(true);
-	    //createPlayersPanel(); 
+	    createPlayersPanel(); 
  
 	}
 	
@@ -37,13 +37,13 @@ public class Principal extends JFrame implements Observer{
 	}
 	
 	private void createPlayersPanel(){  
-		 stradaController.setPlayerPanel(2); 
-		 initializePlayerPanel();
+		 stradaController.createPlayerPanel(2); 
+		 setPlayerPanel(); 
 	} 
 	
 	@Override
-	public void initializePlayerPanel() {
-		stradaController.initializePlayerPanel(this);
+	public void setPlayerPanel() {
+		stradaController.restartPlayerPanel(null);
 		this.setVisible(true);
 	}
 
@@ -114,12 +114,6 @@ public class Principal extends JFrame implements Observer{
 	public void message(String message) {
 		JOptionPane.showMessageDialog(null,message);
 	}
-
-	@Override
-	public String question(String question) {
-		String answer;
-		answer = JOptionPane.showInputDialog(null,question);
-		return answer;
-	}
+ 
 
 }
