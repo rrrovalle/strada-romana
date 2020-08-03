@@ -1,6 +1,5 @@
 package br.udesc.ppr55.sr.view;
-
-import java.awt.BorderLayout;
+ 
 import java.awt.FlowLayout;
  
 import javax.swing.JButton;
@@ -20,6 +19,10 @@ public class GameFrame extends JFrame implements Observer {
 	private static final long serialVersionUID = 765606884169312925L;
 	
 	private JPanel contentPane; 
+	private BoardFrame boardFrame;
+	
+	private JButton btnRestart;
+	private JButton btnPlayerBag;
 	
 	private IStradaController stradaController;   
 	
@@ -41,12 +44,12 @@ public class GameFrame extends JFrame implements Observer {
 	}
 
 	public void initComponents() {  	   
-		BoardPanel boardPanel = new BoardPanel();
-		contentPane.add(boardPanel.getTable()); 
+		boardFrame = new BoardFrame();
+		contentPane.add(boardFrame.getTable()); 
 		
-		JButton btnRestart = new JButton("Restart");
+		btnRestart = new JButton("Restart");
 		contentPane.add(btnRestart);
-		JButton btnPlayerBag = new JButton("Game Bag");
+		btnPlayerBag = new JButton("Game Bag");
 		contentPane.add(btnPlayerBag);
 	}
 

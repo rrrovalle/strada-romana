@@ -12,8 +12,9 @@ public class Player {
     protected int score;
     protected JPanel panelPlayer;
     
-    public Player(JPanel panel){ 
+    public Player(JPanel panel, String name){ 
     	this.panelPlayer = panel; 
+    	this.name = name;
     	this.score = 0;
     }
  

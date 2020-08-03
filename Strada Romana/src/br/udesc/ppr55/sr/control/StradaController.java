@@ -27,8 +27,7 @@ public class StradaController implements IStradaController {
      public static StradaController getInstance() {
         if (instance == null) {
             instance = new StradaController();
-        }
-
+        } 
         return instance;
     }
 
@@ -50,7 +49,8 @@ public class StradaController implements IStradaController {
     @Override
     public void createPlayerPanel(int p) { 
 			for(int i=0; i<p;i++) {  
-				 players.add(new Player(new PlayerPanel()));
+				 String name = JOptionPane.showInputDialog("Name: ");
+				 players.add(new Player(new PlayerPanel(),name));
 			}    
     }
     
@@ -58,9 +58,8 @@ public class StradaController implements IStradaController {
     public void restartPlayerPanel(JPanel panel) {
 		for(int i=0; i<players.size(); i++) {
 			panel.add(players.get(i).getPanel());
-			String name = JOptionPane.showInputDialog("Name: ");
-			players.get(i).getPanel().setName(name);
-		}  
+			players.get(i).getPanel().setName(players.get(i).getName()); 
+		}   
     }
     
     @Override

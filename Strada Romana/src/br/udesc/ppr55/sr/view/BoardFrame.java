@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JTable; 
 
-public class BoardPanel extends JTable {
+public class BoardFrame extends JTable {
 	
 	/**
 	 * 
@@ -15,7 +15,7 @@ public class BoardPanel extends JTable {
 	/**
 	 * Create the panel.
 	 */
-	public BoardPanel() { 
+	public BoardFrame() { 
 	    this.table = new JTable(7,17);
 		this.setBorder(BorderFactory.createLineBorder(Color.black)); 
 	}
