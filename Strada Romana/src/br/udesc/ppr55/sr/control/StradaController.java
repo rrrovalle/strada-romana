@@ -3,12 +3,10 @@ package br.udesc.ppr55.sr.control;
 import br.udesc.ppr55.sr.control.observer.Observer;
 import br.udesc.ppr55.sr.model.Player;
 import br.udesc.ppr55.sr.view.PlayerPanel;
-
-import java.awt.BorderLayout;
+ 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List; 
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel; 
 
@@ -42,12 +40,10 @@ public class StradaController implements IStradaController {
     }
     
     @Override
-    public void initializeBoard() {
-  
-    } 
+    public void initializeBoard() { } 
     
     @Override
-    public void createPlayerPanel(int p) { 
+    public void createPlayerPanel(int p) {  
 			for(int i=0; i<p;i++) {  
 				 String name = JOptionPane.showInputDialog("Name: ");
 				 players.add(new Player(new PlayerPanel(),name));

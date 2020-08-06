@@ -1,7 +1,9 @@
 package br.udesc.ppr55.sr.view;
  
 import java.awt.FlowLayout;
- 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel; 
@@ -49,6 +51,12 @@ public class GameFrame extends JFrame implements Observer {
 		
 		btnRestart = new JButton("Restart");
 		contentPane.add(btnRestart);
+		btnRestart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) { 
+			 System.exit(0);
+			}
+		});
+		
 		btnPlayerBag = new JButton("Game Bag");
 		contentPane.add(btnPlayerBag);
 	}

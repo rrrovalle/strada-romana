@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.udesc.ppr55.sr.model.builder;
+ package br.udesc.ppr55.sr.model.builder;
+
+import br.udesc.ppr55.sr.model.Piece;
+import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 
 /**
- *
+ * Concrete builder to create the board
+ * @Builder
  * @author Rodrigo Valle
  */
-public class BuildGameTable {
-    
+public class BuildGameTable extends Builder {
+	 
+    @Override
+    public void buildStradaBoard(AbstractPieceFactory factory) {
+    	board = new Piece[7][17];
+    	 
+    }
+
 }
