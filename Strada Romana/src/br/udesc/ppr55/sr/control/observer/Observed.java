@@ -1,4 +1,7 @@
 package br.udesc.ppr55.sr.control.observer;
+ 
+import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
+import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 
 /**
  * Observed Class
@@ -22,4 +25,7 @@ public interface Observed {
     void notifyShuffleWagonTiles();
     void notifyEndGame();
     void notifyMessage(String message);
+    String getPiece(int col, int row);
+    void setFactory(PieceFactory factory);
+    AbstractPieceFactory getFactory();
     }

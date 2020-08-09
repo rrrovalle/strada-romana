@@ -2,11 +2,16 @@ package br.udesc.ppr55.sr.control;
 
 import br.udesc.ppr55.sr.control.observer.Observer;
 import br.udesc.ppr55.sr.model.Player;
+import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
+import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
+import br.udesc.ppr55.sr.model.builder.BuildGameTable; 
+import br.udesc.ppr55.sr.model.builder.Builder;
+import br.udesc.ppr55.sr.model.builder.EmperorDirector; 
 import br.udesc.ppr55.sr.view.PlayerPanel;
  
 import java.util.ArrayList;
-import java.util.List; 
-
+import java.util.List;
+ 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel; 
 
@@ -17,11 +22,15 @@ import javax.swing.JPanel;
 public class StradaController implements IStradaController {
 	 
 	private static StradaController instance;
+	private EmperorDirector director;
+	private Builder builderGameTable;  
+	
+    private AbstractPieceFactory factory;
 	 
 	private List<Observer> observers = new ArrayList<>();
 	 
     private ArrayList<Player> players = new ArrayList<>();
- 
+     
      public static StradaController getInstance() {
         if (instance == null) {
             instance = new StradaController();
@@ -40,7 +49,12 @@ public class StradaController implements IStradaController {
     }
     
     @Override
-    public void initializeBoard() { } 
+    public void initializeBoard() { 
+        this.builderGameTable = new BuildGameTable();
+        this.director = new EmperorDirector(builderGameTable);
+        this.director.build(factory);  
+	} 
+     
     
     @Override
     public void createPlayerPanel(int p) {  
@@ -56,12 +70,29 @@ public class StradaController implements IStradaController {
 			panel.add(players.get(i).getPanel());
 			players.get(i).getPanel().setName(players.get(i).getName()); 
 		}   
+    } 
+ 
+    @Override
+    public String getPiece(int col, int row) { 
+    	return (builderGameTable.getTable().getGrid()[col][row] == null ? null : builderGameTable.getTable().getGrid()[col][row].getImage());
     }
     
     @Override
     public void notifyBoardPanelUpdate() {
     }
+    
+    @Override
+    public AbstractPieceFactory getFactory() {
+        return factory;
+    }
+    
+    @Override
+    public void setFactory(PieceFactory pieceFactory) {
+        this.factory = pieceFactory;
+        this.initializeBoard();  
+    }
 
+    
     @Override
     public void notifyPlayerPanelUpdate() {
     	for(Observer observer: observers) {

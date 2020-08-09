@@ -39,6 +39,20 @@ public abstract class AbstractPieceFactory {
 	
 	public abstract Piece createPseudolousWagon(boolean isRomaSide);
 	
+	public abstract Piece createGroundTile();
+	
+	public abstract Piece createStradaTile();
+	
+	public abstract Piece createWagonTile();
+
+	public abstract Piece createWareSpotTile();
+	
+	public abstract Piece createCubeSpotTile();
+	
+	public abstract Piece createLineTile();
+	
+	public abstract Piece createRomaTile();
+	
 	//implementar deck para apostas
 	public abstract Piece chooseWagon();
 }

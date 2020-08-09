@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import br.udesc.ppr55.sr.control.IStradaController;
 import br.udesc.ppr55.sr.control.StradaController;
 import br.udesc.ppr55.sr.control.observer.Observer;
+import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
  
 public class GameFrame extends JFrame implements Observer {
 
@@ -31,7 +32,8 @@ public class GameFrame extends JFrame implements Observer {
 	public GameFrame() {
 		super("Strada Romana");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(120, 120, 1350, 330);
+		 setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		 setUndecorated(true);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -39,26 +41,17 @@ public class GameFrame extends JFrame implements Observer {
 		setContentPane(contentPane);
 		
 		stradaController = new StradaController();
+		stradaController.setFactory(new PieceFactory());
 		stradaController.addObserver(this);  
 		 
 		setPlayerPanel();
 		initComponents(); 
-	}
+	}	
 
-	public void initComponents() {  	   
-		boardFrame = new BoardFrame();
-		contentPane.add(boardFrame.getTable()); 
-		
-		btnRestart = new JButton("Restart");
-		contentPane.add(btnRestart);
-		btnRestart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) { 
-			 System.exit(0);
-			}
-		});
-		
-		btnPlayerBag = new JButton("Game Bag");
-		contentPane.add(btnPlayerBag);
+	public void initComponents() {  	  
+		boardFrame = new BoardFrame(stradaController);
+		contentPane.add(boardFrame); 
+	
 	}
 
 	public void setPlayerPanel() { 
@@ -69,70 +62,51 @@ public class GameFrame extends JFrame implements Observer {
 	@Override
 	public void playerPanelUpdate() {
 		stradaController.restartPlayerPanel(contentPane); 
+		btnRestart = new JButton("Restart");
+		contentPane.add(btnRestart);
+		btnRestart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) { 
+			 System.exit(0);
+			}
+		});
+		
+		btnPlayerBag = new JButton("Game Bag");
+		contentPane.add(btnPlayerBag);
 	}  
 
+
 	@Override
-	public void boardPanelUpdate() { 
-	}
+	public void boardPanelUpdate() {  }
  
 	@Override
-	public void wagonsPanelUpdate() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void wagonsPanelUpdate() { }
 
 	@Override
-	public void showWagons() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void showWagons() { }
 	
 	@Override
-	public void wareTileUpdate() {
-		// TODO Auto-generated method stub
-		
-	} 
+	public void wareTileUpdate() { } 
 
 	@Override
-	public void showWareTiles() {
-		// TODO Auto-generated method stub
-		
-	} 
+	public void showWareTiles() { } 
 	
 	@Override
-	public void cubeUpdate() {
-		// TODO Auto-generated method stub
-		
-	} 
+	public void cubeUpdate() { } 
 
 	@Override
-	public void showCube() {
-		// TODO Auto-generated method stub
-		
-	} 
+	public void showCube() { } 
 
 	@Override
-	public void showWareBag() {
-		// TODO Auto-generated method stub
-		
-	} 
+	public void showWareBag() { } 
 
 	@Override
-	public void shuffleWagonTiles() {
-		// TODO Auto-generated method stub
-		
-	} 
+	public void shuffleWagonTiles() { } 
 
 	@Override
-	public void endGame() {
-		// TODO Auto-generated method stub
-		
-	} 
+	public void endGame() { } 
 
 	@Override
-	public void message(String message) {
-		// TODO Auto-generated method stub
-		
-	} 
+	public void message(String message) { } 
+	
 	
 }

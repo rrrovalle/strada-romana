@@ -2,6 +2,13 @@ package br.udesc.ppr55.sr.model.abstractFactory;
 
 import br.udesc.ppr55.sr.model.Bag;
 import br.udesc.ppr55.sr.model.Piece;
+import br.udesc.ppr55.sr.model.components.CubeSpotTile;
+import br.udesc.ppr55.sr.model.components.GroundTile;
+import br.udesc.ppr55.sr.model.components.LineTile;
+import br.udesc.ppr55.sr.model.components.RomaTile;
+import br.udesc.ppr55.sr.model.components.StradaTile;
+import br.udesc.ppr55.sr.model.components.WagonTile;
+import br.udesc.ppr55.sr.model.components.WareSpotTile;
 import br.udesc.ppr55.sr.model.cubes.CubeType;
 import br.udesc.ppr55.sr.model.cubes.MarketCube;
 import br.udesc.ppr55.sr.model.wagons.BallioPortus;
@@ -36,6 +43,41 @@ public class PieceFactory extends AbstractPieceFactory{
 	@Override
 	public Piece createBag() {
 		return new Bag(); 
+	}
+	
+	@Override
+	public Piece createGroundTile() {
+		return new GroundTile(); 
+	}
+	
+	@Override
+	public Piece createRomaTile() {
+		return new RomaTile(); 
+	}
+  
+	@Override
+	public Piece createWagonTile() {
+		return new WagonTile(); 
+	}
+  
+	@Override
+	public Piece createCubeSpotTile() {
+		return new CubeSpotTile(); 
+	}
+  
+	@Override
+	public Piece createLineTile() {
+		return new LineTile(); 
+	}
+  
+	@Override
+	public Piece createWareSpotTile() {
+		return new WareSpotTile();
+	}
+  
+	@Override
+	public Piece createStradaTile() {
+		return new StradaTile(); 
 	}
   
 	@Override

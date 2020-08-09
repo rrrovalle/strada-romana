@@ -24,7 +24,16 @@ public class Table {
 
     public Piece[][] getGrid() {
         return grid;
-    }
+    }	
+    
+    public Piece getElementAt(int y, int x) {
+		return this.grid[y][x];
+	}
+	
+	//seta o elemento na posicao y e x
+	public void setElementAt(Piece object,int y, int x) {
+		this.grid[y][x] = object;
+	}
 
     public void setGrid(Piece[][] table) {
         this.grid = table;

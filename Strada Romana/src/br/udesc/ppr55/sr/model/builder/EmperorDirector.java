@@ -8,15 +8,16 @@ import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 */
 public class EmperorDirector {
 	
-	private BuildGameTable boardBuilder;
-	
-	public EmperorDirector(BuildGameTable boardBuilder) {
-		this.boardBuilder = boardBuilder;
-	}
-	
-	public void create(AbstractPieceFactory abstractPieceFactory) {
-		this.boardBuilder.resetBoard();
-		this.boardBuilder.buildStradaBoard(abstractPieceFactory);
-	}
+	private Builder builder;
+
+    public EmperorDirector(Builder builder) {
+        this.builder = builder;
+    }
+
+    public void build(AbstractPieceFactory abstractPieceFactory) {
+        builder.reset();
+        builder.buildStradaBoard(abstractPieceFactory); 
+        builder.buildWagons(abstractPieceFactory);
+    }
 
 }
