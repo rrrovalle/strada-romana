@@ -45,13 +45,16 @@ public abstract class AbstractPieceFactory {
 	
 	public abstract Piece createWagonTile();
 
-	public abstract Piece createWareSpotTile();
+	public abstract Piece createWareSpotTile(int number);
 	
 	public abstract Piece createCubeSpotTile();
 	
 	public abstract Piece createLineTile();
 	
 	public abstract Piece createRomaTile();
+	
+	public abstract Piece createInverseCubeTile();
+	
 	
 	//implementar deck para apostas
 	public abstract Piece chooseWagon();

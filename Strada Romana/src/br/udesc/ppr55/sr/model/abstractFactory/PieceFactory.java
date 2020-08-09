@@ -4,6 +4,7 @@ import br.udesc.ppr55.sr.model.Bag;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.components.CubeSpotTile;
 import br.udesc.ppr55.sr.model.components.GroundTile;
+import br.udesc.ppr55.sr.model.components.InverseCubeSpot;
 import br.udesc.ppr55.sr.model.components.LineTile;
 import br.udesc.ppr55.sr.model.components.RomaTile;
 import br.udesc.ppr55.sr.model.components.StradaTile;
@@ -64,15 +65,20 @@ public class PieceFactory extends AbstractPieceFactory{
 	public Piece createCubeSpotTile() {
 		return new CubeSpotTile(); 
 	}
-  
+	
+	@Override
+	public Piece createInverseCubeTile() {
+		return new InverseCubeSpot(); 
+	}
+	
 	@Override
 	public Piece createLineTile() {
 		return new LineTile(); 
 	}
   
 	@Override
-	public Piece createWareSpotTile() {
-		return new WareSpotTile();
+	public Piece createWareSpotTile(int number) {
+		return new WareSpotTile(number);
 	}
   
 	@Override
