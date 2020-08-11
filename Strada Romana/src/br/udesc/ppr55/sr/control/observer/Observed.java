@@ -15,6 +15,8 @@ public interface Observed {
     void removeObserver(Observer observer);  
     void notifyBoardPanelUpdate();
     void notifyPlayerPanelUpdate(); 
+    void createCubeTiles();
+    void createWagons();
     void notifyEndGame();
     void notifyMessage(String message);
     String getPiece(int col, int row);

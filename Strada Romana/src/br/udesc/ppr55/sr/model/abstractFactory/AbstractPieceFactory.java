@@ -13,11 +13,19 @@ public abstract class AbstractPieceFactory {
 	
 	public abstract Piece createBag();  
 	
-	public abstract Piece createCube(CubeType cubeType);
+	// Cubes
+	public abstract Piece createRedCube();
+	public abstract Piece createYellowCube();
+	public abstract Piece createBlueCube();
+	public abstract Piece createGreenCube();
+	public abstract Piece createBrownCube();
 	
+	// Ware Tiles
 	public abstract Piece createWareTile();
 	
 	public abstract Piece createContract();
+	
+	// Wagons 
 
 	public abstract Piece createBallioWagon(boolean isRomaSide);
 	
@@ -37,7 +45,9 @@ public abstract class AbstractPieceFactory {
 	
 	public abstract Piece createPlotusWagon(boolean isRomaSide);
 	
-	public abstract Piece createPseudolousWagon(boolean isRomaSide);
+	public abstract Piece createPseudolusWagon(boolean isRomaSide);
+	
+	// Pieces of the board
 	
 	public abstract Piece createGroundTile();
 	
@@ -54,7 +64,6 @@ public abstract class AbstractPieceFactory {
 	public abstract Piece createRomaTile();
 	
 	public abstract Piece createInverseCubeTile();
-	
 	
 	//implementar deck para apostas
 	public abstract Piece chooseWagon();

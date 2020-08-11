@@ -1,8 +1,10 @@
 package br.udesc.ppr55.sr.view;
  
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener; 
+import java.awt.Color; 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;  
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,8 +17,14 @@ import br.udesc.ppr55.sr.control.observer.Observer;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
 import br.udesc.ppr55.sr.view.command.CommandInvoker;
 import br.udesc.ppr55.sr.view.command.PlayMusicCommand;
-import br.udesc.ppr55.sr.view.command.StopMusicCommand; 
+import br.udesc.ppr55.sr.view.command.StopMusicCommand;
+import br.udesc.ppr55.sr.view.command.WagonFrame; 
  
+/**
+ * Main frame - build the game
+ * @author Rodrigo Valle
+ * @Since 27/07/2020
+ */
 public class GameFrame extends JFrame implements Observer {
 
 	/**
@@ -28,6 +36,7 @@ public class GameFrame extends JFrame implements Observer {
 	 
 	private JPanel contentPane; 
 	private BoardFrame boardFrame;
+	private WagonFrame wagonFrame;
 	
 	private JButton btnRadio;
 	private JButton btnClose;
@@ -40,39 +49,45 @@ public class GameFrame extends JFrame implements Observer {
 	public GameFrame() {
 		super("Strada Romana");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		 setUndecorated(true);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setUndecorated(true);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new FlowLayout());
-		setContentPane(contentPane);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5)); 
+		setContentPane(contentPane); 
+		contentPane.setBackground(Color.WHITE);
 		
-		stradaController = new StradaController();
+		stradaController = StradaController.getInstance();
 		stradaController.setFactory(new PieceFactory());
 		stradaController.initializeRadio();
 		commandInvoker = new CommandInvoker();
 		stradaController.addObserver(this);  
-		 
-		setPlayerPanel();
+		
+		playerPanelUpdate();
 		initComponents(); 
+		addComponents();
+		
+		super.getContentPane().add(contentPane);
 	}	
 
-	public void initComponents() {  	  
-		boardFrame = new BoardFrame(stradaController);
-		contentPane.add(boardFrame); 
+	public void initComponents() {  	 
+		this.contentPane = new JPanel();
+	    this.contentPane.setLayout(new GridBagLayout());
+	    this.contentPane.setOpaque(true);
+	    boardFrame = new BoardFrame(stradaController);    
+	}
 	
-	}
-
-	public void setPlayerPanel() { 
-		 stradaController.createPlayerPanel(2);  
-		 playerPanelUpdate(); 
-	}
-
-	@Override
-	public void playerPanelUpdate() {
-		stradaController.restartPlayerPanel(contentPane); 
-		btnRadio = new JButton("Play Music");
+	private void addComponents() {
+        GridBagConstraints c = new GridBagConstraints();
+        
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 5;
+        c.gridheight = 5;
+        c.insets = new Insets(0, 0, 0, 40);
+        this.contentPane.add(boardFrame, c); 
+        
+        btnRadio = new JButton("Play Music");
 		contentPane.add(btnRadio);
 		btnRadio.addActionListener((ActionEvent e) -> {
 			  if(status == 0)
@@ -94,17 +109,26 @@ public class GameFrame extends JFrame implements Observer {
 		    }
 		});
 		
-		btnClose = new JButton("Exit");
-		contentPane.add(btnClose);
-		btnClose.addActionListener((ActionEvent e) -> {
-			this.dispose();
-		});
-		
 		btnPlayerBag = new JButton("Game Bag");
 		contentPane.add(btnPlayerBag);
-	}
+ 
+		btnClose = new JButton("Exit");
+		 	c.gridx = 5;
+		 	c.gridy = 0;
+		 	c.insets = new Insets(0, -135, 5, 0);
+		 	this.contentPane.add(btnClose, c); 
+		btnClose.addActionListener((ActionEvent e) -> {
+			System.exit(0);
+		});
 		
+		contentPane.setBackground(Color.WHITE);
+    } 
 
+	@Override
+	public void playerPanelUpdate() {
+		stradaController.restartPlayerPanel(contentPane); 	
+	}
+		 
 	@Override
 	public void boardPanelUpdate() {  }
  
@@ -118,7 +142,8 @@ public class GameFrame extends JFrame implements Observer {
 	public void wareTileUpdate() { } 
 
 	@Override
-	public void showWareTiles() { } 
+	public void showWareTiles() {  
+	} 
 	
 	@Override
 	public void cubeUpdate() { } 
@@ -138,6 +163,12 @@ public class GameFrame extends JFrame implements Observer {
 
 	@Override
 	public void update(boolean isPaused) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPlayerPanel() {
 		// TODO Auto-generated method stub
 		
 	} 

@@ -10,8 +10,13 @@ import br.udesc.ppr55.sr.model.components.RomaTile;
 import br.udesc.ppr55.sr.model.components.StradaTile;
 import br.udesc.ppr55.sr.model.components.WagonTile;
 import br.udesc.ppr55.sr.model.components.WareSpotTile;
+import br.udesc.ppr55.sr.model.cubes.BlueCube;
+import br.udesc.ppr55.sr.model.cubes.BrownCube;
 import br.udesc.ppr55.sr.model.cubes.CubeType;
+import br.udesc.ppr55.sr.model.cubes.GreenCube;
 import br.udesc.ppr55.sr.model.cubes.MarketCube;
+import br.udesc.ppr55.sr.model.cubes.RedCube;
+import br.udesc.ppr55.sr.model.cubes.YellowCube;
 import br.udesc.ppr55.sr.model.wagons.BallioPortus;
 import br.udesc.ppr55.sr.model.wagons.BallioRoma;
 import br.udesc.ppr55.sr.model.wagons.CanopitesPortus;
@@ -29,9 +34,9 @@ import br.udesc.ppr55.sr.model.wagons.MaccusRoma;
 import br.udesc.ppr55.sr.model.wagons.PersaPortus;
 import br.udesc.ppr55.sr.model.wagons.PersaRoma;
 import br.udesc.ppr55.sr.model.wagons.PlotusPortus;
-import br.udesc.ppr55.sr.model.wagons.PlotusRoma;
-import br.udesc.ppr55.sr.model.wagons.PseudolousPortus;
-import br.udesc.ppr55.sr.model.wagons.PseudolousRoma;
+import br.udesc.ppr55.sr.model.wagons.PlotusRoma; 
+import br.udesc.ppr55.sr.model.wagons.PseudolusPortus;
+import br.udesc.ppr55.sr.model.wagons.PseudolusRoma;
 
 /**
  * Piece Factory class
@@ -87,8 +92,28 @@ public class PieceFactory extends AbstractPieceFactory{
 	}
   
 	@Override
-	public Piece createCube(CubeType cubeType) { 
-		return new MarketCube(cubeType);
+	public Piece createBlueCube() { 
+		return new BlueCube();
+	}
+	
+	@Override
+	public Piece createGreenCube() { 
+		return new GreenCube();
+	}
+	
+	@Override
+	public Piece createYellowCube() { 
+		return new YellowCube();
+	}
+	
+	@Override
+	public Piece createBrownCube() { 
+		return new BrownCube();
+	}
+	
+	@Override
+	public Piece createRedCube() { 
+		return new RedCube();
 	}
 
 	@Override
@@ -183,11 +208,11 @@ public class PieceFactory extends AbstractPieceFactory{
 	}
 
 	@Override
-	public Piece createPseudolousWagon(boolean isRomaSide) {
+	public Piece createPseudolusWagon(boolean isRomaSide) {
 		 if(isRomaSide) {
-			 return new PseudolousRoma();
+			 return new PseudolusRoma();
 		 }else{
-			 return new PseudolousPortus();
+			 return new PseudolusPortus();
 		 }
 	}
 

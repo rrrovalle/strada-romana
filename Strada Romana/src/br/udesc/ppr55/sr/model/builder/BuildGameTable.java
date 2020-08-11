@@ -1,7 +1,11 @@
  package br.udesc.ppr55.sr.model.builder;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import br.udesc.ppr55.sr.model.Piece;
-import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory; 
+import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
+import br.udesc.ppr55.sr.model.cubes.CubeType; 
 
 /**
  * Concrete builder to create the board
@@ -98,7 +102,7 @@ public class BuildGameTable extends Builder {
         
         tablePiece[0][14] = factory.createWareSpotTile(5);
         tablePiece[4][14] = factory.createStradaTile();
-        tablePiece[5][14] = factory.createStradaTile();
+        tablePiece[6][14] = factory.createStradaTile();
         tablePiece[8][14] = factory.createWareSpotTile(6);
         
         tablePiece[1][15] = factory.createInverseCubeTile();
@@ -118,28 +122,8 @@ public class BuildGameTable extends Builder {
     }
     
     @Override 
-    public void buildWagons(AbstractPieceFactory factory) { 
-    	tablePiece = super.table.getGrid();
-    	
-        tablePiece[2][0] = factory.createBallioWagon(false);
-        tablePiece[3][0] = factory.createBallioWagon(false);
-        tablePiece[4][0] = factory.createBallioWagon(false);
-        tablePiece[5][0] = factory.createBallioWagon(false);
-        tablePiece[6][0] = factory.createBallioWagon(false); 
-        
-        tablePiece[2][16] = factory.createBallioWagon(true);
-        tablePiece[3][16] = factory.createBallioWagon(true);
-        tablePiece[4][16] = factory.createBallioWagon(true);
-        tablePiece[5][16] = factory.createBallioWagon(true);
-        tablePiece[6][16] = factory.createBallioWagon(true); 
-        
-        super.table.setGrid(tablePiece);
-    }
+    public void buildWagons(AbstractPieceFactory factory) { }
     
     @Override
-    public void buildWareTiles(AbstractPieceFactory factory) {}
-    
-    @Override
-    public void buildCubes(AbstractPieceFactory factory) {}
-
+    public void buildGameBag(AbstractPieceFactory factory) { }
 }

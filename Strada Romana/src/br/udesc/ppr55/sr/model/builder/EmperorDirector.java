@@ -18,6 +18,7 @@ public class EmperorDirector {
         builder.reset();
         builder.buildStradaBoard(abstractPieceFactory); 
         builder.buildWagons(abstractPieceFactory);
+        //builder.buildGameBag(abstractPieceFactory);
     }
 
 }

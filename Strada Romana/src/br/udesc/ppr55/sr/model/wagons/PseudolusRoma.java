@@ -8,9 +8,9 @@ import br.udesc.ppr55.sr.model.Piece;
  * @since 29/07/2020
  * @version 1.0
  */
-public class PseudolousRoma extends Piece {
+public class PseudolusRoma extends Piece {
 
-	public PseudolousRoma() {
-		super("images/pseudolousRoma.png");
+	public PseudolusRoma() {
+		super("images/pseudolusRoma.png");
 	}
 }

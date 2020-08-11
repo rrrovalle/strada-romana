@@ -14,9 +14,10 @@ public interface IStradaController extends Observed {
     
 	public void initializeBoard();   
 	public void initializeBag();
-    public void createPlayerPanel(int p); 
+    public void createPlayerPanel(String n1, String n2); 
     public void restartPlayerPanel(JPanel pane);  
     public String getPiece(int col, int row);
+    public String getWagon(int col, int row);
     public void setFactory(PieceFactory factory);
     public void setRadio();
     public AbstractPieceFactory getFactory();

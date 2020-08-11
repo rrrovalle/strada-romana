@@ -1,5 +1,6 @@
-package br.udesc.ppr55.sr.model.builder;
+package br.udesc.ppr55.sr.model.builder; 
 
+import br.udesc.ppr55.sr.model.Bag;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.Table;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
@@ -12,15 +13,12 @@ import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 public abstract class Builder {
 	
 	   protected Table table; 
-	   protected Piece[][] tablePiece;
-
-	    public Builder() { 
+	   protected Bag bag;
+	   protected Piece[][] tablePiece; 
  
-	    }
-
 	    public Table getTable() {
 	        return table;
-	    }
+	    } 
 
 	    public void reset() {
 	        this.table = new Table();
@@ -32,8 +30,6 @@ public abstract class Builder {
 	    
 	    public abstract void buildWagons(AbstractPieceFactory factory);
 
-	    public abstract void buildWareTiles(AbstractPieceFactory factory);
-
-	    public abstract void buildCubes(AbstractPieceFactory factory);
+	    public abstract void buildGameBag(AbstractPieceFactory factory); 
 	     
 }

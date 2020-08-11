@@ -5,7 +5,7 @@ import br.udesc.ppr55.sr.model.Piece;
 public class MarketCube extends Piece {
 	
 	private CubeType cubeType;
-	private String imagePath = "images/cubes/";
+	private String imagePath = "images/";
 	
 	public MarketCube(CubeType cubeType) { 
 		super("");

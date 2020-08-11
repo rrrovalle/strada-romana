@@ -26,7 +26,7 @@ public class StradaController implements IStradaController {
 	private static StradaController instance;
 	private EmperorDirector director;
 	private Builder builderGameTable;   
-	private Builder builderBag; 
+	private Builder builderWagons; 
 	
 	private Audio audio; 
 	
@@ -62,17 +62,13 @@ public class StradaController implements IStradaController {
      
     @Override
     public void initializeBag() {
-        this.builderBag = new BuildGameBag();
-        this.director = new EmperorDirector(builderBag);
-        this.director.build(factory); 
+    	
     }
     
     @Override
-    public void createPlayerPanel(int p) {  
-			for(int i=0; i<p;i++) {  
-				 String name = JOptionPane.showInputDialog("Name: ");
-				 players.add(new Player(new PlayerPanel(),name));
-			}    
+    public void createPlayerPanel(String n1, String n2) {  
+    	players.add(new Player(new PlayerPanel(),n1));
+    	players.add(new Player(new PlayerPanel(),n2)); 
     }
     
     @Override
@@ -94,6 +90,11 @@ public class StradaController implements IStradaController {
     }
     
     @Override
+    public String getWagon(int col, int row) { 
+    	return (builderWagons.getTable().getGrid()[col][row] == null ? null : builderWagons.getTable().getGrid()[col][row].getImage());
+    }
+    
+    @Override
     public void notifyBoardPanelUpdate() {
     }
     
@@ -106,7 +107,7 @@ public class StradaController implements IStradaController {
     public void setFactory(PieceFactory pieceFactory) {
         this.factory = pieceFactory;
         this.initializeBoard();   
-        this.initializeBag(); 
+        this.createWagons();
     } 
     
     @Override 
@@ -144,6 +145,14 @@ public class StradaController implements IStradaController {
 	public void stopRadio() {
 	    this.audio.stop();
 	} 
+	
+    public void createCubeTiles() {};
+    
+    public void createWagons() {
+        this.builderWagons = new BuildGameBag();
+        this.director = new EmperorDirector(builderWagons);
+        this.director.build(factory); 
+    };
  
  
     
