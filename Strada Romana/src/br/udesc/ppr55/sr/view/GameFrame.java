@@ -2,7 +2,7 @@ package br.udesc.ppr55.sr.view;
  
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionListener; 
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +13,9 @@ import br.udesc.ppr55.sr.control.IStradaController;
 import br.udesc.ppr55.sr.control.StradaController;
 import br.udesc.ppr55.sr.control.observer.Observer;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
+import br.udesc.ppr55.sr.view.command.CommandInvoker;
+import br.udesc.ppr55.sr.view.command.PlayMusicCommand;
+import br.udesc.ppr55.sr.view.command.StopMusicCommand; 
  
 public class GameFrame extends JFrame implements Observer {
 
@@ -21,13 +24,18 @@ public class GameFrame extends JFrame implements Observer {
 	 */
 	private static final long serialVersionUID = 765606884169312925L;
 	
+	private int status = 0; 
+	 
 	private JPanel contentPane; 
 	private BoardFrame boardFrame;
 	
-	private JButton btnRestart;
+	private JButton btnRadio;
+	private JButton btnClose;
+	
 	private JButton btnPlayerBag;
 	
 	private IStradaController stradaController;   
+	private CommandInvoker commandInvoker;
 	
 	public GameFrame() {
 		super("Strada Romana");
@@ -42,6 +50,8 @@ public class GameFrame extends JFrame implements Observer {
 		
 		stradaController = new StradaController();
 		stradaController.setFactory(new PieceFactory());
+		stradaController.initializeRadio();
+		commandInvoker = new CommandInvoker();
 		stradaController.addObserver(this);  
 		 
 		setPlayerPanel();
@@ -62,18 +72,38 @@ public class GameFrame extends JFrame implements Observer {
 	@Override
 	public void playerPanelUpdate() {
 		stradaController.restartPlayerPanel(contentPane); 
-		btnRestart = new JButton("Restart");
-		contentPane.add(btnRestart);
-		btnRestart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) { 
-			 System.exit(0);
-			}
+		btnRadio = new JButton("Play Music");
+		contentPane.add(btnRadio);
+		btnRadio.addActionListener((ActionEvent e) -> {
+			  if(status == 0)
+			    { 
+					PlayMusicCommand msc = new PlayMusicCommand(stradaController); 
+	     			commandInvoker.add(msc);
+	     			commandInvoker.execute();
+			        status = 1; 
+			        btnRadio.setText("Turn off");
+			    } 
+		    else if(status == 1)
+		    {
+		    	StopMusicCommand smc = new StopMusicCommand(stradaController);
+		    	commandInvoker.add(smc);
+		    	commandInvoker.execute();
+   			
+		        status = 0;
+		        btnRadio.setText("Play Music");
+		    }
+		});
+		
+		btnClose = new JButton("Exit");
+		contentPane.add(btnClose);
+		btnClose.addActionListener((ActionEvent e) -> {
+			this.dispose();
 		});
 		
 		btnPlayerBag = new JButton("Game Bag");
 		contentPane.add(btnPlayerBag);
-	}  
-
+	}
+		
 
 	@Override
 	public void boardPanelUpdate() {  }
@@ -95,9 +125,7 @@ public class GameFrame extends JFrame implements Observer {
 
 	@Override
 	public void showCube() { } 
-
-	@Override
-	public void showWareBag() { } 
+ 
 
 	@Override
 	public void shuffleWagonTiles() { } 
@@ -106,7 +134,13 @@ public class GameFrame extends JFrame implements Observer {
 	public void endGame() { } 
 
 	@Override
-	public void message(String message) { } 
+	public void message(String message) { }
+
+	@Override
+	public void update(boolean isPaused) {
+		// TODO Auto-generated method stub
+		
+	} 
 	
 	
 }

@@ -12,17 +12,9 @@ import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
  */
 public interface Observed {
     void addObserver(Observer observer);
-    void removeObserver(Observer observer);
+    void removeObserver(Observer observer);  
     void notifyBoardPanelUpdate();
-    void notifyPlayerPanelUpdate();
-    void notifyWagonsPanelUpdate();
-    void notifyShowWagons();
-    void notifyWareTileUpdate();
-    void notifyShowWareTiles();
-    void notifyCubeUpdate();
-    void notifyShowCube();
-    void notifyShowWareBag();
-    void notifyShuffleWagonTiles();
+    void notifyPlayerPanelUpdate(); 
     void notifyEndGame();
     void notifyMessage(String message);
     String getPiece(int col, int row);

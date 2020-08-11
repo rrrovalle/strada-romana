@@ -1,9 +1,11 @@
 package br.udesc.ppr55.sr.control;
 
 import br.udesc.ppr55.sr.control.observer.Observer;
+import br.udesc.ppr55.sr.model.Audio;
 import br.udesc.ppr55.sr.model.Player;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
+import br.udesc.ppr55.sr.model.builder.BuildGameBag;
 import br.udesc.ppr55.sr.model.builder.BuildGameTable; 
 import br.udesc.ppr55.sr.model.builder.Builder;
 import br.udesc.ppr55.sr.model.builder.EmperorDirector; 
@@ -23,7 +25,10 @@ public class StradaController implements IStradaController {
 	 
 	private static StradaController instance;
 	private EmperorDirector director;
-	private Builder builderGameTable;  
+	private Builder builderGameTable;   
+	private Builder builderBag; 
+	
+	private Audio audio; 
 	
     private AbstractPieceFactory factory;
 	 
@@ -55,6 +60,12 @@ public class StradaController implements IStradaController {
         this.director.build(factory);  
 	} 
      
+    @Override
+    public void initializeBag() {
+        this.builderBag = new BuildGameBag();
+        this.director = new EmperorDirector(builderBag);
+        this.director.build(factory); 
+    }
     
     @Override
     public void createPlayerPanel(int p) {  
@@ -64,6 +75,11 @@ public class StradaController implements IStradaController {
 			}    
     }
     
+    @Override
+    public void initializeRadio() { 
+    	this.setRadio(); 
+    }
+
     @Override
     public void restartPlayerPanel(JPanel panel) {
 		for(int i=0; i<players.size(); i++) {
@@ -89,9 +105,15 @@ public class StradaController implements IStradaController {
     @Override
     public void setFactory(PieceFactory pieceFactory) {
         this.factory = pieceFactory;
-        this.initializeBoard();  
+        this.initializeBoard();   
+        this.initializeBag(); 
+    } 
+    
+    @Override 
+    public void setRadio(){ 
+        this.audio = new Audio("soundtrack/Pillars of Eternity II Deadfire Soundtrack 11 - Queen's Berth (Justin Bell) - Rodrigo Valle REMIX.wav");   
+        this.audio.playMusic(); 
     }
-
     
     @Override
     public void notifyPlayerPanelUpdate() {
@@ -99,49 +121,29 @@ public class StradaController implements IStradaController {
     		observer.playerPanelUpdate();
     	}
     }
-
-    @Override
-    public void notifyWagonsPanelUpdate() {
-    }
-
-    @Override
-    public void notifyShowWagons() {
-    }
-
-    @Override
-    public void notifyWareTileUpdate() {
-    }
-
-    @Override
-    public void notifyShowWareTiles() {
-    }
-
-    @Override
-    public void notifyCubeUpdate() {
-    }
-
-    @Override
-    public void notifyShowCube() {
-    }
-
-    @Override
-    public void notifyShowWareBag() {
-    }
-
-    @Override
-    public void notifyShuffleWagonTiles() {
-    }
-
+ 
+  
     @Override
     public void notifyEndGame() {
     }
-
+     
+    
     @Override
     public void notifyMessage(String message) {
     	for(Observer observer: observers) {
     		observer.message(message);
     	}
-    } 
+    }
+
+	@Override
+	public void playRadio() {
+	    this.audio.play();
+	}
+
+	@Override
+	public void stopRadio() {
+	    this.audio.stop();
+	} 
  
  
     

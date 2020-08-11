@@ -12,11 +12,16 @@ import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
  */
 public interface IStradaController extends Observed {
     
-    void initializeBoard();   
-    void createPlayerPanel(int p); 
-    void restartPlayerPanel(JPanel pane);  
-    String getPiece(int col, int row);
-    void setFactory(PieceFactory factory);
-    AbstractPieceFactory getFactory();
+	public void initializeBoard();   
+	public void initializeBag();
+    public void createPlayerPanel(int p); 
+    public void restartPlayerPanel(JPanel pane);  
+    public String getPiece(int col, int row);
+    public void setFactory(PieceFactory factory);
+    public void setRadio();
+    public AbstractPieceFactory getFactory();
+    public void initializeRadio();
+    public void playRadio();
+    public void stopRadio();
     
 }

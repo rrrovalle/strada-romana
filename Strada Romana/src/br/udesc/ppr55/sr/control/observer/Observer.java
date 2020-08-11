@@ -17,7 +17,7 @@ public interface Observer {
   void showWareTiles();
   void cubeUpdate();
   void showCube();
-  void showWareBag();
+  void update(boolean isPaused);
   void shuffleWagonTiles();
   void endGame(); 
   void message(String message);
