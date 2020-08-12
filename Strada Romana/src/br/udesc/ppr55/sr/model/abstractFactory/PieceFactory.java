@@ -1,6 +1,6 @@
 package br.udesc.ppr55.sr.model.abstractFactory;
 
-import br.udesc.ppr55.sr.model.Bag;
+import br.udesc.ppr55.sr.control.Bag;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.components.CubeSpotTile;
 import br.udesc.ppr55.sr.model.components.GroundTile;
@@ -8,14 +8,14 @@ import br.udesc.ppr55.sr.model.components.InverseCubeSpot;
 import br.udesc.ppr55.sr.model.components.LineTile;
 import br.udesc.ppr55.sr.model.components.RomaTile;
 import br.udesc.ppr55.sr.model.components.StradaTile;
-import br.udesc.ppr55.sr.model.components.WagonTile;
+import br.udesc.ppr55.sr.model.components.WagonTilePortus;
+import br.udesc.ppr55.sr.model.components.WagonTileRoma;
 import br.udesc.ppr55.sr.model.components.WareSpotTile;
 import br.udesc.ppr55.sr.model.cubes.BlueCube;
-import br.udesc.ppr55.sr.model.cubes.BrownCube;
-import br.udesc.ppr55.sr.model.cubes.CubeType;
-import br.udesc.ppr55.sr.model.cubes.GreenCube;
-import br.udesc.ppr55.sr.model.cubes.MarketCube;
+import br.udesc.ppr55.sr.model.cubes.BrownCube; 
+import br.udesc.ppr55.sr.model.cubes.GreenCube; 
 import br.udesc.ppr55.sr.model.cubes.RedCube;
+import br.udesc.ppr55.sr.model.cubes.WhiteCube;
 import br.udesc.ppr55.sr.model.cubes.YellowCube;
 import br.udesc.ppr55.sr.model.wagons.BallioPortus;
 import br.udesc.ppr55.sr.model.wagons.BallioRoma;
@@ -37,6 +37,12 @@ import br.udesc.ppr55.sr.model.wagons.PlotusPortus;
 import br.udesc.ppr55.sr.model.wagons.PlotusRoma; 
 import br.udesc.ppr55.sr.model.wagons.PseudolusPortus;
 import br.udesc.ppr55.sr.model.wagons.PseudolusRoma;
+import br.udesc.ppr55.sr.model.wareTiles.BlueWareTile;
+import br.udesc.ppr55.sr.model.wareTiles.BrownWareTile;
+import br.udesc.ppr55.sr.model.wareTiles.GreenWareTile;
+import br.udesc.ppr55.sr.model.wareTiles.RedWareTile;
+import br.udesc.ppr55.sr.model.wareTiles.WhiteWareTile;
+import br.udesc.ppr55.sr.model.wareTiles.YellowWareTile;
 
 /**
  * Piece Factory class
@@ -45,11 +51,7 @@ import br.udesc.ppr55.sr.model.wagons.PseudolusRoma;
  * @version 1.0
  */
 public class PieceFactory extends AbstractPieceFactory{
-
-	@Override
-	public Piece createBag() {
-		return new Bag(); 
-	}
+ 
 	
 	@Override
 	public Piece createGroundTile() {
@@ -62,9 +64,15 @@ public class PieceFactory extends AbstractPieceFactory{
 	}
   
 	@Override
-	public Piece createWagonTile() {
-		return new WagonTile(); 
+	public Piece createWagonTilePortus() {
+		return new WagonTilePortus(); 
 	}
+	
+	@Override
+	public Piece createWagonTileRoma() {
+		return new WagonTileRoma(); 
+	}
+  
   
 	@Override
 	public Piece createCubeSpotTile() {
@@ -92,33 +100,63 @@ public class PieceFactory extends AbstractPieceFactory{
 	}
   
 	@Override
-	public Piece createBlueCube() { 
-		return new BlueCube();
+	public Piece createBlueCube(int alt) { 
+		return new BlueCube(alt);
 	}
 	
 	@Override
-	public Piece createGreenCube() { 
-		return new GreenCube();
+	public Piece createGreenCube(int alt) { 
+		return new GreenCube(alt);
 	}
 	
 	@Override
-	public Piece createYellowCube() { 
-		return new YellowCube();
+	public Piece createYellowCube(int alt) { 
+		return new YellowCube(alt);
 	}
 	
 	@Override
-	public Piece createBrownCube() { 
-		return new BrownCube();
+	public Piece createBrownCube(int alt) { 
+		return new BrownCube(alt);
 	}
 	
 	@Override
-	public Piece createRedCube() { 
-		return new RedCube();
+	public Piece createRedCube(int alt) { 
+		return new RedCube(alt);
 	}
 
 	@Override
-	public Piece createWareTile() { 
-		return null;
+	public Piece createWhiteCube(int alt) { 
+		return new WhiteCube(alt);
+	}
+	
+	@Override
+	public Piece createBlueWareTile() { 
+		return new BlueWareTile();
+	}
+	
+	@Override
+	public Piece createBrownWareTile() { 
+		return new BrownWareTile();
+	}
+
+	@Override
+	public Piece createGreenWareTile() { 
+		return new GreenWareTile();
+	}
+	
+	@Override
+	public Piece createRedWareTile() { 
+		return new RedWareTile();
+	}
+	
+	@Override
+	public Piece createWhiteWareTile() { 
+		return new WhiteWareTile();
+	} 
+	
+	@Override
+	public Piece createYellowWareTile() { 
+		return new YellowWareTile();
 	}
 
 	@Override
@@ -137,7 +175,7 @@ public class PieceFactory extends AbstractPieceFactory{
 
 	@Override
 	public Piece createCanopitesWagon(boolean isRomaSide) {
-		 if(isRomaSide) {
+		 if(isRomaSide) { 
 			 return new CanopitesRoma();
 		 }else{
 			 return new CanopitesPortus();
@@ -146,7 +184,7 @@ public class PieceFactory extends AbstractPieceFactory{
 
 	@Override
 	public Piece createCurculioWagon(boolean isRomaSide) {
-		 if(isRomaSide) {
+		 if(isRomaSide) { 
 			 return new CurculioRoma();
 		 }else{
 			 return new CurculioPortus();
@@ -155,7 +193,7 @@ public class PieceFactory extends AbstractPieceFactory{
 
 	@Override
 	public Piece createDemetriusWagon(boolean isRomaSide) {
-		 if(isRomaSide) {
+		 if(isRomaSide) { 
 			 return new DemetriusRoma();
 		 }else{
 			 return new DemetriusPortus();
@@ -216,8 +254,16 @@ public class PieceFactory extends AbstractPieceFactory{
 		 }
 	}
 
+
 	@Override
-	public Piece chooseWagon() { 
+	public Piece createBag() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Piece chooseWagon() {
+		// TODO Auto-generated method stub
 		return null;
 	}
     

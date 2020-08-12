@@ -2,19 +2,23 @@ package br.udesc.ppr55.sr.control;
 
 import br.udesc.ppr55.sr.control.observer.Observer;
 import br.udesc.ppr55.sr.model.Audio;
+import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.Player;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
-import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
-import br.udesc.ppr55.sr.model.builder.BuildGameBag;
+import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory; 
 import br.udesc.ppr55.sr.model.builder.BuildGameTable; 
 import br.udesc.ppr55.sr.model.builder.Builder;
-import br.udesc.ppr55.sr.model.builder.EmperorDirector; 
+import br.udesc.ppr55.sr.model.builder.EmperorDirector;
+import br.udesc.ppr55.sr.model.components.CubeSpotTile;
+import br.udesc.ppr55.sr.model.components.InverseCubeSpot;
+import br.udesc.ppr55.sr.model.components.WagonTilePortus;
+import br.udesc.ppr55.sr.model.components.WagonTileRoma;
+import br.udesc.ppr55.sr.model.components.WareSpotTile;
 import br.udesc.ppr55.sr.view.PlayerPanel;
  
 import java.util.ArrayList;
 import java.util.List;
- 
-import javax.swing.JOptionPane;
+  
 import javax.swing.JPanel; 
 
 /**
@@ -25,10 +29,10 @@ public class StradaController implements IStradaController {
 	 
 	private static StradaController instance;
 	private EmperorDirector director;
-	private Builder builderGameTable;   
-	private Builder builderWagons; 
+	private Builder builderGameTable;    
 	
-	private Audio audio; 
+	private Audio audio;
+	private Bag bag;
 	
     private AbstractPieceFactory factory;
 	 
@@ -63,6 +67,14 @@ public class StradaController implements IStradaController {
     @Override
     public void initializeBag() {
     	
+    } 
+    
+    @Override
+    public void startGame() {
+    	this.addWagon();
+    	this.addCubeAndWareTiles();
+    	
+    	this.notifyStart();
     }
     
     @Override
@@ -87,12 +99,7 @@ public class StradaController implements IStradaController {
     @Override
     public String getPiece(int col, int row) { 
     	return (builderGameTable.getTable().getGrid()[col][row] == null ? null : builderGameTable.getTable().getGrid()[col][row].getImage());
-    }
-    
-    @Override
-    public String getWagon(int col, int row) { 
-    	return (builderWagons.getTable().getGrid()[col][row] == null ? null : builderWagons.getTable().getGrid()[col][row].getImage());
-    }
+    } 
     
     @Override
     public void notifyBoardPanelUpdate() {
@@ -106,13 +113,13 @@ public class StradaController implements IStradaController {
     @Override
     public void setFactory(PieceFactory pieceFactory) {
         this.factory = pieceFactory;
-        this.initializeBoard();   
-        this.createWagons();
+        this.bag = new Bag();
+        this.initializeBoard();    
     } 
     
     @Override 
     public void setRadio(){ 
-        this.audio = new Audio("soundtrack/Pillars of Eternity II Deadfire Soundtrack 11 - Queen's Berth (Justin Bell) - Rodrigo Valle REMIX.wav");   
+        this.audio = new Audio("music/Pillars of Eternity II Deadfire Soundtrack 11 - Queen's Berth (Justin Bell) - Rodrigo Valle REMIX.wav");   
         this.audio.playMusic(); 
     }
     
@@ -122,7 +129,13 @@ public class StradaController implements IStradaController {
     		observer.playerPanelUpdate();
     	}
     }
- 
+    
+    @Override
+    public void notifyStart() {
+    	for(Observer observer: observers) {
+    		observer.boardPanelUpdate();
+    	}
+    }
   
     @Override
     public void notifyEndGame() {
@@ -145,15 +158,42 @@ public class StradaController implements IStradaController {
 	public void stopRadio() {
 	    this.audio.stop();
 	} 
-	
-    public void createCubeTiles() {};
-    
-    public void createWagons() {
-        this.builderWagons = new BuildGameBag();
-        this.director = new EmperorDirector(builderWagons);
-        this.director.build(factory); 
-    };
  
+    @Override
+    public void addWagon() {
+        Piece[][] grid = this.builderGameTable.getTable().getGrid();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 17; j++) {
+                if (grid[i][j].getClass() == WagonTilePortus.class) {
+                    grid[i][j] = bag.getWagon(false, this.factory); 
+                } else if (grid[i][j].getClass() == WagonTileRoma.class) {
+                    grid[i][j] = bag.getWagon(true, this.factory); 
+                } 
+            }
+        }
+    }
+
+    @Override
+    public void addCubeAndWareTiles() {
+        Piece[][] grid = this.builderGameTable.getTable().getGrid();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 17; j++) {
+                if (grid[i][j].getClass() == CubeSpotTile.class) {
+                			grid[i][j] = bag.getCubeTile(1, this.factory);
+                		} else if (grid[i][j].getClass() == InverseCubeSpot.class){
+                			grid[i][j] = bag.getCubeTile(2, this.factory);
+			             	} else if(grid[i][j].getClass() == WareSpotTile.class) {
+			                    grid[i][j] = bag.getWareTile(this.factory); 
+			                } 
+            }
+        }
+    }
+
+	@Override
+	public void createCubeTiles() {
+		// TODO Auto-generated method stub
+		
+	}
  
     
 }

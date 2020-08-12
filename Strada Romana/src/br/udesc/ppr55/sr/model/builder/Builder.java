@@ -1,6 +1,6 @@
 package br.udesc.ppr55.sr.model.builder; 
 
-import br.udesc.ppr55.sr.model.Bag;
+import br.udesc.ppr55.sr.control.Bag;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.Table;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;

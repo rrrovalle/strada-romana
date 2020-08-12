@@ -10,7 +10,7 @@ import br.udesc.ppr55.sr.model.Piece;
  */
 public class YellowCube extends Piece {
 	
-	public YellowCube() {
-		super("images/yellowCube.png");
+	public YellowCube(int side) {
+		super("images/yellowCube"+side+".png");
 	}
 }

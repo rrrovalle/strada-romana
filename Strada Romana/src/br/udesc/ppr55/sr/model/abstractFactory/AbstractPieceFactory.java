@@ -1,7 +1,6 @@
 package br.udesc.ppr55.sr.model.abstractFactory;
 
-import br.udesc.ppr55.sr.model.Piece; 
-import br.udesc.ppr55.sr.model.cubes.CubeType;
+import br.udesc.ppr55.sr.model.Piece;  
 
 /**
  * Abstract Factory for Piece creation
@@ -14,14 +13,20 @@ public abstract class AbstractPieceFactory {
 	public abstract Piece createBag();  
 	
 	// Cubes
-	public abstract Piece createRedCube();
-	public abstract Piece createYellowCube();
-	public abstract Piece createBlueCube();
-	public abstract Piece createGreenCube();
-	public abstract Piece createBrownCube();
+	public abstract Piece createRedCube(int alt);
+	public abstract Piece createYellowCube(int alt);
+	public abstract Piece createBlueCube(int alt);
+	public abstract Piece createGreenCube(int alt);
+	public abstract Piece createBrownCube(int alt);
+	public abstract Piece createWhiteCube(int alt);
 	
 	// Ware Tiles
-	public abstract Piece createWareTile();
+	public abstract Piece createBlueWareTile();
+	public abstract Piece createBrownWareTile();
+	public abstract Piece createGreenWareTile();
+	public abstract Piece createRedWareTile();
+	public abstract Piece createWhiteWareTile();
+	public abstract Piece createYellowWareTile();
 	
 	public abstract Piece createContract();
 	
@@ -53,7 +58,9 @@ public abstract class AbstractPieceFactory {
 	
 	public abstract Piece createStradaTile();
 	
-	public abstract Piece createWagonTile();
+	public abstract Piece createWagonTileRoma();
+	
+	public abstract Piece createWagonTilePortus();
 
 	public abstract Piece createWareSpotTile(int number);
 	

@@ -10,7 +10,7 @@ import br.udesc.ppr55.sr.model.Piece;
  */
 public class BlueCube extends Piece {
 
-	public BlueCube() {
-		super("images/blueCube.png");
+	public BlueCube(int side) {
+		super("images/blueCube"+side+".png");
 	}
 }

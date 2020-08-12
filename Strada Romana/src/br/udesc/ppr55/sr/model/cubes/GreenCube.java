@@ -9,8 +9,8 @@ import br.udesc.ppr55.sr.model.Piece;
  * @version 1.0
  */
 public class GreenCube extends Piece {
-
-	public GreenCube() {
-		super("images/greenCube.png");
+ 
+	public GreenCube(int side) {
+		super("images/greenCube"+side+".png"); 
 	}
 }

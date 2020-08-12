@@ -26,11 +26,11 @@ public class BuildGameTable extends Builder {
           }
          
         // Add strada romana tiles
-        tablePiece[2][0] = factory.createWagonTile();
-        tablePiece[3][0] = factory.createWagonTile();
-        tablePiece[4][0] = factory.createWagonTile();
-        tablePiece[5][0] = factory.createWagonTile();
-        tablePiece[6][0] = factory.createWagonTile();
+        tablePiece[2][0] = factory.createWagonTilePortus();
+        tablePiece[3][0] = factory.createWagonTilePortus();
+        tablePiece[4][0] = factory.createWagonTilePortus();
+        tablePiece[5][0] = factory.createWagonTilePortus();
+        tablePiece[6][0] = factory.createWagonTilePortus();
         
         tablePiece[2][1] = factory.createStradaTile();
         tablePiece[4][1] = factory.createStradaTile();
@@ -112,17 +112,40 @@ public class BuildGameTable extends Builder {
         tablePiece[6][15] = factory.createLineTile();
         tablePiece[7][15] = factory.createCubeSpotTile();
         
-        tablePiece[2][16] = factory.createWagonTile();
-        tablePiece[3][16] = factory.createWagonTile();
-        tablePiece[4][16] = factory.createWagonTile();
-        tablePiece[5][16] = factory.createWagonTile();
-        tablePiece[6][16] = factory.createWagonTile();
+        tablePiece[2][16] = factory.createWagonTileRoma();
+        tablePiece[3][16] = factory.createWagonTileRoma();
+        tablePiece[4][16] = factory.createWagonTileRoma();
+        tablePiece[5][16] = factory.createWagonTileRoma();
+        tablePiece[6][16] = factory.createWagonTileRoma();
         
         super.table.setGrid(tablePiece);
     }
     
     @Override 
-    public void buildWagons(AbstractPieceFactory factory) { }
+    public void buildWagons(AbstractPieceFactory factory) { 
+    	tablePiece = super.getTable().getGrid();
+    	
+    	Piece[] portusSide = {factory.createBallioWagon(true), factory.createDemetriusWagon(true),
+				factory.createCanopitesWagon(true), factory.createCurculioWagon(true),
+				factory.createHamilcarWagon(true), factory.createMaccusWagon(true),
+				factory.createPersaWagon(true), factory.createPlotusWagon(true),
+				factory.createPseudolusWagon(true), factory.createHerenniusWagon(true)
+				};
+    	
+		Piece[] romaSide = {factory.createBallioWagon(false), factory.createDemetriusWagon(false),
+				 factory.createCanopitesWagon(false), factory.createCurculioWagon(false),
+				 factory.createHamilcarWagon(false), factory.createMaccusWagon(false),
+				 factory.createPersaWagon(false), factory.createPlotusWagon(false),
+				 factory.createPseudolusWagon(false), factory.createHerenniusWagon(false)
+				 };
+    	
+    	Collections.shuffle(Arrays.asList(romaSide));
+		Collections.shuffle(Arrays.asList(portusSide));  
+     
+    	
+        super.table.setGrid(tablePiece);
+    	
+    }
     
     @Override
     public void buildGameBag(AbstractPieceFactory factory) { }
