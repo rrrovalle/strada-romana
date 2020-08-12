@@ -1,11 +1,11 @@
-package br.udesc.ppr55.sr.model;
-
-/**
- * This class implements all abstract methods from a piece
- * @author Rodrigo Valle
- * @since 15/07/2020
- * @version 1.0 
+ /**
+ * Piece Abstract Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
  */
+
+package br.udesc.ppr55.sr.model;
 public abstract class Piece {
     
     private String image;

@@ -1,19 +1,16 @@
+ /**
+ * Audio Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
 package br.udesc.ppr55.sr.model;
-
 import java.io.File; 
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-
 import br.udesc.ppr55.sr.control.observer.Observer; 
 
-/**
- * This class implements all abstract methods from a music audio
- * @author Rodrigo Valle
- * @since 09/08/2020
- * @version 1.0 
- */
 public class Audio {  
 	private String path;
 	private long clipTimePosition;

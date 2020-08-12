@@ -1,17 +1,16 @@
- package br.udesc.ppr55.sr.model.builder;
-
+ /**
+ * Concrete builder to create the borad Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
+package br.udesc.ppr55.sr.model.builder;
 import java.util.Arrays;
 import java.util.Collections;
-
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 import br.udesc.ppr55.sr.model.cubes.CubeType; 
 
-/**
- * Concrete builder to create the board
- * @Builder
- * @author Rodrigo Valle
- */
 public class BuildGameTable extends Builder {
 	 
     @Override

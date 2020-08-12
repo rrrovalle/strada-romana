@@ -1,15 +1,14 @@
+ /**
+ * Interface Observed Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
+
 package br.udesc.ppr55.sr.control.observer;
- 
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 
-/**
- * Observed Class
- * 
- * @author Rodrigo Valle
- * @since 20/07/2020
- * @version 1.0
- */
 public interface Observed {
 	
 	public void addObserver(Observer observer);

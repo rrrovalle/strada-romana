@@ -1,14 +1,12 @@
-package br.udesc.ppr55.sr.view.command;
-
-import br.udesc.ppr55.sr.control.IStradaController; 
-
-/**
- * Strada Commander abstract class
- * @author Rodrigo Valle
- * @since 15/07/2020
- * @Command
+ /**
+ * StradaCommander Abstract class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
  * @version 1.0
  */
+package br.udesc.ppr55.sr.view.command;
+import br.udesc.ppr55.sr.control.IStradaController; 
+
 public abstract class StradaCommander implements Command {
 	protected IStradaController controller;
 	

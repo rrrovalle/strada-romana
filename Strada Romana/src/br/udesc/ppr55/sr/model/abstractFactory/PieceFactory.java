@@ -1,6 +1,10 @@
-package br.udesc.ppr55.sr.model.abstractFactory;
-
-import br.udesc.ppr55.sr.control.Bag;
+ /**
+ * Piece Factory Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
+package br.udesc.ppr55.sr.model.abstractFactory; 
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.components.CubeSpotTile;
 import br.udesc.ppr55.sr.model.components.GroundTile;
@@ -44,12 +48,6 @@ import br.udesc.ppr55.sr.model.wareTiles.RedWareTile;
 import br.udesc.ppr55.sr.model.wareTiles.WhiteWareTile;
 import br.udesc.ppr55.sr.model.wareTiles.YellowWareTile;
 
-/**
- * Piece Factory class
- * @author Rodrigo Valle
- * @since 15/07/2020
- * @version 1.0
- */
 public class PieceFactory extends AbstractPieceFactory{
  
 	

@@ -1,15 +1,13 @@
+ /**
+ * Command Invoker class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
 package br.udesc.ppr55.sr.view.command;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Command Invoker class
- * @author Rodrigo Valle
- * @since 15/07/2020
- * @Command
- * @version 1.0
- */
 public class CommandInvoker {
 
 	   private List<Command> commands = new ArrayList<>();

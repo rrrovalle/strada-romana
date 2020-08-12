@@ -1,5 +1,11 @@
-package br.udesc.ppr55.sr.control;
+ /**
+ * Bag Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
 
+package br.udesc.ppr55.sr.control;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,13 +14,6 @@ import java.util.List;
 import br.udesc.ppr55.sr.model.Piece;
 //Piece controller 
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
-
-/**
- * Bag class NA DUVIDA ENTRE SER CONTROLLER OU BUILDER VOU DECIDIR LOGO
- * @author Rodrigo Valle
- * @since 15/07/2020
- * @version 1.0
- */
 public class Bag  {
 
 	protected List<Piece> cubes = new ArrayList<>();

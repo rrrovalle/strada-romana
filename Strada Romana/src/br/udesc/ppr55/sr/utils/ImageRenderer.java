@@ -1,5 +1,11 @@
-package br.udesc.ppr55.sr.utils;
+ /**
+ * ImageRenderer Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
 
+package br.udesc.ppr55.sr.utils;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;

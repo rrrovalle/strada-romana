@@ -1,20 +1,20 @@
-package br.udesc.ppr55.sr.view;
- 
+ /**
+ * Main frame - build the game
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
+
+package br.udesc.ppr55.sr.view; 
 import java.awt.Color; 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;  
-
- 
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel; 
 import javax.swing.border.EmptyBorder;
-
- 
-
 import br.udesc.ppr55.sr.control.IStradaController;
 import br.udesc.ppr55.sr.control.StradaController;
 import br.udesc.ppr55.sr.control.observer.Observer;
@@ -25,11 +25,6 @@ import br.udesc.ppr55.sr.view.command.StartGameCommand;
 import br.udesc.ppr55.sr.view.command.StopMusicCommand; 
 import java.awt.Dimension;
  
-/**
- * Main frame - build the game
- * @author Rodrigo Valle
- * @Since 27/07/2020
- */
 public class GameFrame extends JFrame implements Observer {
 
  

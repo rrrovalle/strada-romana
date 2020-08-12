@@ -1,12 +1,14 @@
-package br.udesc.ppr55.sr.view;
-    
+ /**
+ * BoardFrame Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
+package br.udesc.ppr55.sr.view;    
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
- 
-
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon; 
 import javax.swing.JPanel;
@@ -14,16 +16,13 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel; 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-
- 
-
 import br.udesc.ppr55.sr.control.IStradaController;
 import br.udesc.ppr55.sr.utils.ImageRenderer;  
-
  
-
 @SuppressWarnings("serial")
 public class BoardFrame extends JPanel {
+	
+	private static Dimension size;
     class StradaTableModel extends AbstractTableModel { 
         private static final long serialVersionUID = 1L;
  
@@ -60,30 +59,22 @@ public class BoardFrame extends JPanel {
     
     private IStradaController stradaController; 
     private JTable gameBoard;
-
  
-
     public BoardFrame(IStradaController stradaController) {
         this.stradaController = stradaController;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setOpaque(false);
         this.initComponents();
         this.addComponents();
-    }
-
- 
+    } 
 
     private void addComponents() {
         this.add(gameBoard);
-    }
-
- 
+    } 
 
     public void update() {
         this.updateUI();
-    }
-
- 
+    } 
 
     private void initComponents() {
         gameBoard = new JTable();

@@ -1,15 +1,16 @@
+ /**
+ * Interface IStradaController
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
 package br.udesc.ppr55.sr.control; 
- 
 import javax.swing.JPanel;
 
 import br.udesc.ppr55.sr.control.observer.Observed;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
 
-/**
- * Interface to control the game
- * @author Rodrigo Valle
- */
 public interface IStradaController extends Observed {
     
 	public void initializeBoard();   

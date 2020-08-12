@@ -1,5 +1,11 @@
-package br.udesc.ppr55.sr.control;
+ /**
+ * StradaController Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
 
+package br.udesc.ppr55.sr.control;
 import br.udesc.ppr55.sr.control.observer.Observer;
 import br.udesc.ppr55.sr.model.Audio;
 import br.udesc.ppr55.sr.model.Piece;
@@ -21,10 +27,6 @@ import java.util.List;
   
 import javax.swing.JPanel; 
 
-/**
- *
- * @author Rodrigo Valle
- */
 public class StradaController implements IStradaController {
 	 
 	private static StradaController instance;

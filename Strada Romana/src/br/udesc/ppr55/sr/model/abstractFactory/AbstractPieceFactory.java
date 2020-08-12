@@ -1,13 +1,12 @@
-package br.udesc.ppr55.sr.model.abstractFactory;
-
-import br.udesc.ppr55.sr.model.Piece;  
-
-/**
+ /**
  * Abstract Factory for Piece creation
- * @author Rodrigo Valle
- * @since 15/07/2020
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
  * @version 1.0
  */
+package br.udesc.ppr55.sr.model.abstractFactory;
+import br.udesc.ppr55.sr.model.Piece;  
+
 public abstract class AbstractPieceFactory {
 	
 	public abstract Piece createBag();  

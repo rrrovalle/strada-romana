@@ -1,19 +1,19 @@
-package br.udesc.ppr55.sr.view;
- 
+ /**
+ * PlayerPanel Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
+package br.udesc.ppr55.sr.view; 
 import javax.swing.JPanel;
- 
 import java.awt.BorderLayout;
 import java.awt.Color;
-
 import javax.swing.BorderFactory; 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class PlayerPanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5040820868743358336L;
 	
 	private JLabel lbName;

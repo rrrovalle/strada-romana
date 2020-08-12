@@ -1,15 +1,15 @@
+ /**
+ * Builder Abstract Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
 package br.udesc.ppr55.sr.model.builder; 
-
 import br.udesc.ppr55.sr.control.Bag;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.Table;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 
-/**
-* Builder class
-* @Builder
-* @author Rodrigo Valle
-*/
 public abstract class Builder {
 	
 	   protected Table table; 

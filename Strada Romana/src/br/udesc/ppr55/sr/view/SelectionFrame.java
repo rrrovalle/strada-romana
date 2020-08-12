@@ -1,3 +1,9 @@
+ /**
+ * Selection Frame to create Players Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
+ * @version 1.0
+ */
 package br.udesc.ppr55.sr.view;
 
 import javax.swing.JFrame;
@@ -17,11 +23,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants; 
 
-/**
- * Selection Frame to create players
- * @author Rodrigo Valle
- * @Since 11/08/2020
- */
 public class SelectionFrame extends JFrame {
 
 	private static final long serialVersionUID = -4650788474650177006L;

@@ -1,12 +1,12 @@
-package br.udesc.ppr55.sr.control.observer;
-
-/**
- * Observer Class
- * 
- * @author Rodrigo Valle
- * @since 20/07/2020
+ /**
+ * Interface Observer Class
+ * @author Rodrigo Valle e Robson de Jesus
+ * @since 12/08/2020
  * @version 1.0
  */
+
+package br.udesc.ppr55.sr.control.observer;
+
 public interface Observer {   
   void boardPanelUpdate();
   void setPlayerPanel();
