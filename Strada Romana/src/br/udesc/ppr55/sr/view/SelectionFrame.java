@@ -13,7 +13,8 @@ import javax.swing.border.EmptyBorder;
 import br.udesc.ppr55.sr.control.IStradaController;
 import br.udesc.ppr55.sr.control.StradaController;
  
-import javax.swing.JButton; 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
  
@@ -33,6 +34,7 @@ public class SelectionFrame extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtPlayer1;
 	private JTextField txtPlayer2; 
+	private JCheckBox screenSize;
 	
     private IStradaController stradaController;
  
@@ -48,6 +50,7 @@ public class SelectionFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		stradaController = StradaController.getInstance(); 
+		stradaController.setScreenSize(50);
 		initComponents();
 	}
 	
@@ -75,8 +78,22 @@ public class SelectionFrame extends JFrame {
 		contentPane.add(txtPlayer2);
 		txtPlayer2.setColumns(50);
 		
+		screenSize = new JCheckBox();
+		screenSize.setBounds(38, 110, 116, 22);
+		screenSize.setText("1920x1080");
+		screenSize.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) { 
+				  if(screenSize.isSelected()){
+					  stradaController.setScreenSize(100);
+				  } else {
+					  stradaController.setScreenSize(50);
+				  }
+			}
+		});
+		contentPane.add(screenSize);
+		
 		JButton btnNewButton = new JButton("Go");
-		btnNewButton.setBounds(64, 127, 55, 25);
+		btnNewButton.setBounds(64, 135, 55, 25);
 		btnNewButton.setSize(50,25);
 		btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
 		btnNewButton.addActionListener(new ActionListener() {

@@ -51,16 +51,19 @@ public class BoardFrame extends JPanel {
         private static final long serialVersionUID = 1L;
         
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(ImageRenderer.redimensionaImagem((ImageIcon)value, 100, 100));
+            setIcon(ImageRenderer.redimensionaImagem((ImageIcon)value, screenSize, screenSize));
             return this;
        }
     }
     
     private IStradaController stradaController; 
     private JTable gameBoard;
- 
+    
+    public int screenSize;
+    
     public BoardFrame(IStradaController stradaController) {
         this.stradaController = stradaController;
+        this.screenSize = stradaController.getScreenSize();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setOpaque(false);
         this.initComponents();
@@ -78,13 +81,12 @@ public class BoardFrame extends JPanel {
     private void initComponents() {
         gameBoard = new JTable();
         gameBoard.setModel(new StradaTableModel());
-        int tamanhoPadrao = 100;
         for (int x = 0; x < gameBoard.getColumnModel().getColumnCount(); x++) { 
-            gameBoard.getColumnModel().getColumn(x).setWidth(tamanhoPadrao);
-            gameBoard.getColumnModel().getColumn(x).setMinWidth(tamanhoPadrao);
-            gameBoard.getColumnModel().getColumn(x).setMaxWidth(tamanhoPadrao);
+            gameBoard.getColumnModel().getColumn(x).setWidth(screenSize);
+            gameBoard.getColumnModel().getColumn(x).setMinWidth(screenSize);
+            gameBoard.getColumnModel().getColumn(x).setMaxWidth(screenSize);
         }
-        gameBoard.setRowHeight(tamanhoPadrao);
+        gameBoard.setRowHeight(screenSize);
         gameBoard.setShowGrid(false);
         gameBoard.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         gameBoard.setIntercellSpacing(new Dimension(0, 0));

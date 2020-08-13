@@ -34,9 +34,10 @@ public class StradaController implements IStradaController {
 	private Builder builderGameTable;     
 	
 	private Audio audio; 
+	private int screenSize;
 	
     private AbstractPieceFactory factory;
-	 
+	
 	private List<Observer> observers = new ArrayList<>();
 	 
     private ArrayList<Player> players = new ArrayList<>();
@@ -56,6 +57,16 @@ public class StradaController implements IStradaController {
     @Override
     public void removeObserver(Observer observer) {
         this.observers.add(observer);
+    }
+    
+    @Override
+    public void setScreenSize(int size) {
+    	this.screenSize = size;
+    }
+    
+    @Override
+    public int getScreenSize() {
+    	return screenSize;
     }
     
     @Override

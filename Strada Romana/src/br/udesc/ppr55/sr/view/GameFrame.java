@@ -48,11 +48,7 @@ public class GameFrame extends JFrame implements Observer {
     
     public GameFrame() {
         super("Strada Romana");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        //this.setSize(new Dimension(900,600));
-        this.setSize(new Dimension(1920,1080));
-        setUndecorated(true);
-        setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
         
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5)); 
@@ -65,6 +61,7 @@ public class GameFrame extends JFrame implements Observer {
         commandInvoker = new CommandInvoker();
         stradaController.addObserver(this);  
         
+        setScreenSize(stradaController.getScreenSize());
         playerPanelUpdate();
         initComponents(); 
         addComponents();
@@ -72,6 +69,18 @@ public class GameFrame extends JFrame implements Observer {
         super.getContentPane().add(contentPane);
     }     
 
+    public void setScreenSize(int tam) {
+    	if(tam == 50) {
+    		this.setSize(new Dimension(900,600));
+            this.setUndecorated(true);
+            this.setLocationRelativeTo(null);
+    	}else if(tam == 100) {
+    		this.setSize(new Dimension(1920,1080));
+    		this.setUndecorated(true);
+    		this.setLocationRelativeTo(null);
+    	}
+    }
+    
     public void initComponents() {       
         this.contentPane = new JPanel();
         this.contentPane.setLayout(new GridBagLayout());

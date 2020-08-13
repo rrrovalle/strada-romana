@@ -27,4 +27,6 @@ public interface IStradaController extends Observed {
     public void addWagon();
     public void addCubeAndWareTiles();
     public void startGame();  
+    public int getScreenSize();
+    public void setScreenSize(int size);
 }
