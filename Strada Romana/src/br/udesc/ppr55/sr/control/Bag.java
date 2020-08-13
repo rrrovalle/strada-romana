@@ -5,81 +5,104 @@
  * @version 1.0
  */
 
-package br.udesc.ppr55.sr.control;
+package br.udesc.ppr55.sr.control; 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
-import br.udesc.ppr55.sr.model.Piece;
-//Piece controller 
-import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
+import br.udesc.ppr55.sr.model.Piece; 
+
 public class Bag  {
 
-	protected List<Piece> cubes = new ArrayList<>();
-	protected List<Piece> wareTiles = new ArrayList<>();
-	protected List<Piece> wagons = new ArrayList<>(); 
-	protected int bagSize = 36;
-	 
-	public List<Piece> getCubes() {
-		return cubes;
-	}
+	private List<Piece> cubes = new ArrayList<>();
+	private List<Piece> altCubes = new ArrayList<>();
+	private List<Piece> wareTiles = new ArrayList<>();
+	private List<Piece> wagonsRoma = new ArrayList<>();
+	private List<Piece> wagonsPortus = new ArrayList<>();  
+	
+	private Random random;
  
-	public Piece getWagon(boolean isRomaSide, AbstractPieceFactory factory){ 
-				Piece[] wagons = {factory.createBallioWagon(isRomaSide), factory.createDemetriusWagon(isRomaSide),
-						factory.createCanopitesWagon(isRomaSide), factory.createCurculioWagon(isRomaSide),
-						factory.createHamilcarWagon(isRomaSide), factory.createMaccusWagon(isRomaSide),
-						factory.createPersaWagon(isRomaSide), factory.createPlotusWagon(isRomaSide),
-						factory.createPseudolusWagon(isRomaSide), factory.createHerenniusWagon(isRomaSide)
-						}; 
-				 
-				Collections.shuffle(Arrays.asList(wagons));  
-	
-				return wagons[1];  
+	/* set wagon pieces to both sides */
+	public List<Piece> getWagonsRoma() {
+		return wagonsRoma;
 	}
 	
-	public Piece getWareTile(AbstractPieceFactory factory){
-				Piece[] wareTiles = {factory.createBlueWareTile(), factory.createBrownWareTile(),
-						factory.createGreenWareTile(), factory.createRedWareTile(),
-						factory.createWhiteWareTile(), factory.createYellowWareTile()
-						}; 
-				
-				Collections.shuffle(Arrays.asList(wareTiles));
-				return wareTiles[1];
+	public List<Piece> getWagonsPortus() {
+		return wagonsPortus;
 	}
 	
-	public Piece getCubeTile(int side, AbstractPieceFactory factory){  
-			Piece[] cubes = {factory.createBlueCube(side), factory.createBrownCube(side),
-					factory.createGreenCube(side), factory.createRedCube(side),
-					factory.createWhiteCube(side), factory.createYellowCube(side)
-					};
-		
-		Collections.shuffle(Arrays.asList(cubes));
-		return cubes[1];
-	} 
-	
-	public void setCubes(List<Piece> cubes) {
-		this.cubes = cubes;
-	}
-
 	public List<Piece> getWareTiles() {
 		return wareTiles;
 	}
 	
-	public void addCube(Piece cube) {
-		cubes.add(cube);	
+	public List<Piece> getCubes() {
+		return cubes;
+	}
+	
+	public List<Piece> getAltCubes() {
+		return altCubes;
 	}
 
-	public void setWareTiles(List<Piece> wareTiles) {
+	/* access methods */
+	public void setWagonRomaList(List<Piece> romaPieces) {
+		this.wagonsRoma = romaPieces;
+	}
+	
+	public void setWagonPortusList(List<Piece> portusPieces) {
+		this.wagonsPortus = portusPieces;
+	}  
+	
+	public void setWareTileList(List<Piece> wareTiles) {
 		this.wareTiles = wareTiles;
 	}
-
-	public List<Piece> getWagons() {
-		return wagons;
-	}
-
-	public void setWagons(List<Piece> wagons) {
-		this.wagons = wagons;
-	} 
 	
+	public void setCubeList(List<Piece> cubes) {
+		this.cubes = cubes;
+	}
+	
+	public void setAltCubeList(List<Piece> altCubes) {
+		this.altCubes = altCubes;
+	}
+	
+	/* create pieces */
+	public Piece getPortusWagon(){ 
+		random = new Random(); 
+		Piece p = wagonsPortus.get(random.nextInt(wagonsPortus.size()));  
+		wagonsPortus.remove(p);
+		return p;
+	}
+	
+	public Piece getRomaWagon(){ 
+		random = new Random(); 
+		Piece r = wagonsRoma.get(random.nextInt(wagonsRoma.size()));  
+		wagonsRoma.remove(r);
+		return r;
+	}
+	 
+	
+	public Piece getWareTile(){
+		random = new Random(); 
+		Collections.shuffle(Arrays.asList(wareTiles));
+		Piece wt = wareTiles.get(random.nextInt(wareTiles.size()));  
+		wareTiles.remove(wt);
+		return wt;	
+	}
+	
+	public Piece getCube(){ 
+		random = new Random(); 
+		Collections.shuffle(Arrays.asList(cubes));
+		Piece c = cubes.get(random.nextInt(cubes.size()));  
+		cubes.remove(c);
+		return c;
+	}
+	
+	public Piece getAltCube(){ 
+		random = new Random(); 
+		Collections.shuffle(Arrays.asList(altCubes));
+		Piece ac = altCubes.get(random.nextInt(altCubes.size()));  
+		altCubes.remove(ac);
+		return ac;
+	}  
 }

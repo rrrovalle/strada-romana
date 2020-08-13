@@ -17,12 +17,12 @@ public class EmperorDirector {
 
     public void build(AbstractPieceFactory abstractPieceFactory) {
         builder.reset();
-        builder.buildStradaBoard(abstractPieceFactory); 
-        builder.buildWagons(abstractPieceFactory);
-        //builder.buildGameBag(abstractPieceFactory);
-      //  builder.buildWareTile(abstractPieceFactory);
-       // builder.buildCubeTile(abstractPieceFactory);
-        
+        builder.buildStradaBoard(abstractPieceFactory);     
+        builder.buildWagonsRoma(abstractPieceFactory);
+        builder.buildWagonsPortus(abstractPieceFactory);
+        builder.buildWareTiles(abstractPieceFactory);
+        builder.buildCubes(abstractPieceFactory);
+        builder.buildAltCubes(abstractPieceFactory);
     }
 
 }

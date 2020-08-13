@@ -1,28 +1,30 @@
  /**
- * Concrete builder to create the borad Class
+ * Concrete builder to create the game board
  * @author Rodrigo Valle e Robson de Jesus
  * @since 12/08/2020
  * @version 1.0
  */
 package br.udesc.ppr55.sr.model.builder;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+
+import br.udesc.ppr55.sr.control.Bag;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
-import br.udesc.ppr55.sr.model.cubes.CubeType; 
 
 public class BuildGameTable extends Builder {
 	 
     @Override
     public void buildStradaBoard(AbstractPieceFactory factory) {
         tablePiece = new Piece[9][17];
+        bag = new Bag();
         
         // Set the background tiles
         for( int line = 0; line < tablePiece.length; line++) {
             for( int column = 0; column < tablePiece[line].length; column++) {
                 tablePiece[line][column] = factory.createGroundTile();
-            }
           }
+        }
          
         // Add strada romana tiles
         tablePiece[2][0] = factory.createWagonTilePortus();
@@ -120,32 +122,125 @@ public class BuildGameTable extends Builder {
         super.table.setGrid(tablePiece);
     }
     
-    @Override 
-    public void buildWagons(AbstractPieceFactory factory) { 
-    	tablePiece = super.getTable().getGrid();
-    	
-    	Piece[] portusSide = {factory.createBallioWagon(true), factory.createDemetriusWagon(true),
-				factory.createCanopitesWagon(true), factory.createCurculioWagon(true),
-				factory.createHamilcarWagon(true), factory.createMaccusWagon(true),
-				factory.createPersaWagon(true), factory.createPlotusWagon(true),
-				factory.createPseudolusWagon(true), factory.createHerenniusWagon(true)
-				};
-    	
-		Piece[] romaSide = {factory.createBallioWagon(false), factory.createDemetriusWagon(false),
-				 factory.createCanopitesWagon(false), factory.createCurculioWagon(false),
-				 factory.createHamilcarWagon(false), factory.createMaccusWagon(false),
-				 factory.createPersaWagon(false), factory.createPlotusWagon(false),
-				 factory.createPseudolusWagon(false), factory.createHerenniusWagon(false)
-				 };
-    	
-    	Collections.shuffle(Arrays.asList(romaSide));
-		Collections.shuffle(Arrays.asList(portusSide));  
-     
-    	
-        super.table.setGrid(tablePiece);
-    	
-    }
-    
-    @Override
-    public void buildGameBag(AbstractPieceFactory factory) { }
+	 @Override
+	 public void buildWagonsRoma(AbstractPieceFactory factory) {
+		 wagonsRoma = new ArrayList<>();
+		 wagonsRoma.addAll(Arrays.asList(factory.createBallioWagon(true), factory.createDemetriusWagon(true),
+					factory.createCanopitesWagon(true), factory.createCurculioWagon(true),
+					factory.createHamilcarWagon(true), factory.createMaccusWagon(true),
+					factory.createPersaWagon(true), factory.createPlotusWagon(true),
+					factory.createPseudolusWagon(true), factory.createHerenniusWagon(true)
+					)); 
+
+		
+		super.bag.setWagonRomaList(wagonsRoma);
+	 }
+	 
+	 @Override
+	 public void buildWagonsPortus(AbstractPieceFactory factory) {
+		 wagonsPortus = new ArrayList<>(); 
+		 wagonsPortus.addAll(Arrays.asList(factory.createBallioWagon(false), factory.createDemetriusWagon(false),
+					factory.createCanopitesWagon(false), factory.createCurculioWagon(false),
+					factory.createHamilcarWagon(false), factory.createMaccusWagon(false),
+					factory.createPersaWagon(false), factory.createPlotusWagon(false),
+					factory.createPseudolusWagon(false), factory.createHerenniusWagon(false)
+		 			));
+  
+		super.bag.setWagonPortusList(wagonsPortus);
+	 }
+	 
+	 @Override
+	 public void buildWareTiles(AbstractPieceFactory factory) {
+		 wareTiles = new ArrayList<>();
+		 /* Add ware tiles into the list */
+		 wareTiles.addAll(Arrays.asList(factory.createBlueWareTile(),factory.createBlueWareTile(),
+										factory.createBlueWareTile(),factory.createBlueWareTile(),
+										factory.createBlueWareTile(),factory.createBlueWareTile(),
+										
+										 factory.createBrownWareTile(),factory.createBrownWareTile(),
+										 factory.createBrownWareTile(),factory.createBrownWareTile(),
+										 factory.createBrownWareTile(),factory.createBrownWareTile(), 
+										 
+											factory.createGreenWareTile(),factory.createGreenWareTile(),
+											factory.createGreenWareTile(),factory.createGreenWareTile(),
+											factory.createGreenWareTile(),factory.createGreenWareTile(), 
+											
+												factory.createRedWareTile(),factory.createRedWareTile(),
+												factory.createRedWareTile(),factory.createRedWareTile(),
+												factory.createRedWareTile(),factory.createRedWareTile(), 
+												
+													factory.createWhiteWareTile(),factory.createWhiteWareTile(),
+													factory.createWhiteWareTile(),factory.createWhiteWareTile(),
+													factory.createWhiteWareTile(),factory.createWhiteWareTile(), 
+													
+														factory.createYellowWareTile(),factory.createYellowWareTile(),
+														factory.createYellowWareTile(),factory.createYellowWareTile(),
+														factory.createYellowWareTile(),factory.createYellowWareTile()
+				 									)); 
+		 super.bag.setWareTileList(wareTiles);
+	 }
+	 
+	 @Override
+	 public void buildCubes(AbstractPieceFactory factory) {
+		 cubes = new ArrayList<>();
+		 /* Add cubes into the list */
+		 cubes.addAll(Arrays.asList(factory.createBlueCube(1),factory.createBlueCube(1),
+				 	factory.createBlueCube(1),factory.createBlueCube(1),
+				 	factory.createBlueCube(1),factory.createBlueCube(1),
+					
+					 factory.createBrownCube(1),	factory.createBrownCube(1),
+					 factory.createBrownCube(1),factory.createBrownCube(1),
+					 factory.createBrownCube(1),factory.createBrownCube(1),
+					 
+						factory.createGreenCube(1),factory.createGreenCube(1),
+						factory.createGreenCube(1),factory.createGreenCube(1),
+						factory.createGreenCube(1),factory.createGreenCube(1), 
+						
+							factory.createRedCube(1),factory.createRedCube(1),
+							factory.createRedCube(1),factory.createRedCube(1),
+							factory.createRedCube(1),factory.createRedCube(1), 
+							
+								factory.createWhiteCube(1),factory.createWhiteCube(1),
+								factory.createWhiteCube(1),factory.createWhiteCube(1),
+								factory.createWhiteCube(1),factory.createWhiteCube(1), 
+								
+									factory.createYellowCube(1),factory.createYellowCube(1),
+									factory.createYellowCube(1),factory.createYellowCube(1),
+									factory.createYellowCube(1),factory.createYellowCube(1)
+								));
+		 
+		 super.bag.setCubeList(cubes);
+	}
+	 
+	 @Override
+	 public void buildAltCubes(AbstractPieceFactory factory) {
+		 altCubes = new ArrayList<>();
+		 /* Add cubes into the list */
+		 altCubes.addAll(Arrays.asList(factory.createBlueCube(2),factory.createBlueCube(2),
+				 	factory.createBlueCube(2),factory.createBlueCube(2),
+				 	factory.createBlueCube(2),factory.createBlueCube(2),
+					
+					 factory.createBrownCube(2),	factory.createBrownCube(2),
+					 factory.createBrownCube(2),factory.createBrownCube(2),
+					 factory.createBrownCube(2),factory.createBrownCube(2),
+					 
+						factory.createGreenCube(2),factory.createGreenCube(2),
+						factory.createGreenCube(2),factory.createGreenCube(2),
+						factory.createGreenCube(2),factory.createGreenCube(2), 
+						
+							factory.createRedCube(2),factory.createRedCube(2),
+							factory.createRedCube(2),factory.createRedCube(2),
+							factory.createRedCube(2),factory.createRedCube(2), 
+							
+								factory.createWhiteCube(2),factory.createWhiteCube(2),
+								factory.createWhiteCube(2),factory.createWhiteCube(2),
+								factory.createWhiteCube(2),factory.createWhiteCube(2), 
+								
+									factory.createYellowCube(2),factory.createYellowCube(2),
+									factory.createYellowCube(2),factory.createYellowCube(2),
+									factory.createYellowCube(2),factory.createYellowCube(2)
+								));
+		 
+		 super.bag.setAltCubeList(altCubes);
+	} 
 }

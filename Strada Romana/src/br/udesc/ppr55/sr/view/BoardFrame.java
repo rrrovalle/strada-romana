@@ -21,8 +21,7 @@ import br.udesc.ppr55.sr.utils.ImageRenderer;
  
 @SuppressWarnings("serial")
 public class BoardFrame extends JPanel {
-	
-	private static Dimension size;
+	 
     class StradaTableModel extends AbstractTableModel { 
         private static final long serialVersionUID = 1L;
  

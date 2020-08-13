@@ -26,9 +26,7 @@ import br.udesc.ppr55.sr.view.command.StopMusicCommand;
 import java.awt.Dimension;
  
 public class GameFrame extends JFrame implements Observer {
-
  
-
     /**
      * Serial
      */
@@ -122,7 +120,7 @@ public class GameFrame extends JFrame implements Observer {
         	StartGameCommand sgc = new StartGameCommand(stradaController);
             commandInvoker.add(sgc);
             commandInvoker.execute();
-            btnStart.setText("Restart");
+            btnStart.setEnabled(false);
         });
  
         btnClose = new JButton("Exit");
@@ -148,18 +146,14 @@ public class GameFrame extends JFrame implements Observer {
     }
  
     @Override
-    public void wagonsPanelUpdate() { }
-
- 
+    public void wagonsPanelUpdate() { } 
 
     @Override
     public void showWagons() { }
     
     @Override
-    public void wareTileUpdate() { } 
-
- 
-
+    public void wareTileUpdate() { }  
+    
     @Override
     public void showWareTiles() {  
     } 
@@ -167,18 +161,11 @@ public class GameFrame extends JFrame implements Observer {
     @Override
     public void cubeUpdate() { } 
 
- 
-
     @Override
     public void showCube() { } 
- 
-
- 
-
+  
     @Override
-    public void shuffleWagonTiles() { } 
-
- 
+    public void shuffleWagonTiles() { }  
 
     @Override
     public void endGame() { } 

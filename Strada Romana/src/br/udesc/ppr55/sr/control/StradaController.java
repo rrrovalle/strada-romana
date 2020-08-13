@@ -31,10 +31,9 @@ public class StradaController implements IStradaController {
 	 
 	private static StradaController instance;
 	private EmperorDirector director;
-	private Builder builderGameTable;    
+	private Builder builderGameTable;     
 	
-	private Audio audio;
-	private Bag bag;
+	private Audio audio; 
 	
     private AbstractPieceFactory factory;
 	 
@@ -62,13 +61,13 @@ public class StradaController implements IStradaController {
     @Override
     public void initializeBoard() { 
         this.builderGameTable = new BuildGameTable();
-        this.director = new EmperorDirector(builderGameTable);
-        this.director.build(factory);  
+        this.director         = new EmperorDirector(builderGameTable);
+        this.director.build(factory);   
 	} 
      
     @Override
-    public void initializeBag() {
-    	
+    public void initializeBag() {  	
+         
     } 
     
     @Override
@@ -114,9 +113,8 @@ public class StradaController implements IStradaController {
     
     @Override
     public void setFactory(PieceFactory pieceFactory) {
-        this.factory = pieceFactory;
-        this.bag = new Bag();
-        this.initializeBoard();    
+        this.factory = pieceFactory;  
+        this.initializeBoard();  
     } 
     
     @Override 
@@ -160,16 +158,16 @@ public class StradaController implements IStradaController {
 	public void stopRadio() {
 	    this.audio.stop();
 	} 
- 
+	
     @Override
     public void addWagon() {
         Piece[][] grid = this.builderGameTable.getTable().getGrid();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 17; j++) {
                 if (grid[i][j].getClass() == WagonTilePortus.class) {
-                    grid[i][j] = bag.getWagon(false, this.factory); 
+                    grid[i][j] = this.builderGameTable.getBag().getPortusWagon(); 
                 } else if (grid[i][j].getClass() == WagonTileRoma.class) {
-                    grid[i][j] = bag.getWagon(true, this.factory); 
+                    grid[i][j] = this.builderGameTable.getBag().getRomaWagon(); 
                 } 
             }
         }
@@ -181,14 +179,14 @@ public class StradaController implements IStradaController {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 17; j++) {
                 if (grid[i][j].getClass() == CubeSpotTile.class) {
-                			grid[i][j] = bag.getCubeTile(1, this.factory);
+                			grid[i][j] = builderGameTable.getBag().getCube();
                 		} else if (grid[i][j].getClass() == InverseCubeSpot.class){
-                			grid[i][j] = bag.getCubeTile(2, this.factory);
+                			grid[i][j] = builderGameTable.getBag().getAltCube();
 			             	} else if(grid[i][j].getClass() == WareSpotTile.class) {
-			                    grid[i][j] = bag.getWareTile(this.factory); 
+			                    grid[i][j] = builderGameTable.getBag().getWareTile(); 
 			                } 
             }
-        }
+        }  
     }
 
 	@Override
