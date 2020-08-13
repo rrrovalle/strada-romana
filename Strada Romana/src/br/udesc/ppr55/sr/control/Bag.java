@@ -12,7 +12,7 @@ import java.util.Random;
 
 import br.udesc.ppr55.sr.model.Piece; 
 
-public class Bag extends IBag { 
+public class Bag extends AbstractBag { 
 	
 	/* create pieces */
 	

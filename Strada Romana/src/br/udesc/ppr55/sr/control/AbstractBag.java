@@ -6,7 +6,7 @@ import java.util.Random;
 
 import br.udesc.ppr55.sr.model.Piece;
  
-public abstract class IBag {
+public abstract class AbstractBag {
 
 	protected List<Piece> cubes = new ArrayList<>();
 	protected List<Piece> altCubes = new ArrayList<>();

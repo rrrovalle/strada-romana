@@ -20,9 +20,10 @@ import br.udesc.ppr55.sr.control.StradaController;
 import br.udesc.ppr55.sr.control.observer.Observer;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
 import br.udesc.ppr55.sr.view.command.CommandInvoker;
-import br.udesc.ppr55.sr.view.command.PlayMusicCommand;
-import br.udesc.ppr55.sr.view.command.StartGameCommand;
-import br.udesc.ppr55.sr.view.command.StopMusicCommand; 
+import br.udesc.ppr55.sr.view.command.stradaCommands.PlayMusicCommand;
+import br.udesc.ppr55.sr.view.command.stradaCommands.StartGameCommand;
+import br.udesc.ppr55.sr.view.command.stradaCommands.StopMusicCommand;
+
 import java.awt.Dimension;
  
 public class GameFrame extends JFrame implements Observer {

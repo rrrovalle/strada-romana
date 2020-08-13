@@ -12,7 +12,11 @@ import javax.swing.border.EmptyBorder;
 
 import br.udesc.ppr55.sr.control.IStradaController;
 import br.udesc.ppr55.sr.control.StradaController;
- 
+import br.udesc.ppr55.sr.view.command.CommandInvoker;
+import br.udesc.ppr55.sr.view.command.stradaCommands.CreatePlayerPanelCommand;
+import br.udesc.ppr55.sr.view.command.stradaCommands.PlayMusicCommand;
+import br.udesc.ppr55.sr.view.command.stradaCommands.SetScreenSizeCommand;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -37,6 +41,10 @@ public class SelectionFrame extends JFrame {
 	private JCheckBox screenSize;
 	
     private IStradaController stradaController;
+    
+    private CommandInvoker commandInvoker;
+    private SetScreenSizeCommand ssc;
+    private CreatePlayerPanelCommand cppc;
  
     public int players;
     
@@ -51,6 +59,7 @@ public class SelectionFrame extends JFrame {
 		setResizable(false);
 		stradaController = StradaController.getInstance(); 
 		stradaController.setScreenSize(50);
+		commandInvoker = new CommandInvoker();
 		initComponents();
 	}
 	
@@ -84,9 +93,13 @@ public class SelectionFrame extends JFrame {
 		screenSize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) { 
 				  if(screenSize.isSelected()){
-					  stradaController.setScreenSize(100);
+					 ssc = new SetScreenSizeCommand(stradaController, 100); 
+	                     commandInvoker.add(ssc);
+	                     commandInvoker.execute(); 
 				  } else {
-					  stradaController.setScreenSize(50);
+					 ssc = new SetScreenSizeCommand(stradaController, 50); 
+	                     commandInvoker.add(ssc);
+	                     commandInvoker.execute(); 
 				  }
 			}
 		});
@@ -100,7 +113,9 @@ public class SelectionFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(playerValidation()) {    
 					setVisible(false); 
-					stradaController.createPlayerPanel(txtPlayer1.getText(), txtPlayer2.getText());
+						 cppc = new CreatePlayerPanelCommand(stradaController, txtPlayer1.getText(), txtPlayer2.getText()); 
+	                     commandInvoker.add(cppc);
+	                     commandInvoker.execute(); 
 					new GameFrame().setVisible(true);
 				}
 			}
