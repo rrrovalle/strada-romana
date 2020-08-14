@@ -89,7 +89,7 @@ public class SelectionFrame extends JFrame {
 		
 		screenSize = new JCheckBox();
 		screenSize.setBounds(38, 110, 116, 22);
-		screenSize.setText("1920x1080");
+		screenSize.setText("High Quality");
 		screenSize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) { 
 				  if(screenSize.isSelected()){

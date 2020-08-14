@@ -16,7 +16,7 @@ public class BuildGameTable extends Builder {
 	 
     @Override
     public void buildStradaBoard(AbstractPieceFactory factory) {
-        tablePiece = new Piece[9][17];
+        tablePiece = new Piece[9][18];
         bag = new Bag();
         
         // Set the background tiles
@@ -119,6 +119,16 @@ public class BuildGameTable extends Builder {
         tablePiece[5][16] = factory.createWagonTileRoma();
         tablePiece[6][16] = factory.createWagonTileRoma();
         
+        tablePiece[0][17] = factory.createDeck(); 
+        tablePiece[1][17] = factory.createDeckTile();
+        tablePiece[2][17] = factory.createDeckTile();
+        tablePiece[3][17] = factory.createDeckTile(); 
+        tablePiece[4][17] = factory.createDeckTile();
+        tablePiece[5][17] = factory.createDeckTile();
+        tablePiece[6][17] = factory.createDeckTile();
+        tablePiece[7][17] = factory.createDeckTile(); 
+        tablePiece[8][17] = factory.createDeckTile(); 
+        
         super.table.setGrid(tablePiece);
     }
     
@@ -132,7 +142,7 @@ public class BuildGameTable extends Builder {
 					factory.createPseudolusWagon(true), factory.createHerenniusWagon(true)
 					)); 
 
-		
+		super.bag.addPiece(wagonsRoma.size());
 		super.bag.setWagonRomaList(wagonsRoma);
 	 }
 	 
@@ -146,6 +156,7 @@ public class BuildGameTable extends Builder {
 					factory.createPseudolusWagon(false), factory.createHerenniusWagon(false)
 		 			));
   
+		super.bag.addPiece(wagonsPortus.size());
 		super.bag.setWagonPortusList(wagonsPortus);
 	 }
 	 
@@ -177,6 +188,7 @@ public class BuildGameTable extends Builder {
 														factory.createYellowWareTile(),factory.createYellowWareTile(),
 														factory.createYellowWareTile(),factory.createYellowWareTile()
 				 									)); 
+		 super.bag.addPiece(wareTiles.size());
 		 super.bag.setWareTileList(wareTiles);
 	 }
 	 
@@ -208,7 +220,7 @@ public class BuildGameTable extends Builder {
 									factory.createYellowCube(1),factory.createYellowCube(1),
 									factory.createYellowCube(1),factory.createYellowCube(1)
 								));
-		 
+		 super.bag.addPiece(cubes.size());
 		 super.bag.setCubeList(cubes);
 	}
 	 
@@ -240,7 +252,21 @@ public class BuildGameTable extends Builder {
 									factory.createYellowCube(2),factory.createYellowCube(2),
 									factory.createYellowCube(2),factory.createYellowCube(2)
 								));
-		 
+		 super.bag.addPiece(altCubes.size());
 		 super.bag.setAltCubeList(altCubes);
 	} 
+	 
+	@Override
+	public void buildWagonsCards(AbstractPieceFactory factory) {
+		wagonsCards = new ArrayList<>();
+		wagonsCards.addAll(Arrays.asList(factory.createCard(1),factory.createCard(2),
+									  factory.createCard(3),factory.createCard(4),
+									  factory.createCard(5),factory.createCard(6),
+									  factory.createCard(7),factory.createCard(8),
+									  factory.createCard(9),factory.createCard(10)
+									  ));
+		
+		super.bag.addPiece(10);
+		super.bag.setDeck(wagonsCards);
+	}
 }

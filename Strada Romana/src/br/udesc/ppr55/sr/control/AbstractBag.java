@@ -1,22 +1,32 @@
 package br.udesc.ppr55.sr.control;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 import br.udesc.ppr55.sr.model.Piece;
+import br.udesc.ppr55.sr.model.wagons.faceDownWagon;
  
 public abstract class AbstractBag {
 
-	protected List<Piece> cubes = new ArrayList<>();
-	protected List<Piece> altCubes = new ArrayList<>();
-	protected List<Piece> wareTiles = new ArrayList<>();
-	protected List<Piece> wagonsRoma = new ArrayList<>();
+	protected List<Piece> cubes        = new ArrayList<>();
+	protected List<Piece> altCubes     = new ArrayList<>();
+	protected List<Piece> wareTiles    = new ArrayList<>();
+	protected List<Piece> wagonsRoma   = new ArrayList<>();
 	protected List<Piece> wagonsPortus = new ArrayList<>();  
+	protected List<Piece> wagonsDeck   = new ArrayList<>();
+	protected faceDownWagon discard    = new faceDownWagon();
+	protected int bagSize;
 	
 	protected Random random; 
 
-	/* set wagon pieces to both sides */
+	/* set pieces to both sides */
+	public List<Piece> getDeck() {
+		return wagonsDeck;
+	}
+	
 	public List<Piece> getWagonsRoma() {
 		return wagonsRoma;
 	}
@@ -36,8 +46,16 @@ public abstract class AbstractBag {
 	public List<Piece> getAltCubes() {
 		return altCubes;
 	}
+	
+	public int getBagSize() {
+		return bagSize;
+	}
 
 	/* access methods */
+	public void setDeck(List<Piece> wagons) {
+		this.wagonsDeck = wagons;
+	}
+	
 	public void setWagonRomaList(List<Piece> romaPieces) {
 		this.wagonsRoma = romaPieces;
 	}
@@ -58,9 +76,21 @@ public abstract class AbstractBag {
 		this.altCubes = altCubes;
 	}
 	
+	public void addPiece(int pieces) {
+		this.bagSize += pieces;
+	}
+	
+	public List<Piece> shuffle(List<Piece> pieces) {
+		random = new Random(); 
+		Collections.shuffle(Arrays.asList(pieces));
+		
+		return pieces;
+	}
+	
 	public abstract Piece getPortusWagon();
 	public abstract Piece getRomaWagon();
 	public abstract Piece getWareTile();
 	public abstract Piece getCube();
 	public abstract Piece getAltCube();
+	public abstract Piece removeCard();
 }

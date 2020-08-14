@@ -7,6 +7,7 @@
 package br.udesc.ppr55.sr.model.abstractFactory; 
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.components.CubeSpotTile;
+import br.udesc.ppr55.sr.model.components.DeckTile;
 import br.udesc.ppr55.sr.model.components.GroundTile;
 import br.udesc.ppr55.sr.model.components.InverseCubeSpot;
 import br.udesc.ppr55.sr.model.components.LineTile;
@@ -27,6 +28,7 @@ import br.udesc.ppr55.sr.model.wagons.CanopitesPortus;
 import br.udesc.ppr55.sr.model.wagons.CanopitesRoma;
 import br.udesc.ppr55.sr.model.wagons.CurculioPortus;
 import br.udesc.ppr55.sr.model.wagons.CurculioRoma;
+import br.udesc.ppr55.sr.model.wagons.Deck;
 import br.udesc.ppr55.sr.model.wagons.DemetriusPortus;
 import br.udesc.ppr55.sr.model.wagons.DemetriusRoma;
 import br.udesc.ppr55.sr.model.wagons.HamilcarPortus;
@@ -41,6 +43,8 @@ import br.udesc.ppr55.sr.model.wagons.PlotusPortus;
 import br.udesc.ppr55.sr.model.wagons.PlotusRoma; 
 import br.udesc.ppr55.sr.model.wagons.PseudolusPortus;
 import br.udesc.ppr55.sr.model.wagons.PseudolusRoma;
+import br.udesc.ppr55.sr.model.wagons.WagonCard;
+import br.udesc.ppr55.sr.model.wagons.faceDownWagon;
 import br.udesc.ppr55.sr.model.wareTiles.BlueWareTile;
 import br.udesc.ppr55.sr.model.wareTiles.BrownWareTile;
 import br.udesc.ppr55.sr.model.wareTiles.GreenWareTile;
@@ -50,6 +54,10 @@ import br.udesc.ppr55.sr.model.wareTiles.YellowWareTile;
 
 public class PieceFactory extends AbstractPieceFactory{
  
+	@Override
+	public Piece createDeckTile() {
+		return new DeckTile(); 
+	}
 	
 	@Override
 	public Piece createGroundTile() {
@@ -250,19 +258,20 @@ public class PieceFactory extends AbstractPieceFactory{
 		 }else{
 			 return new PseudolusPortus();
 		 }
-	}
-
-
-	@Override
-	public Piece createBag() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	} 
 
 	@Override
-	public Piece chooseWagon() {
-		// TODO Auto-generated method stub
-		return null;
+	public Piece createDeck() {
+		return new Deck();
 	}
-    
+	
+	@Override
+	public Piece createCard(int number) {
+		return new WagonCard(number);
+	} 
+	
+	@Override
+	public Piece createSpqrCard() {
+		return new faceDownWagon();
+	} 
 }

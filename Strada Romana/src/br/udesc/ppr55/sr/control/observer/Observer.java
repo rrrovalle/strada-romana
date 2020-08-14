@@ -13,6 +13,7 @@ public interface Observer {
   void playerPanelUpdate();
   void wagonsPanelUpdate();
   void showWagons();
+  void showBag(int size);
   void wareTileUpdate();
   void showWareTiles();
   void cubeUpdate();

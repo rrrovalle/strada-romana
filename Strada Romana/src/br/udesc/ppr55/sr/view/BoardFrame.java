@@ -32,7 +32,7 @@ public class BoardFrame extends JPanel {
 
         @Override
         public int getColumnCount() {
-            return 17;    
+            return 18;    
         }
  
         @Override

@@ -72,7 +72,7 @@ public class GameFrame extends JFrame implements Observer {
 
     public void setScreenSize(int tam) {
     	if(tam == 50) {
-    		this.setSize(new Dimension(900,600));
+    		this.setSize(new Dimension(950,650));
             this.setUndecorated(true);
             this.setLocationRelativeTo(null);
     	}else if(tam == 100) {
@@ -122,6 +122,7 @@ public class GameFrame extends JFrame implements Observer {
         });
         
         btnPlayerBag = new JButton("Game Bag");
+        btnPlayerBag.setEnabled(false);
         contentPane.add(btnPlayerBag);
         
         btnStart = new JButton("Start");
@@ -153,6 +154,12 @@ public class GameFrame extends JFrame implements Observer {
     @Override
     public void boardPanelUpdate() { 
     	 this.boardFrame.updateUI();
+    }
+    
+    @Override
+    public void showBag(int size) {
+    	btnPlayerBag.setEnabled(true);
+    	btnPlayerBag.setText("Reroll bag ("+size+")"); 
     }
  
     @Override

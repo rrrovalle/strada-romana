@@ -9,7 +9,17 @@ import br.udesc.ppr55.sr.model.Piece;
 
 public class faceDownWagon extends Piece {
 
+	private Piece wagon;
+	
 	public faceDownWagon() {
 		super("images/spqr.png");
 	}
+	
+	public void setWagon(Piece wagon) {
+		this.wagon = wagon;
+	}
+	
+	public Piece getWagon() {
+		return wagon;
+	} 
 }

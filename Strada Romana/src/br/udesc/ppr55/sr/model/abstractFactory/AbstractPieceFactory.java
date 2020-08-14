@@ -7,9 +7,7 @@
 package br.udesc.ppr55.sr.model.abstractFactory;
 import br.udesc.ppr55.sr.model.Piece;  
 
-public abstract class AbstractPieceFactory {
-	
-	public abstract Piece createBag();  
+public abstract class AbstractPieceFactory {  
 	
 	// Cubes
 	public abstract Piece createRedCube(int alt);
@@ -29,48 +27,32 @@ public abstract class AbstractPieceFactory {
 	
 	public abstract Piece createContract();
 	
-	// Wagons 
-
-	public abstract Piece createBallioWagon(boolean isRomaSide);
-	
-	public abstract Piece createCanopitesWagon(boolean isRomaSide);
-	
+	// Wagons  
+	public abstract Piece createBallioWagon(boolean isRomaSide); 
+	public abstract Piece createCanopitesWagon(boolean isRomaSide); 
 	public abstract Piece createCurculioWagon(boolean isRomaSide);
-
 	public abstract Piece createDemetriusWagon(boolean isRomaSide);
-	
 	public abstract Piece createHamilcarWagon(boolean isRomaSide);
-	
 	public abstract Piece createHerenniusWagon(boolean isRomaSide);
-	
 	public abstract Piece createMaccusWagon(boolean isRomaSide);
-	
 	public abstract Piece createPersaWagon(boolean isRomaSide);
-	
 	public abstract Piece createPlotusWagon(boolean isRomaSide);
-	
 	public abstract Piece createPseudolusWagon(boolean isRomaSide);
 	
-	// Pieces of the board
-	
-	public abstract Piece createGroundTile();
-	
-	public abstract Piece createStradaTile();
-	
-	public abstract Piece createWagonTileRoma();
-	
-	public abstract Piece createWagonTilePortus();
-
-	public abstract Piece createWareSpotTile(int number);
-	
-	public abstract Piece createCubeSpotTile();
-	
-	public abstract Piece createLineTile();
-	
-	public abstract Piece createRomaTile();
-	
+	// Pieces of the board 
+	public abstract Piece createGroundTile(); 
+	public abstract Piece createDeckTile(); 
+	public abstract Piece createStradaTile(); 
+	public abstract Piece createWagonTileRoma(); 
+	public abstract Piece createWagonTilePortus(); 
+	public abstract Piece createWareSpotTile(int number); 
+	public abstract Piece createCubeSpotTile(); 
+	public abstract Piece createLineTile(); 
+	public abstract Piece createRomaTile(); 
 	public abstract Piece createInverseCubeTile();
 	
-	//implementar deck para apostas
-	public abstract Piece chooseWagon();
+	// Wagons deck of cards
+	public abstract Piece createDeck();
+	public abstract Piece createSpqrCard();
+	public abstract Piece createCard(int number);
 }

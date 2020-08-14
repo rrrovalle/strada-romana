@@ -23,6 +23,7 @@ public abstract class Builder {
 	   protected List<Piece> wareTiles;
 	   protected List<Piece> cubes;
 	   protected List<Piece> altCubes; 
+	   protected List<Piece> wagonsCards;
  
 	    public Table getTable() {
 	        return table;
@@ -38,6 +39,10 @@ public abstract class Builder {
 
 	    public void buildStradaBoard(AbstractPieceFactory factory) {
 	        this.table.setGrid(tablePiece);
+	    } 
+	    
+	    public void buildWagonsCards(AbstractPieceFactory factory) {
+	        this.bag.setDeck(wagonsCards);
 	    } 
 	    
 	    public void buildWagonsRoma(AbstractPieceFactory factory) {

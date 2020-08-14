@@ -14,10 +14,10 @@ public interface Observed {
 	public void addObserver(Observer observer);
     public void removeObserver(Observer observer);  
     public void notifyBoardPanelUpdate();
-    public void notifyPlayerPanelUpdate(); 
-    public void createCubeTiles(); 
+    public void notifyPlayerPanelUpdate();  
     public void notifyStart();
     public void notifyEndGame();
+    public void notifyBagSize(int size) ;
     public void notifyMessage(String message);
     public String getPiece(int col, int row); 
     public void setFactory(PieceFactory factory);

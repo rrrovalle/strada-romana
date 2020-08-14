@@ -77,16 +77,36 @@ public class StradaController implements IStradaController {
 	} 
      
     @Override
-    public void initializeBag() {  	
-         
+    public void initializeBag() {  	 
     } 
+    
+    @Override
+    public void notifyBagSize(int size) {
+    	for(Observer observer: observers) {
+    		observer.showBag(size);
+    	}
+    }
     
     @Override
     public void startGame() {
     	this.addWagon();
     	this.addCubeAndWareTiles();
+    	this.removeWagonTile();
+    	System.out.println(this.builderGameTable.getBag().getBagSize());
     	
+    	System.out.println(this.builderGameTable.getBag().getWagonsPortus().size());
+    	System.out.println(this.builderGameTable.getBag().getWagonsRoma().size());
+    	
+    	System.out.println(this.builderGameTable.getBag().getWareTiles().size());
+    	System.out.println(this.builderGameTable.getBag().getAltCubes().size());
+    	System.out.println(this.builderGameTable.getBag().getCubes().size());
+    	System.out.println(this.builderGameTable.getBag().getDeck().size());
+    	
+    	// adjust game bag
+    	this.builderGameTable.getBag().addPiece(-34); 
+
     	this.notifyStart();
+    	this.notifyBagSize(this.builderGameTable.getBag().getBagSize());
     }
     
     @Override
@@ -196,15 +216,21 @@ public class StradaController implements IStradaController {
 			             	} else if(grid[i][j].getClass() == WareSpotTile.class) {
 			                    grid[i][j] = builderGameTable.getBag().getWareTile(); 
 			                } 
-            }
-        }  
+	            }
+	        }  
     }
-
-	@Override
-	public void createCubeTiles() {
-		// TODO Auto-generated method stub
-		
-	}
+	    
+    @Override
+    public void removeWagonTile() {
+    	Piece[][] grid = this.builderGameTable.getTable().getGrid();
+        for (int i = 7; i < 9; i++) {
+            for (int j = 16; j < 18; j++) {
+            	 if (grid[i][j]== grid[8][17]) {
+            		 grid[i][j] = builderGameTable.getBag().removeCard();
+            	 }
+            }
+        }
+    }  
  
     
 }
