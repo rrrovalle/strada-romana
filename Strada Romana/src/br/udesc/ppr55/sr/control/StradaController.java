@@ -17,15 +17,19 @@ import br.udesc.ppr55.sr.model.builder.Builder;
 import br.udesc.ppr55.sr.model.builder.EmperorDirector;
 import br.udesc.ppr55.sr.model.components.CubeSpotTile;
 import br.udesc.ppr55.sr.model.components.InverseCubeSpot;
+import br.udesc.ppr55.sr.model.components.StradaTile;
 import br.udesc.ppr55.sr.model.components.WagonTilePortus;
 import br.udesc.ppr55.sr.model.components.WagonTileRoma;
-import br.udesc.ppr55.sr.model.components.WareSpotTile;
+import br.udesc.ppr55.sr.model.components.WareSpotTile; 
 import br.udesc.ppr55.sr.view.PlayerPanel;
- 
+
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-  
-import javax.swing.JPanel; 
+
+import javax.swing.BorderFactory; 
+import javax.swing.JPanel;
+import javax.swing.border.Border; 
 
 public class StradaController implements IStradaController {
 	 
@@ -34,15 +38,21 @@ public class StradaController implements IStradaController {
 	private Builder builderGameTable;     
 	
 	private Audio audio; 
+	
+	private Border yellowBorder; 
+	private Border blackBorder;
+	
 	private int screenSize;
+	private int pos = 1;
+	private boolean gameStatus = false; 
 	
     private AbstractPieceFactory factory;
 	
 	private List<Observer> observers = new ArrayList<>();
 	 
-    private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players = new ArrayList<>(); 
      
-     public static StradaController getInstance() {
+    public static StradaController getInstance() {
         if (instance == null) {
             instance = new StradaController();
         } 
@@ -59,61 +69,40 @@ public class StradaController implements IStradaController {
         this.observers.add(observer);
     }
     
-    @Override
-    public void setScreenSize(int size) {
-    	this.screenSize = size;
-    }
-    
-    @Override
-    public int getScreenSize() {
-    	return screenSize;
-    }
-    
+    // STRADA CONTROLLER
     @Override
     public void initializeBoard() { 
         this.builderGameTable = new BuildGameTable();
         this.director         = new EmperorDirector(builderGameTable);
-        this.director.build(factory);   
-	} 
-     
-    @Override
-    public void initializeBag() {  	 
+        this.director.build(factory);    
     } 
     
     @Override
-    public void notifyBagSize(int size) {
-    	for(Observer observer: observers) {
-    		observer.showBag(size);
-    	}
+    public void startGame() {
+    	addWagon();
+    	addCubeAndWareTiles();
+    	removeWagonTile();
+    	System.out.println(this.builderGameTable.getBag().toString());
+    	
+    	yellowBorder = BorderFactory.createLineBorder(Color.yellow);
+    	blackBorder = BorderFactory.createLineBorder(Color.black);
+    	
+    	// adjusts game bag
+    	builderGameTable.getBag().addPiece(-44); 
+    	gameStatus = true; 
+        controlPlayerTurn();
+    	notifyStart();  
+    	   
+    	notifyBagSize(this.builderGameTable.getBag().getBagSize()); 
+    	notifyMessage("To move your wagon, first choose the wagoon and then the tile, after it, click again on the wagon to confirm the move!"); 
     }
     
-    @Override
-    public void startGame() {
-    	this.addWagon();
-    	this.addCubeAndWareTiles();
-    	this.removeWagonTile();
-    	System.out.println(this.builderGameTable.getBag().getBagSize());
-    	
-    	System.out.println(this.builderGameTable.getBag().getWagonsPortus().size());
-    	System.out.println(this.builderGameTable.getBag().getWagonsRoma().size());
-    	
-    	System.out.println(this.builderGameTable.getBag().getWareTiles().size());
-    	System.out.println(this.builderGameTable.getBag().getAltCubes().size());
-    	System.out.println(this.builderGameTable.getBag().getCubes().size());
-    	System.out.println(this.builderGameTable.getBag().getDeck().size());
-    	
-    	// adjust game bag
-    	this.builderGameTable.getBag().addPiece(-34); 
-
-    	this.notifyStart();
-    	this.notifyBagSize(this.builderGameTable.getBag().getBagSize());
-    }
     
     @Override
     public void createPlayerPanel(String n1, String n2) {  
     	players.add(new Player(new PlayerPanel(),n1));
     	players.add(new Player(new PlayerPanel(),n2)); 
-    }
+    } 
     
     @Override
     public void initializeRadio() { 
@@ -121,21 +110,39 @@ public class StradaController implements IStradaController {
     }
 
     @Override
-    public void restartPlayerPanel(JPanel panel) {
+    public void restartPlayerPanel(JPanel panel) { 
 		for(int i=0; i<players.size(); i++) {
 			panel.add(players.get(i).getPanel());
 			players.get(i).getPanel().setName(players.get(i).getName()); 
 		}   
     } 
  
+    
+	  @Override
+	  public void controlPlayerTurn() { 
+	  	//set black border and change the position to false before pass turn
+	  	players.get(pos).getPanel().setBorder(blackBorder);
+	  	players.get(pos).setTurn(false);
+	  		if(pos == 0) {   
+	  		pos++;
+	      	}else { 
+	      	pos--;
+	  	}
+	  	// set the player turn and yellow border
+	  	players.get(pos).setTurn(true); 
+	  	notifyPassButton(true);
+	  	players.get(pos).getPanel().setBorder(yellowBorder); 
+	  }
+  
+	@Override
+	public void notifyPassButton(boolean isEnabled) {
+		observers.get(pos).disableButton(isEnabled);
+	}
+	
     @Override
     public String getPiece(int col, int row) { 
     	return (builderGameTable.getTable().getGrid()[col][row] == null ? null : builderGameTable.getTable().getGrid()[col][row].getImage());
-    } 
-    
-    @Override
-    public void notifyBoardPanelUpdate() {
-    }
+    }  
     
     @Override
     public AbstractPieceFactory getFactory() {
@@ -145,39 +152,26 @@ public class StradaController implements IStradaController {
     @Override
     public void setFactory(PieceFactory pieceFactory) {
         this.factory = pieceFactory;  
-        this.initializeBoard();  
+        initializeBoard();  
     } 
     
     @Override 
+    /**
+     *   Set the audio file
+     */
     public void setRadio(){ 
         this.audio = new Audio("music/Pillars of Eternity II Deadfire Soundtrack 11 - Queen's Berth (Justin Bell) - Rodrigo Valle REMIX.wav");   
         this.audio.playMusic(); 
+    } 
+    
+    public void playerPanelUpdate() {  
+    	notifyPlayerPanelUpdate(players.get(pos).getScore(), players.get(pos).getGold(), players.get(pos).getVPoints(),
+    							players.get(pos).getCubes().size(), players.get(pos).getWareTiles().size(), players.get(pos).getContracts().size());
     }
     
     @Override
-    public void notifyPlayerPanelUpdate() {
-    	for(Observer observer: observers) {
-    		observer.playerPanelUpdate();
-    	}
-    }
-    
-    @Override
-    public void notifyStart() {
-    	for(Observer observer: observers) {
-    		observer.boardPanelUpdate();
-    	}
-    }
-  
-    @Override
-    public void notifyEndGame() {
-    }
-     
-    
-    @Override
-    public void notifyMessage(String message) {
-    	for(Observer observer: observers) {
-    		observer.message(message);
-    	}
+    public void notifyPlayerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {
+    	observers.get(pos).playerPanelUpdate(score, coins, vp, cubes, wareTiles, contracts);
     }
 
 	@Override
@@ -190,7 +184,40 @@ public class StradaController implements IStradaController {
 	    this.audio.stop();
 	} 
 	
+	@Override
+	/**
+	 *  Add gold coin into the player bag and jump to the next player 
+	 */
+	public void passPlay() {
+		if(players.get(pos).isMyTurn() == true) {
+			players.get(pos).setGold(1);  
+			playerPanelUpdate();
+			notifyPassButton(false);
+			
+			controlPlayerTurn();
+			notifyMessage("It's "+players.get(pos).getName()+" turn!");
+		}
+	}
+	
     @Override
+	/**
+     *   Move a selected wagon through the board
+	 */
+    public void moveWagon(int iRowCel, int iColSel, int row,  int column) { 
+    	if(gameStatus && players.get(pos).isMyTurn()) {
+    	Piece[][] grid = this.builderGameTable.getTable().getGrid();  
+		        if(grid[column][row].getClass() == StradaTile.class) { 
+			        	grid[column][row] = this.builderGameTable.getTable().getElementAt(iColSel, iRowCel);
+			        	grid[iColSel][iRowCel] = factory.createWagonTilePortus();
+		        	}
+		        		grid[iColSel][iRowCel] = factory.createWagonTileRoma();  
+    	}
+    }
+	
+    @Override
+    /**
+     *   Add wagons to the game board at the predefined position
+     */
     public void addWagon() {
         Piece[][] grid = this.builderGameTable.getTable().getGrid();
         for (int i = 0; i < 9; i++) {
@@ -204,7 +231,11 @@ public class StradaController implements IStradaController {
         }
     }
 
+    
     @Override
+    /**
+     *   Add cubes and ware tiles to the game board at the predefined position
+     */
     public void addCubeAndWareTiles() {
         Piece[][] grid = this.builderGameTable.getTable().getGrid();
         for (int i = 0; i < 9; i++) {
@@ -221,6 +252,9 @@ public class StradaController implements IStradaController {
     }
 	    
     @Override
+    /**
+     *   Remove one card from wagon's deck
+     */
     public void removeWagonTile() {
     	Piece[][] grid = this.builderGameTable.getTable().getGrid();
         for (int i = 7; i < 9; i++) {
@@ -230,7 +264,42 @@ public class StradaController implements IStradaController {
             	 }
             }
         }
-    }  
- 
+    }
+    
+    @Override
+    public void setScreenSize(int size) {
+    	this.screenSize = size;
+    }
+    
+    @Override
+    public int getScreenSize() {
+    	return screenSize;
+    } 
+    
+    @Override
+    public void notifyStart() {
+    	for(Observer observer: observers) {
+    		observer.boardPanelUpdate();
+    	}
+    }
+  
+    @Override
+    public void notifyEndGame() {
+    } 
+    
+    @Override
+    public void notifyMessage(String message) {
+    	for(Observer observer: observers) {
+    		observer.message(message);
+    	}
+    } 
+	
+    @Override
+    public void notifyBagSize(int size) {
+    	for(Observer observer: observers) {
+    		observer.showBag(size);
+    	}
+    }
+    
     
 }

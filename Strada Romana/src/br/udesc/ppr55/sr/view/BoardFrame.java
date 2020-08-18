@@ -7,9 +7,9 @@
 package br.udesc.ppr55.sr.view;    
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.BoxLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent; 
+import javax.swing.BoxLayout; 
 import javax.swing.ImageIcon; 
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -90,42 +90,23 @@ public class BoardFrame extends JPanel {
         gameBoard.setShowGrid(false);
         gameBoard.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         gameBoard.setIntercellSpacing(new Dimension(0, 0));
-        gameBoard.setDefaultRenderer(Object.class, new StradaRender());
-        gameBoard.addMouseListener(new MouseListener() {
+        gameBoard.setDefaultRenderer(Object.class, new StradaRender()); 
+        gameBoard.addMouseListener(new MouseAdapter() {
+        	
+        	private int iColSel;//coluna inicial
+            private int iRowCel;//linha inicial 
             
             @Override
-            public void mouseReleased(MouseEvent arg0) {
-                // TODO Auto-generated method stub
-                
-            }
-            
+            public void mouseClicked(MouseEvent e) {
+                iColSel  = gameBoard.getSelectedColumn();
+                iRowCel  = gameBoard.getSelectedRow();   
+            }	
+
             @Override
-            public void mousePressed(MouseEvent arg0) {
-                System.out.println("Pegou");
-                
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent arg0) {
-                // TODO Auto-generated method stub
-                
-            }
-            
-            @Override
-            public void mouseEntered(MouseEvent arg0) {
-                // TODO Auto-generated method stub
-                
-            }
-            
-            @Override
-            public void mouseClicked(MouseEvent arg0) {
-                // TODO Auto-generated method stub
-                
-            }
-        } );
+            public void mouseReleased(MouseEvent e) { 
+                stradaController.moveWagon(iColSel, iRowCel, gameBoard.getSelectedColumn(), gameBoard.getSelectedRow());
+            } 
+		});  
     }
-
- 
-
     }
      

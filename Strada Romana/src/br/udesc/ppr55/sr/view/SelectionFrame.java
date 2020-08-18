@@ -51,8 +51,7 @@ public class SelectionFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SelectionFrame() {
-		setTitle("Strada Romana");
+	public SelectionFrame() { 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100,100 ,200, 200);
 		setLocationRelativeTo(null);
@@ -88,7 +87,7 @@ public class SelectionFrame extends JFrame {
 		txtPlayer2.setColumns(50);
 		
 		screenSize = new JCheckBox();
-		screenSize.setBounds(38, 110, 116, 22);
+		screenSize.setBounds(34, 110, 116, 22);
 		screenSize.setText("High Quality");
 		screenSize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) { 
@@ -105,9 +104,9 @@ public class SelectionFrame extends JFrame {
 		});
 		contentPane.add(screenSize);
 		
-		JButton btnNewButton = new JButton("Go");
+		JButton btnNewButton = new JButton("Play");
 		btnNewButton.setBounds(64, 135, 55, 25);
-		btnNewButton.setSize(50,25);
+		btnNewButton.setSize(60,25);
 		btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

@@ -13,6 +13,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;  
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel; 
 import javax.swing.border.EmptyBorder;
 import br.udesc.ppr55.sr.control.IStradaController;
@@ -63,7 +64,7 @@ public class GameFrame extends JFrame implements Observer {
         stradaController.addObserver(this);  
         
         setScreenSize(stradaController.getScreenSize());
-        playerPanelUpdate();
+        setPlayerPanel();
         initComponents(); 
         addComponents();
         
@@ -147,8 +148,7 @@ public class GameFrame extends JFrame implements Observer {
     } 
 
     @Override
-    public void playerPanelUpdate() {
-        stradaController.restartPlayerPanel(contentPane);     
+    public void playerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {    
     }
          
     @Override
@@ -161,52 +161,33 @@ public class GameFrame extends JFrame implements Observer {
     	btnPlayerBag.setEnabled(true);
     	btnPlayerBag.setText("Reroll bag ("+size+")"); 
     }
- 
-    @Override
-    public void wagonsPanelUpdate() { } 
-
-    @Override
-    public void showWagons() { }
-    
-    @Override
-    public void wareTileUpdate() { }  
-    
-    @Override
-    public void showWareTiles() {  
-    } 
-    
-    @Override
-    public void cubeUpdate() { } 
-
-    @Override
-    public void showCube() { } 
   
     @Override
     public void shuffleWagonTiles() { }  
 
     @Override
     public void endGame() { } 
-
  
-
     @Override
-    public void message(String message) { }
-
+    public void message(String message) {
+    	JOptionPane.showMessageDialog(null, message);
+    }
  
-
     @Override
     public void update(boolean isPaused) {
-        // TODO Auto-generated method stub
-        
+       
     }
-
  
-
     @Override
     public void setPlayerPanel() {
-        // TODO Auto-generated method stub
-        
+    	stradaController.restartPlayerPanel(contentPane);     
     } 
+
+	@Override
+	public void disableButton(boolean turn) {
+		// TODO Auto-generated method stub
+		
+	} 
     
     
 }

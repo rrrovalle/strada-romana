@@ -5,6 +5,6 @@ import br.udesc.ppr55.sr.model.Piece;
 public class DeckTile extends Piece {
 
 	public DeckTile() {
-		super("images/deckTile.png");
+		super("images/deckTile.png" );
 	}
 }

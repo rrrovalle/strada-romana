@@ -8,13 +8,13 @@ package br.udesc.ppr55.sr.control;
 import javax.swing.JPanel;
 
 import br.udesc.ppr55.sr.control.observer.Observed;
+import br.udesc.ppr55.sr.model.Player;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
-import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
+import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory; 
 
 public interface IStradaController extends Observed {
     
-	public void initializeBoard();   
-	public void initializeBag();
+	public void initializeBoard();    
     public void createPlayerPanel(String n1, String n2); 
     public void restartPlayerPanel(JPanel pane);  
     public String getPiece(int col, int row); 
@@ -29,5 +29,8 @@ public interface IStradaController extends Observed {
     public void removeWagonTile();
     public void startGame();  
     public int getScreenSize();
-    public void setScreenSize(int size);
+    public void setScreenSize(int size); 
+    public void moveWagon(int irow, int icol, int finalRow, int finalColumn);
+    public void controlPlayerTurn();
+    public void passPlay();  
 }

@@ -11,5 +11,6 @@ public class PersaPortus extends Piece {
 
 	public PersaPortus() {
 		super("images/persaPortus.png");
+		this.setMovable(true);
 	}
 }

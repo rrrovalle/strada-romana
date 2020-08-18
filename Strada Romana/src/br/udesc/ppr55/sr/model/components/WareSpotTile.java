@@ -13,11 +13,11 @@ public class WareSpotTile extends Piece {
     private int number;
     
 	public WareSpotTile() {
-		super("images/wareSpot.png");
+		super("images/wareSpot.png" );
 	} 
 	
     public WareSpotTile(int number) {
-        super("images/wareSpot" + number + ".png");
+        super("images/wareSpot" + number + ".png" );
         this.number = number;
     }
 

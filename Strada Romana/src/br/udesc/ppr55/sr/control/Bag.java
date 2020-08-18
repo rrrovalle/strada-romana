@@ -7,8 +7,7 @@
 
 package br.udesc.ppr55.sr.control;  
 
-import br.udesc.ppr55.sr.model.Piece;
-import br.udesc.ppr55.sr.model.wagons.faceDownWagon; 
+import br.udesc.ppr55.sr.model.Piece; 
 
 public class Bag extends AbstractBag { 
 	
@@ -40,7 +39,7 @@ public class Bag extends AbstractBag {
 		bagSize--;
 		return wt;	
 	}
-	
+
 	// starts the first turn with 22 cubes
 	@Override
 	public Piece getCube(){ 
@@ -68,5 +67,13 @@ public class Bag extends AbstractBag {
 		wagonsDeck.remove(card);
 		bagSize--;
 		return discard;
+	} 
+	
+	@Override
+	public String toString() {
+		return "Bag [cubes=" + cubes.size() + ", altCubes=" + altCubes.size() + ", wareTiles=" + wareTiles.size() + ", wagonsRoma="
+				+ wagonsRoma.size() + ", wagonsPortus=" + wagonsPortus.size() + ", wagonsDeck=" + wagonsDeck.size() + ", discard=" + discard
+				+ ", bagSize=" + bagSize + ", random=" + random + "]";
 	}
+	
 }

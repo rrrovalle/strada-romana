@@ -11,7 +11,8 @@ import br.udesc.ppr55.sr.model.Piece;
 public class StradaTile extends Piece {
 	
 	public StradaTile() {
-		super("images/stradaTile.png");
+		super("images/stradaTile.png"); 
 	}
+	
 	
 }

@@ -9,9 +9,11 @@ package br.udesc.ppr55.sr.model;
 public abstract class Piece {
     
     private String image;
+    private boolean movable;
     
     public Piece(String image){
         this.image = image;
+        this.movable = false;
     }
     
     public String getImage(){
@@ -20,6 +22,14 @@ public abstract class Piece {
     
     public void setImage(String image){
         this.image = image;
+    }
+    
+    public boolean isMovable() {
+    	return movable;
+    }
+    
+    public void setMovable(boolean movable) {
+    	this.movable = movable;
     }
     
 }

@@ -6,41 +6,142 @@
  */
 package br.udesc.ppr55.sr.view; 
 import javax.swing.JPanel;
+
+import br.udesc.ppr55.sr.control.IStradaController;
+import br.udesc.ppr55.sr.control.StradaController;
+import br.udesc.ppr55.sr.control.observer.Observer;
+import br.udesc.ppr55.sr.view.command.CommandInvoker;
+import br.udesc.ppr55.sr.view.command.stradaCommands.PassPlay;
+import br.udesc.ppr55.sr.view.command.stradaCommands.StartGameCommand;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+
 import javax.swing.BorderFactory; 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
-
-public class PlayerPanel extends JPanel {
+import javax.swing.border.Border; 
+public class PlayerPanel extends JPanel implements Observer {
 
 	private static final long serialVersionUID = 5040820868743358336L;
 	
-	private JLabel lbName;
-	private JLabel lbScore; 
+	private JLabel 	lbName;
+	private JLabel 	lbScore; 
 	private JButton btnPass;
 	private JButton btnBag;  
+	
+	private JDialog playerBag;
+	private JPanel panelBag;
+	private JLabel lbCubes;
+	private JLabel lbWareTiles;
+	private JLabel lbContracts;
+	private JLabel lbCoins;
+	private JLabel lbVictoryPoints; 
+	private IStradaController stradaController;
+	private CommandInvoker commandInvoker;
 	
 	public PlayerPanel() {  
 		super(); 
 		this.setLayout(new BorderLayout(15,15));
 		
+		this.stradaController = StradaController.getInstance();
+		this.commandInvoker = new CommandInvoker();
+		stradaController.addObserver(this);
 		initializeComponents();
+		initPlayerBag();
 	} 
 	
 	public void initializeComponents() {
 		lbName = new JLabel(); 
 		lbScore = new JLabel("Score: 0"); 
-		btnPass = new JButton("Pass");
 		btnBag = new JButton("Bag"); 
 		this.add(lbName, BorderLayout.NORTH);
-		this.add(btnBag,BorderLayout.CENTER);
+		this.add(btnBag,BorderLayout.CENTER); 
+		
+		btnPass = new JButton("Pass"); 
+		btnPass.setEnabled(false);
+		btnPass.addActionListener((ActionEvent e) -> {
+			PassPlay pp = new PassPlay(stradaController);
+            commandInvoker.add(pp);
+            commandInvoker.execute();
+		}); 
 		this.add(btnPass, BorderLayout.SOUTH);
 		this.add(lbScore, BorderLayout.WEST);
 		this.setBorder(BorderFactory.createLineBorder(Color.black)); 
 	}
 	
+	public void initPlayerBag() {
+		panelBag = new JPanel();
+		playerBag = new JDialog();
+		lbCubes = new JLabel("Cubes:");
+		lbWareTiles = new JLabel("Ware Tiles:");
+		lbContracts = new JLabel("Contracts:"); 
+		lbCoins = new JLabel("Coins:");
+		lbVictoryPoints = new JLabel("VP:");
+		panelBag.add(lbCubes);
+		panelBag.add(lbWareTiles);
+		panelBag.add(lbContracts); 
+		panelBag.add(lbCoins);
+		panelBag.add(lbVictoryPoints);
+		playerBag.add(panelBag); 
+		 
+		btnBag.addActionListener((ActionEvent e) -> {
+			if(!playerBag.isActive()) { 
+				playerBag.setTitle(lbName.getText()+" Bag"); 
+				playerBag.setSize(250,100);  
+				playerBag.setResizable(false);
+				playerBag.setVisible(true);
+			}
+		}); 
+	} 
+	
 	public void setName(String name) {
 		this.lbName.setText("Player: "+name);
-	}    
+	} 
+	
+    public void update() {
+        this.updateUI();
+    } 
+    
+	@Override
+	public void boardPanelUpdate() { }
+
+	@Override
+	public void setPlayerPanel() { }
+
+	@Override
+	public void playerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {
+		this.lbScore.setText("Score:\n"+score); 
+		
+		this.lbCoins.setText("Coins: \n"+coins);
+		this.lbVictoryPoints.setText("VP: \n"+vp);
+		this.lbCubes.setText("Cubes: \n"+cubes); 
+		this.lbWareTiles.setText("Ware Tiles: \n"+wareTiles);
+		this.lbContracts.setText("Contracts: \n"+contracts);
+		
+	}
+
+	@Override
+	public void showBag(int size) { }
+
+	@Override
+	public void update(boolean isPaused) { } 
+
+	@Override
+	public void shuffleWagonTiles() { }
+
+	@Override
+	public void endGame() { }
+
+	@Override
+	public void message(String message) { }
+
+	@Override
+	public void disableButton(boolean isEnabled) {
+		this.btnPass.setEnabled(isEnabled);
+	}
+
+	 
 }
