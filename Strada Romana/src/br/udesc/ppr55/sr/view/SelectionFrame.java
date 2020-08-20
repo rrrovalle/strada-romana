@@ -13,8 +13,7 @@ import javax.swing.border.EmptyBorder;
 import br.udesc.ppr55.sr.control.IStradaController;
 import br.udesc.ppr55.sr.control.StradaController;
 import br.udesc.ppr55.sr.view.command.CommandInvoker;
-import br.udesc.ppr55.sr.view.command.stradaCommands.CreatePlayerPanelCommand;
-import br.udesc.ppr55.sr.view.command.stradaCommands.PlayMusicCommand;
+import br.udesc.ppr55.sr.view.command.stradaCommands.CreatePlayerPanelCommand; 
 import br.udesc.ppr55.sr.view.command.stradaCommands.SetScreenSizeCommand;
 
 import javax.swing.JButton;

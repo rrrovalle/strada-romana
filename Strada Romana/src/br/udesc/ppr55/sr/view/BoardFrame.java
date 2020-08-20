@@ -59,7 +59,9 @@ public class BoardFrame extends JPanel {
     private IStradaController stradaController; 
     private JTable gameBoard;
     
-    public int screenSize;
+    protected int screenSize; 
+	public int iCol;//coluna inicial
+    public int iRow;//linha inicial 
     
     public BoardFrame(IStradaController stradaController) {
         this.stradaController = stradaController;
@@ -73,7 +75,7 @@ public class BoardFrame extends JPanel {
     private void addComponents() {
         this.add(gameBoard);
     } 
-
+    
     public void update() {
         this.updateUI();
     } 
@@ -90,21 +92,18 @@ public class BoardFrame extends JPanel {
         gameBoard.setShowGrid(false);
         gameBoard.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         gameBoard.setIntercellSpacing(new Dimension(0, 0));
-        gameBoard.setDefaultRenderer(Object.class, new StradaRender()); 
+        gameBoard.setDefaultRenderer(Object.class, new StradaRender());   
         gameBoard.addMouseListener(new MouseAdapter() {
-        	
-        	private int iColSel;//coluna inicial
-            private int iRowCel;//linha inicial 
             
             @Override
-            public void mouseClicked(MouseEvent e) {
-                iColSel  = gameBoard.getSelectedColumn();
-                iRowCel  = gameBoard.getSelectedRow();   
-            }	
+            public void mousePressed(MouseEvent e) {
+                iCol  = gameBoard.getSelectedColumn();
+                iRow  = gameBoard.getSelectedRow();  
+             }	
 
             @Override
             public void mouseReleased(MouseEvent e) { 
-                stradaController.moveWagon(iColSel, iRowCel, gameBoard.getSelectedColumn(), gameBoard.getSelectedRow());
+               stradaController.gameFlow( iCol,  iRow, gameBoard.getSelectedColumn(), gameBoard.getSelectedRow());
             } 
 		});  
     }

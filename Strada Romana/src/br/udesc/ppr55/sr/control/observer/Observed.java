@@ -15,6 +15,7 @@ public interface Observed {
     public void removeObserver(Observer observer);   
     public void notifyPlayerPanelUpdate(int score, int gold, int vp, int cubes, int wareTiles, int contracts);  
     public void notifyStart(); 
+    public void notifyBoardUpdate();
     public void notifyEndGame();
     public void notifyPassButton(boolean isEnabled);
     public void notifyBagSize(int size) ;

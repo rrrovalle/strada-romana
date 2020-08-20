@@ -114,13 +114,12 @@ public class PlayerPanel extends JPanel implements Observer {
 	@Override
 	public void playerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {
 		this.lbScore.setText("Score:\n"+score); 
-		
+		// bag items
 		this.lbCoins.setText("Coins: \n"+coins);
 		this.lbVictoryPoints.setText("VP: \n"+vp);
 		this.lbCubes.setText("Cubes: \n"+cubes); 
 		this.lbWareTiles.setText("Ware Tiles: \n"+wareTiles);
-		this.lbContracts.setText("Contracts: \n"+contracts);
-		
+		this.lbContracts.setText("Contracts: \n"+contracts); 
 	}
 
 	@Override
@@ -131,7 +130,7 @@ public class PlayerPanel extends JPanel implements Observer {
 
 	@Override
 	public void shuffleWagonTiles() { }
-
+	
 	@Override
 	public void endGame() { }
 
@@ -142,6 +141,10 @@ public class PlayerPanel extends JPanel implements Observer {
 	public void disableButton(boolean isEnabled) {
 		this.btnPass.setEnabled(isEnabled);
 	}
+
+	@Override
+	public void startGame() { }
+	
 
 	 
 }

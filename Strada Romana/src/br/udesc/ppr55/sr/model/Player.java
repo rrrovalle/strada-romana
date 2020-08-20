@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 public class Player {
 	
     protected String name; 
+    protected int moves;
     protected int score;
     protected int gold;
     protected int victoryPoints;
@@ -39,6 +40,14 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public int getMoves() {
+    	return this.moves;
+    }
+    
+    public void setMoves(int moves) {
+    	this.moves = moves;
     }
     
     public void setTurn(boolean turn) {

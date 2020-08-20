@@ -21,7 +21,7 @@ public class BuildGameTable extends Builder {
         
         // Set the background tiles
         for( int line = 0; line < tablePiece.length; line++) {
-            for( int column = 0; column < tablePiece[line].length; column++) {
+            for( int column = 0; column < 18; column++) {
                 tablePiece[line][column] = factory.createGroundTile();
           }
         }

@@ -15,6 +15,7 @@ public interface Observer {
   void update(boolean isPaused);
   void disableButton(boolean turn);
   void shuffleWagonTiles();
+  void startGame();
   void endGame(); 
   void message(String message);
   }

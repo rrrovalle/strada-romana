@@ -21,6 +21,7 @@ import br.udesc.ppr55.sr.control.StradaController;
 import br.udesc.ppr55.sr.control.observer.Observer;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
 import br.udesc.ppr55.sr.view.command.CommandInvoker;
+import br.udesc.ppr55.sr.view.command.stradaCommands.EndTurnCommand;
 import br.udesc.ppr55.sr.view.command.stradaCommands.PlayMusicCommand;
 import br.udesc.ppr55.sr.view.command.stradaCommands.StartGameCommand;
 import br.udesc.ppr55.sr.view.command.stradaCommands.StopMusicCommand;
@@ -42,11 +43,16 @@ public class GameFrame extends JFrame implements Observer {
     private JButton btnRadio;
     private JButton btnStart;
     private JButton btnClose;
+    private JButton btnEndTurn;
     
     private JButton btnPlayerBag;
     
     private IStradaController stradaController;   
+    
     private CommandInvoker commandInvoker;
+    private StartGameCommand sgc; 
+	private EndTurnCommand etc;
+	private StopMusicCommand smc;
     
     public GameFrame() {
         super("Strada Romana");
@@ -58,7 +64,7 @@ public class GameFrame extends JFrame implements Observer {
         contentPane.setBackground(Color.GRAY);
         
         stradaController = StradaController.getInstance();
-        stradaController.setFactory(new PieceFactory());
+        stradaController.setFactory(new PieceFactory()); 
         stradaController.initializeRadio();
         commandInvoker = new CommandInvoker();
         stradaController.addObserver(this);  
@@ -73,7 +79,7 @@ public class GameFrame extends JFrame implements Observer {
 
     public void setScreenSize(int tam) {
     	if(tam == 50) {
-    		this.setSize(new Dimension(950,650));
+    		this.setSize(new Dimension(1050,750));
             this.setUndecorated(true);
             this.setLocationRelativeTo(null);
     	}else if(tam == 100) {
@@ -113,7 +119,7 @@ public class GameFrame extends JFrame implements Observer {
                 } 
             else if(status == 1)
             {
-                StopMusicCommand smc = new StopMusicCommand(stradaController);
+                smc = new StopMusicCommand(stradaController);
                 commandInvoker.add(smc);
                 commandInvoker.execute();
                
@@ -126,15 +132,23 @@ public class GameFrame extends JFrame implements Observer {
         btnPlayerBag.setEnabled(false);
         contentPane.add(btnPlayerBag);
         
+        btnEndTurn = new JButton("End Turn");
+        btnEndTurn.setEnabled(false);
+        btnEndTurn.addActionListener((ActionEvent e) -> {
+        	etc = new EndTurnCommand(stradaController);
+            commandInvoker.add(etc);
+            commandInvoker.execute();
+        });
+        contentPane.add(btnEndTurn);
+        
         btnStart = new JButton("Start");
         contentPane.add(btnStart);
         btnStart.addActionListener((ActionEvent e) -> { 
-        	StartGameCommand sgc = new StartGameCommand(stradaController);
+        	sgc = new StartGameCommand(stradaController);
             commandInvoker.add(sgc);
             commandInvoker.execute();
-            btnStart.setEnabled(false);
         });
- 
+        
         btnClose = new JButton("Exit");
              c.gridx = 5;
              c.gridy = 0;
@@ -148,8 +162,7 @@ public class GameFrame extends JFrame implements Observer {
     } 
 
     @Override
-    public void playerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {    
-    }
+    public void playerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {}
          
     @Override
     public void boardPanelUpdate() { 
@@ -165,6 +178,12 @@ public class GameFrame extends JFrame implements Observer {
     @Override
     public void shuffleWagonTiles() { }  
 
+    @Override
+    public void startGame() {
+    	btnStart.setEnabled(false);
+    	btnEndTurn.setEnabled(true);
+    }
+    
     @Override
     public void endGame() { } 
  
