@@ -6,17 +6,17 @@
  */
 package br.udesc.ppr55.sr.model.wagons;
 
-import br.udesc.ppr55.sr.model.Piece;
+import br.udesc.ppr55.sr.model.Piece; 
 
 /**
- * Curculio Portus' side class
+ * Curculio class
  * @author Rodrigo Valle
  * @since 29/07/2020
  * @version 1.0
  */
-public class CurculioPortus extends Piece {
+public class Curculio extends Piece {
 
-	public CurculioPortus() {
-		super("images/curculioPortus.png");
+	public Curculio(int side) {
+		super("images/curculio"+side+".png");
 	}
 }

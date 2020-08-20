@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import br.udesc.ppr55.sr.model.Piece;
+import br.udesc.ppr55.sr.model.Piece; 
 import br.udesc.ppr55.sr.model.wagons.faceDownWagon;
  
 public abstract class AbstractBag {
@@ -80,7 +80,7 @@ public abstract class AbstractBag {
 		this.bagSize += pieces;
 	}
 	
-	public List<Piece> shuffle(List<Piece> pieces) {
+	public List<Piece> shufflePieces(List<Piece> pieces) {
 		random = new Random(); 
 		Collections.shuffle(Arrays.asList(pieces));
 		

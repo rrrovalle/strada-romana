@@ -135,11 +135,11 @@ public class BuildGameTable extends Builder {
 	 @Override
 	 public void buildWagonsRoma(AbstractPieceFactory factory) {
 		 wagonsRoma = new ArrayList<>();
-		 wagonsRoma.addAll(Arrays.asList(factory.createBallioWagon(true), factory.createDemetriusWagon(true),
-					factory.createCanopitesWagon(true), factory.createCurculioWagon(true),
-					factory.createHamilcarWagon(true), factory.createMaccusWagon(true),
-					factory.createPersaWagon(true), factory.createPlotusWagon(true),
-					factory.createPseudolusWagon(true), factory.createHerenniusWagon(true)
+		 wagonsRoma.addAll(Arrays.asList(factory.createBallioWagon(2), factory.createDemetriusWagon(2),
+					factory.createCanopitesWagon(2), factory.createCurculioWagon(2),
+					factory.createHamilcarWagon(2), factory.createMaccusWagon(2),
+					factory.createPersaWagon(2), factory.createPlotusWagon(2),
+					factory.createPseudolusWagon(2), factory.createHerenniusWagon(2)
 					)); 
 
 		super.bag.addPiece(wagonsRoma.size());
@@ -149,11 +149,11 @@ public class BuildGameTable extends Builder {
 	 @Override
 	 public void buildWagonsPortus(AbstractPieceFactory factory) {
 		 wagonsPortus = new ArrayList<>(); 
-		 wagonsPortus.addAll(Arrays.asList(factory.createBallioWagon(false), factory.createDemetriusWagon(false),
-					factory.createCanopitesWagon(false), factory.createCurculioWagon(false),
-					factory.createHamilcarWagon(false), factory.createMaccusWagon(false),
-					factory.createPersaWagon(false), factory.createPlotusWagon(false),
-					factory.createPseudolusWagon(false), factory.createHerenniusWagon(false)
+		 wagonsPortus.addAll(Arrays.asList(factory.createBallioWagon(1), factory.createDemetriusWagon(1),
+					factory.createCanopitesWagon(1), factory.createCurculioWagon(1),
+					factory.createHamilcarWagon(1), factory.createMaccusWagon(1),
+					factory.createPersaWagon(1), factory.createPlotusWagon(1),
+					factory.createPseudolusWagon(1), factory.createHerenniusWagon(1)
 		 			));
   
 		super.bag.addPiece(wagonsPortus.size());

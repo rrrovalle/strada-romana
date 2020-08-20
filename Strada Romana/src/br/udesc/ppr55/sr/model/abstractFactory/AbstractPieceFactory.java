@@ -5,7 +5,7 @@
  * @version 1.0
  */
 package br.udesc.ppr55.sr.model.abstractFactory;
-import br.udesc.ppr55.sr.model.Piece;  
+import br.udesc.ppr55.sr.model.Piece; 
 
 public abstract class AbstractPieceFactory {  
 	
@@ -28,16 +28,16 @@ public abstract class AbstractPieceFactory {
 	public abstract Piece createContract();
 	
 	// Wagons  
-	public abstract Piece createBallioWagon(boolean isRomaSide); 
-	public abstract Piece createCanopitesWagon(boolean isRomaSide); 
-	public abstract Piece createCurculioWagon(boolean isRomaSide);
-	public abstract Piece createDemetriusWagon(boolean isRomaSide);
-	public abstract Piece createHamilcarWagon(boolean isRomaSide);
-	public abstract Piece createHerenniusWagon(boolean isRomaSide);
-	public abstract Piece createMaccusWagon(boolean isRomaSide);
-	public abstract Piece createPersaWagon(boolean isRomaSide);
-	public abstract Piece createPlotusWagon(boolean isRomaSide);
-	public abstract Piece createPseudolusWagon(boolean isRomaSide);
+	public abstract Piece createBallioWagon(int side); 
+	public abstract Piece createCanopitesWagon(int side); 
+	public abstract Piece createCurculioWagon(int side);
+	public abstract Piece createDemetriusWagon(int side);
+	public abstract Piece createHamilcarWagon(int side);
+	public abstract Piece createHerenniusWagon(int side);
+	public abstract Piece createMaccusWagon(int side);
+	public abstract Piece createPersaWagon(int side);
+	public abstract Piece createPlotusWagon(int side);
+	public abstract Piece createPseudolusWagon(int side);
 	
 	// Pieces of the board 
 	public abstract Piece createGroundTile(); 

@@ -14,7 +14,7 @@ public class Bag extends AbstractBag {
 	/* create pieces */ 
 	@Override
 	public Piece getPortusWagon(){
-		shuffle(wagonsPortus);
+		shufflePieces(wagonsPortus);
 		Piece p = wagonsPortus.get(random.nextInt(wagonsPortus.size()));  
 		wagonsPortus.remove(p); 
 		bagSize--;
@@ -23,7 +23,7 @@ public class Bag extends AbstractBag {
 
 	@Override
 	public Piece getRomaWagon(){ 
-		shuffle(wagonsRoma);
+		shufflePieces(wagonsRoma);
 		Piece r = wagonsRoma.get(random.nextInt(wagonsRoma.size()));  
 		wagonsRoma.remove(r); 
 		bagSize--;
@@ -33,7 +33,7 @@ public class Bag extends AbstractBag {
 	// starts the first turn with 30 ware tiles
 	@Override
 	public Piece getWareTile(){
-		shuffle(wareTiles);
+		shufflePieces(wareTiles);
 		Piece wt = wareTiles.get(random.nextInt(wareTiles.size()));  
 		wareTiles.remove(wt);
 		bagSize--;
@@ -43,7 +43,7 @@ public class Bag extends AbstractBag {
 	// starts the first turn with 22 cubes
 	@Override
 	public Piece getCube(){ 
-		shuffle(cubes);
+		shufflePieces(cubes);
 		Piece c = cubes.get(random.nextInt(cubes.size()));  
 		cubes.remove(c); 
 		bagSize--;
@@ -52,7 +52,7 @@ public class Bag extends AbstractBag {
 	
 	@Override
 	public Piece getAltCube(){  
-		shuffle(altCubes);
+		shufflePieces(altCubes);
 		Piece ac = altCubes.get(random.nextInt(altCubes.size()));  
 		altCubes.remove(ac); 
 		bagSize--;
@@ -61,7 +61,7 @@ public class Bag extends AbstractBag {
 	
 	@Override
 	public Piece removeCard() {
-		shuffle(wagonsDeck);
+		shufflePieces(wagonsDeck);
 		Piece card = wagonsDeck.get(random.nextInt(wagonsDeck.size()));
 		discard.setWagon(card);
 		wagonsDeck.remove(card);

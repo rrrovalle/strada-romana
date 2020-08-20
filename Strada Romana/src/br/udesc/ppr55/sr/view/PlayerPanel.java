@@ -123,13 +123,13 @@ public class PlayerPanel extends JPanel implements Observer {
 	}
 
 	@Override
-	public void showBag(int size) { }
+	public void showBag(int size) {}
 
 	@Override
-	public void update(boolean isPaused) { } 
+	public void update(boolean isPaused) {} 
 
 	@Override
-	public void shuffleWagonTiles() { }
+	public void shuffleWagonTiles() {}
 	
 	@Override
 	public void endGame() { }

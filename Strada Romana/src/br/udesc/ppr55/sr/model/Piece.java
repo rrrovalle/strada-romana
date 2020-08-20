@@ -30,6 +30,5 @@ public abstract class Piece {
     
     public void setMovable(boolean movable) {
     	this.movable = movable;
-    }
-    
+    } 
 }
