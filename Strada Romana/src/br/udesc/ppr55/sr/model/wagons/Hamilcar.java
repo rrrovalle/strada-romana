@@ -11,5 +11,6 @@ public class Hamilcar extends Piece {
 	
 	public Hamilcar(int side) {
 		super("images/hamilcar"+side+".png");
+		this.setMovable(true);
 	}
 }

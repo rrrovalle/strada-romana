@@ -11,5 +11,6 @@ public class Pseudolus extends Piece {
 
 	public Pseudolus(int side) {
 		super("images/pseudolus"+side+".png");
+		this.setMovable(true);
 	}
 }

@@ -79,6 +79,7 @@ public class Player {
     		this.gold += value;
     	}else {
         	this.victoryPoints++;
+        	this.score++;
         	this.gold = 0;
     	}
     }

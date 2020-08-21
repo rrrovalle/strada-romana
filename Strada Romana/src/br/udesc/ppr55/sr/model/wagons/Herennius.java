@@ -11,5 +11,6 @@ public class Herennius extends Piece {
 	
 	public Herennius(int side) {
 		super("images/herennius"+side+".png");
+		this.setMovable(true);
 	}
 }

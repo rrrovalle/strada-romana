@@ -18,6 +18,8 @@ import br.udesc.ppr55.sr.model.builder.Builder;
 import br.udesc.ppr55.sr.model.builder.EmperorDirector;
 import br.udesc.ppr55.sr.model.components.CubeSpotTile;
 import br.udesc.ppr55.sr.model.components.InverseCubeSpot;
+import br.udesc.ppr55.sr.model.components.RomaTile;
+import br.udesc.ppr55.sr.model.components.StradaTile;
 import br.udesc.ppr55.sr.model.components.WagonTilePortus;
 import br.udesc.ppr55.sr.model.components.WagonTileRoma;
 import br.udesc.ppr55.sr.model.components.WareSpotTile;
@@ -45,6 +47,9 @@ public class StradaController implements IStradaController {
 	private int screenSize;
 	private int pos = 1;
 	private boolean gameStatus = false;	
+	private int playerMoves;
+	private int total;
+	private int totalInv;
 	protected Piece[][] grid;
 
 	private AbstractPieceFactory factory;
@@ -197,7 +202,7 @@ public class StradaController implements IStradaController {
 	 * Add gold coin into the player bag and jump to the next player
 	 */
 	public void passPlay() {
-		if (players.get(pos).isMyTurn() == true) {
+		if (players.get(pos).isMyTurn() == true && players.get(pos).getMoves() == 3) {
 			players.get(pos).setGold(1);
 			playerPanelUpdate();
 
@@ -292,24 +297,39 @@ public class StradaController implements IStradaController {
 
 	@Override
 	public void gameFlow(int iCol, int iRow, int col, int row) {
-		if (checkMovement(iCol, col) == true) {
+		if (checkMovement(iCol, iRow, col, row)) {
 			moveWagon(iCol, iRow, col, row);
-		} else {
-			System.out.println("player moves" + players.get(pos).getMoves());
+		} else { 
+			notifyMessage(players.get(pos).getName()+" your turn is end!");
 		}
 	}
 
 	@Override
-	public boolean checkMovement(int icol, int finalColumn) {
-		int playerMoves = players.get(pos).getMoves();
-		int total = finalColumn - icol;
-		int totalOposite = icol - finalColumn;
-		if (playerMoves > 0 || playerMoves >= total) {
-			playerMoves -= total;
-			players.get(pos).setMoves(playerMoves);
-			return true;
+	/**
+	 *  check if there are still possibilities to move a wagon
+	 */
+	public boolean checkMovement(int iCol, int iRow, int col, int row) {
+		 playerMoves = players.get(pos).getMoves();
+		 total = col - iCol; 
+		 totalInv = iCol - col;
+		if(grid[iRow][iCol].isMovable() && (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)) {
+			if (playerMoves > 0) {
+					if(iCol < col) {
+						System.out.println("Esquerda. Restam: "+playerMoves);
+						playerMoves -= total;
+						players.get(pos).setMoves(playerMoves);
+						return true;
+					}else {
+						System.out.println("Direita. Restam: "+playerMoves);
+						playerMoves -= totalInv;
+						players.get(pos).setMoves(playerMoves);
+						return true;
+					}
+				}
+				return false;
+		}else {
+			return false;
 		}
-		return false;
 	}
 
 	@Override

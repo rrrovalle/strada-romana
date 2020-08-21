@@ -12,5 +12,6 @@ public class Demetrius extends Piece {
     
     public Demetrius(int side){
         super("images/demetrius"+side+".png");
+        this.setMovable(true);
     }
 }

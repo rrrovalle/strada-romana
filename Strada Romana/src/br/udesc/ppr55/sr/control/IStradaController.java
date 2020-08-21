@@ -35,6 +35,5 @@ public interface IStradaController extends Observed {
     public void passPlay();  
     
     public void gameFlow(int icol,int irow, int finalColumn, int finalRow);
-    public boolean checkMovement( int icol, int finalColumn);
-    
+    public boolean checkMovement(int iCol, int iRow, int col, int row);
 }
