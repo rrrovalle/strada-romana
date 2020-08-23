@@ -5,9 +5,7 @@
  * @version 1.0
  */
 
-package br.udesc.ppr55.sr.control;  
-
-import br.udesc.ppr55.sr.model.Piece; 
+package br.udesc.ppr55.sr.model;
 
 public class Bag extends AbstractBag { 
 	
@@ -32,9 +30,10 @@ public class Bag extends AbstractBag {
 
 	// starts the first turn with 30 ware tiles
 	@Override
-	public Piece getWareTile(){
+	public Piece getWareTile(int number){
 		shufflePieces(wareTiles);
-		Piece wt = wareTiles.get(random.nextInt(wareTiles.size()));  
+		Piece wt = wareTiles.get(random.nextInt(wareTiles.size()));   
+		wt.setPlace(number);
 		wareTiles.remove(wt);
 		bagSize--;
 		return wt;	

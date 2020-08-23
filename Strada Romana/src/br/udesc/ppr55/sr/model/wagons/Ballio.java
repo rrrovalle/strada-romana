@@ -12,5 +12,6 @@ public class Ballio extends Piece {
 	public Ballio(int side) {
 		super("images/ballio"+side+".png");
 		this.setMovable(true);
+		this.setWagon(true);
 	} 
 }

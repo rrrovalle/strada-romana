@@ -9,9 +9,9 @@ import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 
 public class EmperorDirector {
 	
-	private Builder builder;
+	private AbstractBuilder builder;
 
-    public EmperorDirector(Builder builder) {
+    public EmperorDirector(AbstractBuilder builder) {
         this.builder = builder;
     }
 

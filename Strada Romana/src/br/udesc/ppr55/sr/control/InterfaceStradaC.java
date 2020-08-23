@@ -7,11 +7,11 @@
 package br.udesc.ppr55.sr.control; 
 import javax.swing.JPanel;
 
-import br.udesc.ppr55.sr.control.observer.Observed; 
+import br.udesc.ppr55.sr.control.observer.IObserved; 
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory; 
 
-public interface IStradaController extends Observed {
+public interface InterfaceStradaC extends IObserved {
     
 	public void initializeBoard();    
     public void createPlayerPanel(String n1, String n2); 

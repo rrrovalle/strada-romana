@@ -12,5 +12,6 @@ public class Maccus extends Piece {
 	public Maccus(int side) {
 		super("images/maccus"+side+".png");
 		this.setMovable(true);
+		this.setWagon(true);
 	}
 }

@@ -11,5 +11,6 @@ public class WhiteCube extends Piece {
 
 	public WhiteCube(int side) {
 		super("images/whiteCube"+side+".png");
+		super.setCube(true);
 	}
 }

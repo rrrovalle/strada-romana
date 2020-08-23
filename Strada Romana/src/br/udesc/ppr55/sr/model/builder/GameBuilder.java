@@ -8,11 +8,11 @@ package br.udesc.ppr55.sr.model.builder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import br.udesc.ppr55.sr.control.Bag;
+import br.udesc.ppr55.sr.model.Bag;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 
-public class BuildGameTable extends Builder {
+public class GameBuilder extends AbstractBuilder {
 	 
     @Override
     public void buildStradaBoard(AbstractPieceFactory factory) {

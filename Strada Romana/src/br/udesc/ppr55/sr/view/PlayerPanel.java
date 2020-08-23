@@ -7,12 +7,11 @@
 package br.udesc.ppr55.sr.view; 
 import javax.swing.JPanel;
 
-import br.udesc.ppr55.sr.control.IStradaController;
+import br.udesc.ppr55.sr.control.InterfaceStradaC;
 import br.udesc.ppr55.sr.control.StradaController;
-import br.udesc.ppr55.sr.control.observer.Observer;
+import br.udesc.ppr55.sr.control.observer.IObserver;
 import br.udesc.ppr55.sr.view.command.CommandInvoker;
-import br.udesc.ppr55.sr.view.command.stradaCommands.PassPlay;
-import br.udesc.ppr55.sr.view.command.stradaCommands.StartGameCommand;
+import br.udesc.ppr55.sr.view.command.stradaCommands.PassPlay; 
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,9 +20,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory; 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.border.Border; 
-public class PlayerPanel extends JPanel implements Observer {
+import javax.swing.JLabel; 
+public class PlayerPanel extends JPanel implements IObserver {
 
 	private static final long serialVersionUID = 5040820868743358336L;
 	
@@ -39,7 +37,7 @@ public class PlayerPanel extends JPanel implements Observer {
 	private JLabel lbContracts;
 	private JLabel lbCoins;
 	private JLabel lbVictoryPoints; 
-	private IStradaController stradaController;
+	private InterfaceStradaC stradaController;
 	private CommandInvoker commandInvoker;
 	
 	public PlayerPanel() {  
@@ -91,6 +89,7 @@ public class PlayerPanel extends JPanel implements Observer {
 			if(!playerBag.isActive()) { 
 				playerBag.setTitle(lbName.getText()+" Bag"); 
 				playerBag.setSize(250,100);  
+				playerBag.setLocationRelativeTo(null);
 				playerBag.setResizable(false);
 				playerBag.setVisible(true);
 			}

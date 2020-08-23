@@ -11,5 +11,6 @@ public class WhiteWareTile extends Piece {
 
 	public WhiteWareTile() {
 		super("images/whiteWareTile.png");
+		super.setWareTile(true);
 	}
 }

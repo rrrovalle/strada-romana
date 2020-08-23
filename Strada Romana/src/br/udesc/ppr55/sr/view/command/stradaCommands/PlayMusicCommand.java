@@ -5,12 +5,12 @@
  * @version 1.0
  */
 package br.udesc.ppr55.sr.view.command.stradaCommands;
-import br.udesc.ppr55.sr.control.IStradaController;
+import br.udesc.ppr55.sr.control.InterfaceStradaC;
 import br.udesc.ppr55.sr.view.command.StradaCommander; 
 
 public class PlayMusicCommand extends StradaCommander {
 	
-	public PlayMusicCommand(IStradaController controller) {
+	public PlayMusicCommand(InterfaceStradaC controller) {
 		super(controller);
 	}
 	 

@@ -9,10 +9,10 @@ package br.udesc.ppr55.sr.control.observer;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 
-public interface Observed {
+public interface IObserved {
 	
-	public void addObserver(Observer observer);
-    public void removeObserver(Observer observer);   
+	public void addObserver(IObserver observer);
+    public void removeObserver(IObserver observer);   
     public void notifyPlayerPanelUpdate(int score, int gold, int vp, int cubes, int wareTiles, int contracts);  
     public void notifyStart(); 
     public void notifyBoardUpdate();

@@ -7,7 +7,7 @@
 
 package br.udesc.ppr55.sr.control.observer;
 
-public interface Observer {   
+public interface IObserver {   
   void boardPanelUpdate();
   void setPlayerPanel();
   void playerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts); 

@@ -16,7 +16,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel; 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import br.udesc.ppr55.sr.control.IStradaController;
+import br.udesc.ppr55.sr.control.InterfaceStradaC;
 import br.udesc.ppr55.sr.utils.ImageRenderer;  
  
 @SuppressWarnings("serial")
@@ -51,19 +51,19 @@ public class BoardFrame extends JPanel {
         private static final long serialVersionUID = 1L;
         
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(ImageRenderer.redimensionaImagem((ImageIcon)value, screenSize, screenSize));
+            setIcon(ImageRenderer.resizeImage((ImageIcon)value, screenSize, screenSize));
             return this;
        }
     }
     
-    private IStradaController stradaController; 
+    private InterfaceStradaC stradaController; 
     private JTable gameBoard;
     
     protected int screenSize; 
 	public int iCol;//coluna inicial
     public int iRow;//linha inicial 
     
-    public BoardFrame(IStradaController stradaController) {
+    public BoardFrame(InterfaceStradaC stradaController) {
         this.stradaController = stradaController;
         this.screenSize = stradaController.getScreenSize();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

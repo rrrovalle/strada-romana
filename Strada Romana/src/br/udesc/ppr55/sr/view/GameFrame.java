@@ -16,19 +16,20 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel; 
 import javax.swing.border.EmptyBorder;
-import br.udesc.ppr55.sr.control.IStradaController;
+import br.udesc.ppr55.sr.control.InterfaceStradaC;
 import br.udesc.ppr55.sr.control.StradaController;
-import br.udesc.ppr55.sr.control.observer.Observer;
+import br.udesc.ppr55.sr.control.observer.IObserver;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
 import br.udesc.ppr55.sr.view.command.CommandInvoker;
 import br.udesc.ppr55.sr.view.command.stradaCommands.EndTurnCommand;
+import br.udesc.ppr55.sr.view.command.stradaCommands.FulfilPiecesCommand;
 import br.udesc.ppr55.sr.view.command.stradaCommands.PlayMusicCommand;
 import br.udesc.ppr55.sr.view.command.stradaCommands.StartGameCommand;
 import br.udesc.ppr55.sr.view.command.stradaCommands.StopMusicCommand;
 
 import java.awt.Dimension;
  
-public class GameFrame extends JFrame implements Observer {
+public class GameFrame extends JFrame implements IObserver {
  
     /**
      * Serial
@@ -47,13 +48,14 @@ public class GameFrame extends JFrame implements Observer {
     
     private JButton btnPlayerBag;
     
-    private IStradaController stradaController;   
+    private InterfaceStradaC stradaController;   
     
     private CommandInvoker commandInvoker;
     private StartGameCommand sgc; 
 	private EndTurnCommand etc;
 	private StopMusicCommand smc;
-    
+	private FulfilPiecesCommand fpc;
+	
     public GameFrame() {
         super("Strada Romana");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
@@ -130,6 +132,11 @@ public class GameFrame extends JFrame implements Observer {
         
         btnPlayerBag = new JButton("Game Bag");
         btnPlayerBag.setEnabled(false);
+        btnPlayerBag.addActionListener((ActionEvent e) -> {
+        	fpc = new FulfilPiecesCommand(stradaController);
+            commandInvoker.add(fpc);
+            commandInvoker.execute();
+        });
         contentPane.add(btnPlayerBag);
         
         btnEndTurn = new JButton("End Turn");

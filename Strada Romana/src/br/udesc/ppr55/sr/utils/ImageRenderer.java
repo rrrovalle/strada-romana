@@ -19,11 +19,11 @@ public class ImageRenderer {
     public ImageRenderer() {}
      
     /**
-     * Converte icon em image
+     * Transform image into a Icon
      * 
      * @return image 
      */
-    public static Image converterIconImagem(Icon icon) {
+    public static Image transformImage(Icon icon) {
         
         if (icon.getClass() == ImageIcon.class) {
            return ((ImageIcon)icon).getImage();
@@ -43,14 +43,14 @@ public class ImageRenderer {
     /**
      * Redimensiona a imagem passada
      * 
-     * @param oImagem - Icon a ser redimensionado
-     * @param iComp   - comprimento
-     * @param iAlt    - altura
+     * @param oImage - Icon to be resized
+     * @param iWidth   - width
+     * @param iHeight    - height 
      * @return Icon
      */
-    public static Icon redimensionaImagem(Icon oImagem, int iComp, int iAlt) {
-        ImageIcon oImgIcon = new ImageIcon(converterIconImagem(oImagem));
-        oImgIcon.setImage(oImgIcon.getImage().getScaledInstance(iComp, iAlt, 0));
+    public static Icon resizeImage(Icon oImage, int iWidth, int iHeight) {
+        ImageIcon oImgIcon = new ImageIcon(transformImage(oImage));
+        oImgIcon.setImage(oImgIcon.getImage().getScaledInstance(iWidth, iHeight, 0));
         
         return oImgIcon;
     } 

@@ -12,5 +12,6 @@ public class Plotus extends Piece {
 	public Plotus(int side) {
 		super("images/plotus"+side+".png");
 		this.setMovable(true);
+		this.setWagon(true);
 	}
 }

@@ -6,12 +6,12 @@
  */
 package br.udesc.ppr55.sr.view.command.stradaCommands;
 
-import br.udesc.ppr55.sr.control.IStradaController;
+import br.udesc.ppr55.sr.control.InterfaceStradaC;
 import br.udesc.ppr55.sr.view.command.StradaCommander;
 
 public class StopMusicCommand extends StradaCommander {
 		
-		public StopMusicCommand(IStradaController controller) {
+		public StopMusicCommand(InterfaceStradaC controller) {
 			super(controller);
 		}
 		 

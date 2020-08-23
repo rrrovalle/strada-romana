@@ -75,7 +75,7 @@ public class Player {
     }
     
     public void setGold(int value) { 
-    	if(this.gold != 5) {
+    	if(this.gold < 5) {
     		this.gold += value;
     	}else {
         	this.victoryPoints++;
@@ -101,16 +101,16 @@ public class Player {
 		return wareTiles;
 	}
 
-	public void setWareTiles(List<Piece> wareTiles) {
-		this.wareTiles = wareTiles;
+	public void setWareTiles(Piece wareTile) {
+		this.wareTiles.add(wareTile);
 	}
 
 	public List<Piece> getCubes() {
 		return cubes;
 	}
 
-	public void setCubes(List<Piece> cubes) {
-		this.cubes = cubes;
+	public void setCubes(Piece cube) { 
+		this.cubes.add(cube);
 	}
 
 	public List<Piece> getContracts() {

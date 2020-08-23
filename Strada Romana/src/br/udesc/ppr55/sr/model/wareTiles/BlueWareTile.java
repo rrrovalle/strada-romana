@@ -11,5 +11,6 @@ public class BlueWareTile extends Piece {
 
 	public BlueWareTile() {
 		super("images/blueWareTile.png");
+		super.setWareTile(true);	 
 	}
 }

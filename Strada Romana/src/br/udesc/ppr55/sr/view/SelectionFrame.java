@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import br.udesc.ppr55.sr.control.IStradaController;
+import br.udesc.ppr55.sr.control.InterfaceStradaC;
 import br.udesc.ppr55.sr.control.StradaController;
 import br.udesc.ppr55.sr.view.command.CommandInvoker;
 import br.udesc.ppr55.sr.view.command.stradaCommands.CreatePlayerPanelCommand; 
@@ -39,7 +39,7 @@ public class SelectionFrame extends JFrame {
 	private JTextField txtPlayer2; 
 	private JCheckBox screenSize;
 	
-    private IStradaController stradaController;
+    private InterfaceStradaC stradaController;
     
     private CommandInvoker commandInvoker;
     private SetScreenSizeCommand ssc;

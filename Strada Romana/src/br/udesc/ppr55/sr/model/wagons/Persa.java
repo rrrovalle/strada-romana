@@ -12,5 +12,6 @@ public class Persa extends Piece {
 	public Persa(int side) {
 		super("images/persa"+side+".png"); 
 		this.setMovable(true);
+		this.setWagon(true);
 	}
 }

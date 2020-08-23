@@ -9,7 +9,7 @@ import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import br.udesc.ppr55.sr.control.observer.Observer; 
+import br.udesc.ppr55.sr.control.observer.IObserver; 
 
 public class Audio {  
 	private String path;

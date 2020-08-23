@@ -5,12 +5,12 @@
  * @version 1.0
  */
 package br.udesc.ppr55.sr.view.command;
-import br.udesc.ppr55.sr.control.IStradaController; 
+import br.udesc.ppr55.sr.control.InterfaceStradaC; 
 
 public abstract class StradaCommander implements Command {
-	protected IStradaController controller;
+	protected InterfaceStradaC controller;
 	
-	public StradaCommander(IStradaController controller) {
+	public StradaCommander(InterfaceStradaC controller) {
 		this.controller = controller;
 	}  
 }

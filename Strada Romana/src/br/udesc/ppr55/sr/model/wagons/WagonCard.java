@@ -11,6 +11,6 @@ import br.udesc.ppr55.sr.model.Piece;
 public class WagonCard extends Piece {
 	
 	public WagonCard(int number) {
-		super("images/card"+number+".png");
+		super("images/card"+number+".png"); 
 	}
 }

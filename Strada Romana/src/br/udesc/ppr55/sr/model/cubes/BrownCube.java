@@ -11,5 +11,6 @@ public class BrownCube extends Piece {
 
 	public BrownCube(int side) {
 		super("images/brownCube"+side+".png");
+		super.setCube(true);
 	}
 }

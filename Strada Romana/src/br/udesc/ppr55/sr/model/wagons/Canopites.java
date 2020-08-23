@@ -12,5 +12,6 @@ public class Canopites extends Piece {
 	public Canopites(int side) {
 		super("images/Canopites"+side+".png");
 		this.setMovable(true);
+		this.setWagon(true);
 	}
 }
