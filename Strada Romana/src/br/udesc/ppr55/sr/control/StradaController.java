@@ -40,8 +40,7 @@ public class StradaController implements InterfaceStradaC {
 
 	private static StradaController instance;
 	private EmperorDirector director;
-	private AbstractBuilder builderGameTable;
-	private GameEngineController gameEngineController;
+	private AbstractBuilder builderGameTable; 
 	
 	private Audio audio;
 
@@ -85,7 +84,11 @@ public class StradaController implements InterfaceStradaC {
 		this.observers.add(observer);
 	}
 
-	// STRADA CONTROLLER
+	// STRADA CONTROLLER MIND
+	
+	/*
+	 * Core Methods 
+	 */
 	@Override
 	public void initializeBoard() {
 		this.builderGameTable = new GameBuilder();
@@ -94,10 +97,72 @@ public class StradaController implements InterfaceStradaC {
 	}
 
 	@Override
+	public void createPlayerPanel(String n1, String n2) {
+		players.add(new Player(new PlayerPanel(), n1));
+		players.add(new Player(new PlayerPanel(), n2));
+	}
+	
+	@Override
+	public void restartPlayerPanel(JPanel panel) {
+		for (int i = 0; i < players.size(); i++) {
+			panel.add(players.get(i).getPanel());
+			players.get(i).getPanel().setName(players.get(i).getName());
+		}
+	}
+	
+	/*
+	 * Music control 
+	 */
+	@Override
+	/**
+	 * Set the audio file
+	 */
+	public void setRadio() {
+		this.audio = new Audio(
+				"music/Pillars of Eternity II Deadfire Soundtrack 11 - Queen's Berth (Justin Bell) - Rodrigo Valle REMIX.wav");
+		this.audio.playMusic();
+	}
+
+	@Override
+	public void initializeRadio() {
+		this.setRadio();
+	}
+	
+	@Override
+	public void playRadio() {
+		this.audio.play();
+	}
+
+	@Override
+	public void stopRadio() {
+		this.audio.stop();
+	} 
+
+	/*
+	 * Factory control
+	 */
+	@Override
+	public AbstractPieceFactory getFactory() {
+		return factory;
+	}
+
+	@Override
+	public void setFactory(PieceFactory pieceFactory) {
+		this.factory = pieceFactory;
+		this.initializeBoard();
+		this.gameStatus = false;
+	}
+
+	/*
+	 *  Basic Game control methods
+	 */
+	@Override
 	public void startGame() {
 		this.grid = this.builderGameTable.getTable().getGrid();
+		this.builderGameTable.getBag().loadFirstWareTiles();
 		addWagon();
-		addCubeAndWareTiles();
+		addWareTiles();
+		//fillCubesAndWareTiles();
 		removeWagonTile();
 		System.out.println(this.builderGameTable.getBag().toString());
 
@@ -117,25 +182,6 @@ public class StradaController implements InterfaceStradaC {
 
 		this.notifyBagSize(this.builderGameTable.getBag().getBagSize());
 		this.notifyMessage("To move a wagon just grab and drag it to a different place!");
-	}
-
-	@Override
-	public void createPlayerPanel(String n1, String n2) {
-		players.add(new Player(new PlayerPanel(), n1));
-		players.add(new Player(new PlayerPanel(), n2));
-	}
-
-	@Override
-	public void initializeRadio() {
-		this.setRadio();
-	}
-
-	@Override
-	public void restartPlayerPanel(JPanel panel) {
-		for (int i = 0; i < players.size(); i++) {
-			panel.add(players.get(i).getPanel());
-			players.get(i).getPanel().setName(players.get(i).getName());
-		}
 	}
 	
 	@Override
@@ -169,36 +215,9 @@ public class StradaController implements InterfaceStradaC {
 	}
 
 	@Override
-	public void notifyPassButton(boolean isEnabled) {
-		observers.get(pos).disableButton(isEnabled);
-	}
-
-	@Override
 	public String getPiece(int col, int row) {
 		return (builderGameTable.getTable().getGrid()[col][row] == null ? null
 				: builderGameTable.getTable().getGrid()[col][row].getImage());
-	}
-
-	@Override
-	public AbstractPieceFactory getFactory() {
-		return factory;
-	}
-
-	@Override
-	public void setFactory(PieceFactory pieceFactory) {
-		this.factory = pieceFactory;
-		this.initializeBoard();
-		this.gameStatus = false;
-	}
-
-	@Override
-	/**
-	 * Set the audio file
-	 */
-	public void setRadio() {
-		this.audio = new Audio(
-				"music/Pillars of Eternity II Deadfire Soundtrack 11 - Queen's Berth (Justin Bell) - Rodrigo Valle REMIX.wav");
-		this.audio.playMusic();
 	}
 
 	public void playerPanelUpdate() {
@@ -210,16 +229,6 @@ public class StradaController implements InterfaceStradaC {
 	@Override
 	public void notifyPlayerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {
 		observers.get(pos).playerPanelUpdate(score, coins, vp, cubes, wareTiles, contracts);
-	}
-
-	@Override
-	public void playRadio() {
-		this.audio.play();
-	}
-
-	@Override
-	public void stopRadio() {
-		this.audio.stop();
 	}
 
 	@Override
@@ -251,12 +260,24 @@ public class StradaController implements InterfaceStradaC {
 			}
 		}
 	}
-
+	
+	@Override
+	public void addWareTiles() {
+		//Placing 6 “ware” tiles (one of each colour) at random on the dedicated area squares	 
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 17; j++) {
+				if (grid[i][j].getClass() == WareSpotTile.class) {
+					grid[i][j] = this.builderGameTable.getBag().getRandomWareTile(grid[i][j].getPlace());
+				}
+			}
+		}
+	}
+	
 	@Override
 	/**
 	 * Add cubes and ware tiles to the game board at the predefined position
 	 */
-	public void addCubeAndWareTiles() {
+	public void fillCubesAndWareTiles() {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 17; j++) {
 				if (grid[i][j].getClass() == CubeSpotTile.class) {
@@ -286,41 +307,7 @@ public class StradaController implements InterfaceStradaC {
 		}
 	}
 
-	@Override
-	public void setScreenSize(int size) {
-		this.screenSize = size;
-	}
 
-	@Override
-	public int getScreenSize() {
-		return screenSize;
-	}
-
-	@Override
-	public void notifyStart() {
-		for (IObserver observer : observers) {
-			observer.boardPanelUpdate();
-			observer.startGame();
-		}
-	}
-
-	@Override
-	public void notifyEndGame() {
-	}
-
-	@Override
-	public void notifyMessage(String message) {
-		for (IObserver observer : observers) {
-			observer.message(message);
-		}
-	}
-
-	@Override
-	public void notifyBagSize(int size) {
-		for (IObserver observer : observers) {
-			observer.showBag(size);
-		}
-	}
 
 	@Override
 	public void gameFlow(int iCol, int iRow, int col, int row) {
@@ -337,10 +324,11 @@ public class StradaController implements InterfaceStradaC {
 		} 
 	}
 	
+	@Override
 	public void takingCube(int iCol, int iRow) {  
 		if(confirmOccupiedCubeConnectedTile(iCol, iRow)){
 			if(cubeLimit == 0 && wareLimit == 0) {
-				notifyMessage("You take the cube!"); 
+				notifyMessage("You took the cube!"); 
 				players.get(pos).setCubes((Piece) (grid[iRow][iCol])); 
 				cubeLimit++;
 					if(iRow >= 2) { 
@@ -358,12 +346,13 @@ public class StradaController implements InterfaceStradaC {
 		playerPanelUpdate();
 	}
 	
+	@Override
 	public void takingWareTile(int iCol,int iRow) {
 		
 		if(confirmWareTilePick(iCol, iRow)) {
 			if(wareLimit == 0 && cubeLimit == 0) {
 				players.get(pos).setWareTiles((Piece) (grid[iRow][iCol]));  
-				notifyMessage("Get the ware tile!"); 
+				notifyMessage("You took the ware tile!"); 
 				grid[iRow][iCol] = factory.createWareSpotTile(grid[iRow][iCol].getPlace()); 
 				wareLimit++;
 				System.out.println(players.get(pos).getWareTiles());
@@ -377,6 +366,7 @@ public class StradaController implements InterfaceStradaC {
 		playerPanelUpdate();
 	}
 	
+	@Override
 	public void movingWagon(int iCol,int  iRow, int col, int row) {
 		if (checkMovement(iCol, iRow, col, row)) {
 				moveWagon(iCol, iRow, col, row);
@@ -384,7 +374,8 @@ public class StradaController implements InterfaceStradaC {
 				notifyMessage(players.get(pos).getName()+" your turn is end!");
 			}
 	}
-	
+
+	@Override
 	public int checkAction(int iCol, int iRow) {  
 			if(grid[iRow][iCol].isCube())  {
 					return 2;
@@ -442,6 +433,7 @@ public class StradaController implements InterfaceStradaC {
 		notifyBoardUpdate();
 	}
 	
+	@Override
 	public boolean confirmOccupiedCubeConnectedTile(int iCol, int iRow) {
 		//find all the cube connected tiles and confirm the wagon position besides it
 		if(grid[iRow][iCol] == grid[8][1] && grid[6][1].getClass() != StradaTile.class) {	 
@@ -476,31 +468,33 @@ public class StradaController implements InterfaceStradaC {
 		return false;
 	}
 	
+	@Override
 	public boolean confirmWareTilePick(int iCol, int iRow) {  
 		// check if player can grab a ware tile
-		if(grid[iRow][iCol] == grid[0][4] && findPlayerPosition(iCol,iRow) == 1 || findPlayerPosition(iCol,iRow) == 3) {
+		if(grid[iRow][iCol] == grid[0][4] && (findWagons(iCol,iRow) == 1 || findWagons(iCol,iRow) == 3)) {
 			return true;
-		}else if(grid[iRow][iCol] == grid[8][3] && findPlayerPosition(iCol,iRow) == 2 || findPlayerPosition(iCol,iRow) == 3 ){
+		}else if(grid[iRow][iCol] == grid[8][3] && (findWagons(iCol,iRow) == 2 || findWagons(iCol,iRow) == 3)){
 			return true;
-		} else if (grid[iRow][iCol] == grid[0][8] && findPlayerPosition(iCol,iRow) == 1 || findPlayerPosition(iCol,iRow) == 3 ) {
+		} else if (grid[iRow][iCol] == grid[0][8] && (findWagons(iCol,iRow) == 1 || findWagons(iCol,iRow) == 3 )) {
 			return true;
-		} else if (grid[iRow][iCol] == grid[8][10] && findPlayerPosition(iCol,iRow) == 2 || findPlayerPosition(iCol,iRow) == 3 ) {
+		} else if (grid[iRow][iCol] == grid[8][10] && (findWagons(iCol,iRow) == 2 || findWagons(iCol,iRow) == 3 )) {
 			return true;
-		} else if (grid[iRow][iCol] == grid[0][14] && findPlayerPosition(iCol,iRow) == 1 || findPlayerPosition(iCol,iRow) == 3 ) {
+		} else if (grid[iRow][iCol] == grid[0][14] && (findWagons(iCol,iRow) == 1 || findWagons(iCol,iRow) == 3 )){
 			return true;
-		} else if (grid[iRow][iCol] == grid[8][14] && findPlayerPosition(iCol,iRow) == 2 || findPlayerPosition(iCol,iRow) == 3 ) {
+		} else if (grid[iRow][iCol] == grid[8][14] && (findWagons(iCol,iRow) == 2 || findWagons(iCol,iRow) == 3 )) {
 			return true;
 		}
 		return false;
 	}
 	
+	@Override
 	/**
 	 * 
 	 * @param iRow
 	 * @param iCol
 	 * @return 1: top square; 2: bottom square; 3: middle square
 	 */
-	public int findPlayerPosition(int iCol, int iRow) {  
+	public int findWagons(int iCol, int iRow) {  
 		int result = 0;
 		if(grid[iRow][iCol] == grid[0][4]) {
 			for (int i = 2; i <= 3; i++) {
@@ -597,11 +591,53 @@ public class StradaController implements InterfaceStradaC {
 		}
 		return result;
 	} 
-	
+ 
+	//Notifications
 	@Override
 	public void notifyBoardUpdate() {
 		for (IObserver observer : observers) {
 			observer.boardPanelUpdate();
+		}
+	}
+	
+	@Override
+	public void notifyPassButton(boolean isEnabled) {
+		observers.get(pos).disableButton(isEnabled);
+	}
+	
+	@Override
+	public void setScreenSize(int size) {
+		this.screenSize = size;
+	}
+
+	@Override
+	public int getScreenSize() {
+		return screenSize;
+	}
+
+	@Override
+	public void notifyStart() {
+		for (IObserver observer : observers) {
+			observer.boardPanelUpdate();
+			observer.startGame();
+		}
+	}
+
+	@Override
+	public void notifyEndGame() {
+	}
+
+	@Override
+	public void notifyMessage(String message) {
+		for (IObserver observer : observers) {
+			observer.message(message);
+		}
+	}
+
+	@Override
+	public void notifyBagSize(int size) {
+		for (IObserver observer : observers) {
+			observer.showBag(size);
 		}
 	}
 

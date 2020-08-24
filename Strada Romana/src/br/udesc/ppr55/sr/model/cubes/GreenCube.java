@@ -13,5 +13,6 @@ public class GreenCube extends Piece {
 	public GreenCube(int side) {
 		super("images/greenCube"+side+".png"); 
 		super.setCube(true);
+		super.setColor("green");
 	}
 }

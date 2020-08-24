@@ -10,6 +10,7 @@ public abstract class Piece {
     
     private String image;
     private int place;
+    private String color;
     
     private boolean movable;
     private boolean isCube;
@@ -27,6 +28,14 @@ public abstract class Piece {
     
     public void setImage(String image){
         this.image = image;
+    }
+    
+    public String getColor() {
+    	return color;
+    }
+    
+    public void setColor(String color) {
+    	this.color = color;
     }
     
     public int getPlace(){
@@ -67,11 +76,5 @@ public abstract class Piece {
     
     public void setWagon(boolean isWagon) {
     	this.isWagon = isWagon;
-    }
-    
-    
-    
-    
-    
-    
+    }  
 }

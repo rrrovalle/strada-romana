@@ -12,5 +12,6 @@ public class BrownWareTile extends Piece {
 	public BrownWareTile() {
 		super("images/brownWareTile.png");
 		super.setWareTile(true);
+		super.setColor("brown");
 	}
 }

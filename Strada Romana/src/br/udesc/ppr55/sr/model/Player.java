@@ -20,7 +20,7 @@ public class Player {
     protected JPanel panelPlayer;
     protected List<Piece> wareTiles;
 	protected List<Piece> cubes;
-	protected List<Piece> contracts;
+	protected List<String> contracts;
 	
 	protected boolean myTurn;
 	
@@ -102,7 +102,14 @@ public class Player {
 	}
 
 	public void setWareTiles(Piece wareTile) {
-		this.wareTiles.add(wareTile);
+		for(int i=0; i<cubes.size(); i++) {  
+			if(cubes.get(i).getColor() == wareTile.getColor()) {
+				contracts.add(wareTile.getColor());
+				cubes.remove(i);
+			}else {
+				this.wareTiles.add(wareTile);
+			}
+		}
 	}
 
 	public List<Piece> getCubes() {
@@ -113,12 +120,12 @@ public class Player {
 		this.cubes.add(cube);
 	}
 
-	public List<Piece> getContracts() {
+	public List<String> getContracts() {
 		return contracts;
 	}
 
-	public void setContracts(List<Piece> contracts) {
-		this.contracts = contracts;
+	public void setContracts(String pieceColor) {
+		contracts.add(pieceColor);
 	}
 
 	@Override

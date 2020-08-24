@@ -11,6 +11,6 @@ public class FulfilPiecesCommand extends StradaCommander {
 	
 	@Override
 	public void execute() {
-		controller.addCubeAndWareTiles();
+		controller.fillCubesAndWareTiles();
 	}
 }

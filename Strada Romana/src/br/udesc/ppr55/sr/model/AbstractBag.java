@@ -17,6 +17,9 @@ public abstract class AbstractBag {
 	protected List<Piece> wagonsPortus = new ArrayList<>();  
 	protected List<Piece> wagonsDeck   = new ArrayList<>();
 	protected faceDownWagon discard    = new faceDownWagon();
+	
+	protected ArrayList<Piece> first;
+	
 	protected int bagSize;
 	
 	protected Random random; 
@@ -86,8 +89,15 @@ public abstract class AbstractBag {
 		return pieces;
 	}
 	
+	public void loadFirstWareTiles() { 
+		first = new ArrayList<>();
+		first.addAll(Arrays.asList(wareTiles.get(5),wareTiles.get(11),wareTiles.get(17),wareTiles.get(23),wareTiles.get(29),wareTiles.get(35)));
+		
+	}
+	
 	public abstract Piece getPortusWagon();
 	public abstract Piece getRomaWagon();
+	public abstract Piece getRandomWareTile(int number);
 	public abstract Piece getWareTile(int number);
 	public abstract Piece getCube();
 	public abstract Piece getAltCube();

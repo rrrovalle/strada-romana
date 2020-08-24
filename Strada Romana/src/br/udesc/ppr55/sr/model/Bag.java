@@ -7,6 +7,10 @@
 
 package br.udesc.ppr55.sr.model;
 
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Bag extends AbstractBag { 
 	
 	/* create pieces */ 
@@ -27,6 +31,16 @@ public class Bag extends AbstractBag {
 		bagSize--;
 		return r;
 	} 
+	
+	@Override
+	public Piece getRandomWareTile(int number) {
+		shufflePieces(first);
+		Piece random = first.get(0);
+		random.setPlace(number);
+		first.remove(0);
+		bagSize--;
+		return random;
+	}
 
 	// starts the first turn with 30 ware tiles
 	@Override

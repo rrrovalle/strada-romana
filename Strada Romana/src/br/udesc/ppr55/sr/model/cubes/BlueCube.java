@@ -12,5 +12,6 @@ public class BlueCube extends Piece {
 	public BlueCube(int side) {
 		super("images/blueCube"+side+".png");
 		super.setCube(true);
+		super.setColor("blue");
 	} 
 }
