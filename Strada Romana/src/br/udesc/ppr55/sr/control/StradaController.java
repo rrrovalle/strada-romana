@@ -102,6 +102,31 @@ public class StradaController implements InterfaceStradaC {
 		players.add(new Player(new PlayerPanel(), n2));
 	}
 	
+	
+	@Override
+	public void initializeRadio() {
+		this.setRadio();
+	}
+	
+	
+	public void setRadio() {
+		this.audio = new Audio(
+				"music/Pillars of Eternity II Deadfire Soundtrack 11 - Queen's Berth (Justin Bell) - Rodrigo Valle REMIX.wav");
+		this.audio.playMusic();
+	}
+	
+	@Override
+	public void playRadio() {
+		this.audio.play();
+	}
+	
+	
+	@Override
+	public void stopRadio() {
+		this.audio.stop();
+	} 
+	
+	
 	@Override
 	public void restartPlayerPanel(JPanel panel) {
 		for (int i = 0; i < players.size(); i++) {
@@ -110,141 +135,33 @@ public class StradaController implements InterfaceStradaC {
 		}
 	}
 	
-	/*
-	 * Music control 
-	 */
-	@Override
-	/**
-	 * Set the audio file
-	 */
-	public void setRadio() {
-		this.audio = new Audio(
-				"music/Pillars of Eternity II Deadfire Soundtrack 11 - Queen's Berth (Justin Bell) - Rodrigo Valle REMIX.wav");
-		this.audio.playMusic();
-	}
-
-	@Override
-	public void initializeRadio() {
-		this.setRadio();
-	}
 	
 	@Override
-	public void playRadio() {
-		this.audio.play();
+	public String getPiece(int col, int row) {
+		return (builderGameTable.getTable().getGrid()[col][row] == null ? null
+				: builderGameTable.getTable().getGrid()[col][row].getImage());
 	}
-
-	@Override
-	public void stopRadio() {
-		this.audio.stop();
-	} 
-
-	/*
-	 * Factory control
-	 */
-	@Override
-	public AbstractPieceFactory getFactory() {
-		return factory;
-	}
-
+	
 	@Override
 	public void setFactory(PieceFactory pieceFactory) {
 		this.factory = pieceFactory;
 		this.initializeBoard();
 		this.gameStatus = false;
 	}
-
+	
+	
+	@Override
+	public AbstractPieceFactory getFactory() {
+		return factory;
+	}
+	
+	
+	
+	
 	/*
-	 *  Basic Game control methods
+	 * Game basic control methods
 	 */
-	@Override
-	public void startGame() {
-		this.grid = this.builderGameTable.getTable().getGrid();
-		this.builderGameTable.getBag().loadFirstWareTiles();
-		addWagon();
-		addWareTiles();
-		//fillCubesAndWareTiles();
-		removeWagonTile();
-		System.out.println(this.builderGameTable.getBag().toString());
-
-		this.yellowBorder = BorderFactory.createLineBorder(Color.yellow);
-		this.blackBorder = BorderFactory.createLineBorder(Color.black);
-
-		// adjusts game bag
-		this.builderGameTable.getBag().addPiece(-44);
-		this.gameStatus = true;
-		// set a random player to start the match
-		random = new Random();
-		this.pos = random.nextInt(2); 
-		controlPlayerTurn();
-		notifyStart();
-		
-		playerPanelUpdate();
-
-		this.notifyBagSize(this.builderGameTable.getBag().getBagSize());
-		this.notifyMessage("To move a wagon just grab and drag it to a different place!");
-	}
 	
-	@Override
-	public void controlPlayerTurn() {
-		round++;
-		// set black border and change the position to false before pass turn
-		players.get(pos).getPanel().setBorder(blackBorder);
-		notifyPassButton(false);
-		players.get(pos).setMoves(0);
-		players.get(pos).setTurn(false);
-
-		if (pos == 0) {
-			pos++;
-		} else {
-			pos--;
-		}
-		if(round == 2) {
-			players.get(pos).setGold(1);
-		}
-		// set the player turn and yellow border
-		resetGameTurn();
-		notifyPassButton(true);
-		players.get(pos).getPanel().setBorder(yellowBorder);
-	}
-	
-	public void resetGameTurn() {
-		players.get(pos).setTurn(true);
-		players.get(pos).setMoves(3);
-		cubeLimit = 0;
-		wareLimit = 0;
-	}
-
-	@Override
-	public String getPiece(int col, int row) {
-		return (builderGameTable.getTable().getGrid()[col][row] == null ? null
-				: builderGameTable.getTable().getGrid()[col][row].getImage());
-	}
-
-	public void playerPanelUpdate() {
-		notifyPlayerPanelUpdate(players.get(pos).getScore(), players.get(pos).getGold(), players.get(pos).getVPoints(),
-				players.get(pos).getCubes().size(), players.get(pos).getWareTiles().size(),
-				players.get(pos).getContracts().size());
-	}
-
-	@Override
-	public void notifyPlayerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {
-		observers.get(pos).playerPanelUpdate(score, coins, vp, cubes, wareTiles, contracts);
-	}
-
-	@Override
-	/**
-	 * Add gold coin into the player bag and jump to the next player
-	 */
-	public void passPlay() {
-		if (players.get(pos).isMyTurn() == true && players.get(pos).getMoves() == 3) {
-			players.get(pos).setGold(1);
-			playerPanelUpdate();
-
-			controlPlayerTurn();
-			notifyMessage("It's " + players.get(pos).getName() + " turn!");
-		}
-	}
-
 	@Override
 	/**
 	 * Add wagons to the game board at the predefined position
@@ -261,6 +178,7 @@ public class StradaController implements InterfaceStradaC {
 		}
 	}
 	
+	
 	@Override
 	public void addWareTiles() {
 		//Placing 6 “ware” tiles (one of each colour) at random on the dedicated area squares	 
@@ -272,6 +190,7 @@ public class StradaController implements InterfaceStradaC {
 			}
 		}
 	}
+	
 	
 	@Override
 	/**
@@ -292,7 +211,8 @@ public class StradaController implements InterfaceStradaC {
 		notifyBoardUpdate();
 		notifyBagSize(this.builderGameTable.getBag().getBagSize());
 	}
-
+	
+	
 	@Override
 	/**
 	 * Remove one card from wagon's deck
@@ -306,131 +226,26 @@ public class StradaController implements InterfaceStradaC {
 			}
 		}
 	}
-
-
-
-	@Override
-	public void gameFlow(int iCol, int iRow, int col, int row) {
-		int action = checkAction(iCol, iRow); 
-		switch (action){
-			case 1: movingWagon(iCol, iRow, col, row);
-					break;
-			case 2: takingCube(iCol, iRow);
-					break;
-			case 3: takingWareTile(iCol, iRow); 
-					break;
-			default:notifyMessage("First you need to select the wagon to move!");
-					break;
-		} 
-	}
+	
+	
 	
 	@Override
-	public void takingCube(int iCol, int iRow) {  
-		if(confirmOccupiedCubeConnectedTile(iCol, iRow)){
-			if(cubeLimit == 0 && wareLimit == 0) {
-				notifyMessage("You took the cube!"); 
-				players.get(pos).setCubes((Piece) (grid[iRow][iCol])); 
-				cubeLimit++;
-					if(iRow >= 2) { 
-						grid[iRow][iCol] = factory.createCubeSpotTile();
-					}else {
-						grid[iRow][iCol] = factory.createInverseCubeTile();
-					} 
-			} else {
-				notifyMessage("You already got a piece on this round.");
-			}
-		} else {
-			notifyMessage("You need to get closer to the piece before try to pick up it.");
+	public boolean confirmWareTilePick(int iCol, int iRow) {  
+		// check if player can grab a ware tile
+		if(grid[iRow][iCol] == grid[0][4] && (findWagons(iCol,iRow) == 1 || findWagons(iCol,iRow) == 3)) {
+			return true;
+		}else if(grid[iRow][iCol] == grid[8][3] && (findWagons(iCol,iRow) == 2 || findWagons(iCol,iRow) == 3)){
+			return true;
+		} else if (grid[iRow][iCol] == grid[0][8] && (findWagons(iCol,iRow) == 1 || findWagons(iCol,iRow) == 3 )) {
+			return true;
+		} else if (grid[iRow][iCol] == grid[8][10] && (findWagons(iCol,iRow) == 2 || findWagons(iCol,iRow) == 3 )) {
+			return true;
+		} else if (grid[iRow][iCol] == grid[0][14] && (findWagons(iCol,iRow) == 1 || findWagons(iCol,iRow) == 3 )){
+			return true;
+		} else if (grid[iRow][iCol] == grid[8][14] && (findWagons(iCol,iRow) == 2 || findWagons(iCol,iRow) == 3 )) {
+			return true;
 		}
-		notifyBoardUpdate(); 
-		playerPanelUpdate();
-	}
-	
-	@Override
-	public void takingWareTile(int iCol,int iRow) {
-		
-		if(confirmWareTilePick(iCol, iRow)) {
-			if(wareLimit == 0 && cubeLimit == 0) {
-				players.get(pos).setWareTiles((Piece) (grid[iRow][iCol]));  
-				notifyMessage("You took the ware tile!"); 
-				grid[iRow][iCol] = factory.createWareSpotTile(grid[iRow][iCol].getPlace()); 
-				wareLimit++;
-				System.out.println(players.get(pos).getWareTiles());
-			} else {
-				notifyMessage("You already got a piece on this round.");
-			}
-		}else {
-			notifyMessage("You need to get closer to the piece before try to pick up it.");
-		}
-		notifyBoardUpdate();
-		playerPanelUpdate();
-	}
-	
-	@Override
-	public void movingWagon(int iCol,int  iRow, int col, int row) {
-		if (checkMovement(iCol, iRow, col, row)) {
-				moveWagon(iCol, iRow, col, row);
-			} else { 
-				notifyMessage(players.get(pos).getName()+" your turn is end!");
-			}
-	}
-
-	@Override
-	public int checkAction(int iCol, int iRow) {  
-			if(grid[iRow][iCol].isCube())  {
-					return 2;
-			} else if (grid[iRow][iCol].isWareTile()) {
-					return 3;
-			} else if (grid[iRow][iCol].isWagon()) {
-					return 1;
-			}
-			return 0; 
-	}
-
-	@Override
-	/**
-	 *  check if there are still possibilities to move a wagon
-	 */
-	public boolean checkMovement(int iCol, int iRow, int col, int row) {
-		 playerMoves = players.get(pos).getMoves();
-		 total = col - iCol; 
-		 totalInv = iCol - col;
-		if(grid[iRow][iCol].isMovable() && (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)) {
-			if (playerMoves > 0 && iCol != col) {
-					// left side
-					if(iCol < col && total <= playerMoves) { 
-						playerMoves -= total;
-						players.get(pos).setMoves(playerMoves);
-						return true;
-					}else if(iCol > col && totalInv <= playerMoves) {
-						// right side 
-						playerMoves -= totalInv;
-						players.get(pos).setMoves(playerMoves);
-						return true;
-					}
-				}
-				return false;
-		}else {
-			return false;
-		}
-	}
-
-	@Override
-	/**
-	 * Move a selected wagon through the board
-	 */
-	public void moveWagon(int iCol, int iRow, int col, int row) {
-		if (iCol == 0 || iCol == 16) {
-			grid[row][col] = grid[iRow][iCol];
-			grid[iRow][iCol] = this.factory.createWagonTilePortus();
-		} else if (iCol >= 6 && iCol <= 10) {
-			grid[row][col] = grid[iRow][iCol];
-			grid[iRow][iCol] = this.factory.createRomaTile();
-		} else if (iCol >= 1 && iCol <= 5 || iCol >= 11 && iCol <= 15) {
-			grid[row][col] = grid[iRow][iCol];
-			grid[iRow][iCol] = this.factory.createStradaTile();
-		}
-		notifyBoardUpdate();
+		return false;
 	}
 	
 	@Override
@@ -468,24 +283,222 @@ public class StradaController implements InterfaceStradaC {
 		return false;
 	}
 	
+	
 	@Override
-	public boolean confirmWareTilePick(int iCol, int iRow) {  
-		// check if player can grab a ware tile
-		if(grid[iRow][iCol] == grid[0][4] && (findWagons(iCol,iRow) == 1 || findWagons(iCol,iRow) == 3)) {
-			return true;
-		}else if(grid[iRow][iCol] == grid[8][3] && (findWagons(iCol,iRow) == 2 || findWagons(iCol,iRow) == 3)){
-			return true;
-		} else if (grid[iRow][iCol] == grid[0][8] && (findWagons(iCol,iRow) == 1 || findWagons(iCol,iRow) == 3 )) {
-			return true;
-		} else if (grid[iRow][iCol] == grid[8][10] && (findWagons(iCol,iRow) == 2 || findWagons(iCol,iRow) == 3 )) {
-			return true;
-		} else if (grid[iRow][iCol] == grid[0][14] && (findWagons(iCol,iRow) == 1 || findWagons(iCol,iRow) == 3 )){
-			return true;
-		} else if (grid[iRow][iCol] == grid[8][14] && (findWagons(iCol,iRow) == 2 || findWagons(iCol,iRow) == 3 )) {
-			return true;
+	public void controlPlayerTurn() {
+		round++;
+		// set black border and change the position to false before pass turn
+		players.get(pos).getPanel().setBorder(blackBorder);
+		notifyPassButton(false);
+		players.get(pos).setMoves(0);
+		players.get(pos).setTurn(false);
+
+		if (pos == 0) {
+			pos++;
+		} else {
+			pos--;
 		}
-		return false;
+		if(round == 2) {
+			players.get(pos).setGold(1);
+		}
+		// set the player turn and yellow border
+		resetGameTurn();
+		notifyPassButton(true);
+		players.get(pos).getPanel().setBorder(yellowBorder);
 	}
+	
+	
+	@Override
+	/**
+	 * Add gold coin into the player bag and jump to the next player
+	 */
+	public void passPlay() {
+		if (players.get(pos).isMyTurn() == true && players.get(pos).getMoves() == 3) {
+			players.get(pos).setGold(1);
+			playerPanelUpdate();
+
+			controlPlayerTurn();
+			notifyMessage("It's " + players.get(pos).getName() + " turn!");
+		}
+	}
+	
+	
+	@Override
+	public void startGame() {
+		this.grid = this.builderGameTable.getTable().getGrid();
+		this.builderGameTable.getBag().loadFirstWareTiles();
+		addWagon();
+		addWareTiles();
+		//fillCubesAndWareTiles();
+		removeWagonTile();
+		System.out.println(this.builderGameTable.getBag().toString());
+
+		this.yellowBorder = BorderFactory.createLineBorder(Color.yellow);
+		this.blackBorder = BorderFactory.createLineBorder(Color.black);
+
+		// adjusts game bag
+		this.builderGameTable.getBag().addPiece(-44);
+		this.gameStatus = true;
+		// set a random player to start the match
+		random = new Random();
+		this.pos = random.nextInt(2); 
+		controlPlayerTurn();
+		notifyStart();
+		
+		playerPanelUpdate();
+
+		this.notifyBagSize(this.builderGameTable.getBag().getBagSize());
+		this.notifyMessage("To move a wagon just grab and drag it to a different place!");
+	}
+	
+	
+	/*
+	 * Screen methods
+	 */
+	
+	
+	@Override
+	public int getScreenSize() {
+		return screenSize;
+	}
+	
+	
+	@Override
+	public void setScreenSize(int size) {
+		this.screenSize = size;
+	}
+	
+	
+	/*
+	 * Game Control methods
+	 */
+	
+	@Override
+	/**
+	 * Move a selected wagon through the board
+	 */
+	public void moveWagon(int iCol, int iRow, int col, int row) {
+		if (iCol == 0 || iCol == 16) {
+			grid[row][col] = grid[iRow][iCol];
+			grid[iRow][iCol] = this.factory.createWagonTilePortus();
+		} else if (iCol >= 6 && iCol <= 10) {
+			grid[row][col] = grid[iRow][iCol];
+			grid[iRow][iCol] = this.factory.createRomaTile();
+		} else if (iCol >= 1 && iCol <= 5 || iCol >= 11 && iCol <= 15) {
+			grid[row][col] = grid[iRow][iCol];
+			grid[iRow][iCol] = this.factory.createStradaTile();
+		}
+		notifyBoardUpdate();
+	}
+	
+	
+	@Override
+	public void gameFlow(int iCol, int iRow, int col, int row) {
+		int action = checkAction(iCol, iRow); 
+		switch (action){
+			case 1: movingWagon(iCol, iRow, col, row);
+					break;
+			case 2: takingCube(iCol, iRow);
+					break;
+			case 3: takingWareTile(iCol, iRow); 
+					break;
+			default:notifyMessage("First you need to select the wagon to move!");
+					break;
+		} 
+	}
+	
+	
+	@Override
+	public int checkAction(int iCol, int iRow) {  
+			if(grid[iRow][iCol].isCube())  {
+					return 2;
+			} else if (grid[iRow][iCol].isWareTile()) {
+					return 3;
+			} else if (grid[iRow][iCol].isWagon()) {
+					return 1;
+			}
+			return 0; 
+	}
+	
+	@Override
+	public void movingWagon(int iCol,int  iRow, int col, int row) {
+		if (checkMovement(iCol, iRow, col, row)) {
+				moveWagon(iCol, iRow, col, row);
+			} else { 
+				notifyMessage(players.get(pos).getName()+" your turn is end!");
+			}
+	}
+	
+	@Override
+	public void takingWareTile(int iCol,int iRow) {
+		
+		if(confirmWareTilePick(iCol, iRow)) {
+			if(wareLimit == 0 && cubeLimit == 0) {
+				players.get(pos).setWareTiles((Piece) (grid[iRow][iCol]));  
+				notifyMessage("You took the ware tile!"); 
+				grid[iRow][iCol] = factory.createWareSpotTile(grid[iRow][iCol].getPlace()); 
+				wareLimit++;
+				System.out.println(players.get(pos).getWareTiles());
+			} else {
+				notifyMessage("You already got a piece on this round.");
+			}
+		}else {
+			notifyMessage("You need to get closer to the piece before try to pick up it.");
+		}
+		notifyBoardUpdate();
+		playerPanelUpdate();
+	}
+	
+	@Override
+	public void takingCube(int iCol, int iRow) {  
+		if(confirmOccupiedCubeConnectedTile(iCol, iRow)){
+			if(cubeLimit == 0 && wareLimit == 0) {
+				notifyMessage("You took the cube!"); 
+				players.get(pos).setCubes((Piece) (grid[iRow][iCol])); 
+				cubeLimit++;
+					if(iRow >= 2) { 
+						grid[iRow][iCol] = factory.createCubeSpotTile();
+					}else {
+						grid[iRow][iCol] = factory.createInverseCubeTile();
+					} 
+			} else {
+				notifyMessage("You already got a piece on this round.");
+			}
+		} else {
+			notifyMessage("You need to get closer to the piece before try to pick up it.");
+		}
+		notifyBoardUpdate(); 
+		playerPanelUpdate();
+	}
+	
+	@Override
+	/**
+	 *  check if there are still possibilities to move a wagon
+	 */
+	public boolean checkMovement(int iCol, int iRow, int col, int row) {
+		 playerMoves = players.get(pos).getMoves();
+		 total = col - iCol; 
+		 totalInv = iCol - col;
+		if(grid[iRow][iCol].isMovable() && (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)) {
+			if (playerMoves > 0 && iCol != col) {
+					// left side
+					if(iCol < col && total <= playerMoves) { 
+						playerMoves -= total;
+						players.get(pos).setMoves(playerMoves);
+						return true;
+					}else if(iCol > col && totalInv <= playerMoves) {
+						// right side 
+						playerMoves -= totalInv;
+						players.get(pos).setMoves(playerMoves);
+						return true;
+					}
+				}
+				return false;
+		}else {
+			return false;
+		}
+	}
+	
 	
 	@Override
 	/**
@@ -591,7 +604,26 @@ public class StradaController implements InterfaceStradaC {
 		}
 		return result;
 	} 
- 
+	
+	public void resetGameTurn() {
+		players.get(pos).setTurn(true);
+		players.get(pos).setMoves(3);
+		cubeLimit = 0;
+		wareLimit = 0;
+	}
+
+	public void playerPanelUpdate() {
+		notifyPlayerPanelUpdate(players.get(pos).getScore(), players.get(pos).getGold(), players.get(pos).getVPoints(),
+				players.get(pos).getCubes().size(), players.get(pos).getWareTiles().size(),
+				players.get(pos).getContracts().size());
+	}
+
+	@Override
+	public void notifyPlayerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {
+		observers.get(pos).playerPanelUpdate(score, coins, vp, cubes, wareTiles, contracts);
+	}
+
+	
 	//Notifications
 	@Override
 	public void notifyBoardUpdate() {
@@ -605,15 +637,15 @@ public class StradaController implements InterfaceStradaC {
 		observers.get(pos).disableButton(isEnabled);
 	}
 	
-	@Override
-	public void setScreenSize(int size) {
-		this.screenSize = size;
-	}
+//	@Override
+//	public void setScreenSize(int size) {
+//		this.screenSize = size;
+//	}
 
-	@Override
-	public int getScreenSize() {
-		return screenSize;
-	}
+//	@Override
+//	public int getScreenSize() {
+//		return screenSize;
+//	}
 
 	@Override
 	public void notifyStart() {
