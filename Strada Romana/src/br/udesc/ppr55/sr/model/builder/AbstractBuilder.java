@@ -7,7 +7,7 @@
 package br.udesc.ppr55.sr.model.builder; 
 import java.util.List;
 
-import br.udesc.ppr55.sr.model.Bag;
+import br.udesc.ppr55.sr.control.gameBag.Bag;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.Table; 
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;

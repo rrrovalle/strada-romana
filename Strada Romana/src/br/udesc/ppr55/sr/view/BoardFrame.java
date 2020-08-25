@@ -60,8 +60,8 @@ public class BoardFrame extends JPanel {
     private JTable gameBoard;
     
     protected int screenSize; 
-	public int iCol;//coluna inicial
-    public int iRow;//linha inicial 
+	public int iCol; //first column
+    public int iRow; //first row
     
     public BoardFrame(InterfaceStradaC stradaController) {
         this.stradaController = stradaController;
@@ -104,7 +104,7 @@ public class BoardFrame extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) { 
                stradaController.gameFlow( iCol,  iRow, gameBoard.getSelectedColumn(), gameBoard.getSelectedRow());
-            } 
+            }  
 		});  
     }
     }

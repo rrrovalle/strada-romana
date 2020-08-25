@@ -153,12 +153,7 @@ public class PieceFactory extends AbstractPieceFactory {
 	@Override
 	public Piece createYellowWareTile() {
 		return new YellowWareTile();
-	}
-
-	@Override
-	public Piece createContract() {
-		return null;
-	}
+	} 
 
 	@Override
 	public Piece createBallioWagon(int side) {

@@ -14,5 +14,6 @@ public class Demetrius extends Piece {
         super("images/demetrius"+side+".png");
         this.setMovable(true);
         this.setWagon(true);
+        this.setWagonSide(side);
     }
 }

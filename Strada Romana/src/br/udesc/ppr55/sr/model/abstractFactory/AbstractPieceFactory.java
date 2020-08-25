@@ -23,9 +23,7 @@ public abstract class AbstractPieceFactory {
 	public abstract Piece createGreenWareTile();
 	public abstract Piece createRedWareTile();
 	public abstract Piece createWhiteWareTile();
-	public abstract Piece createYellowWareTile();
-	
-	public abstract Piece createContract();
+	public abstract Piece createYellowWareTile(); 
 	
 	// Wagons  
 	public abstract Piece createBallioWagon(int side); 

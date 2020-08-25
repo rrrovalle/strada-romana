@@ -7,15 +7,17 @@
 
 package br.udesc.ppr55.sr.control.observer;
 
-public interface IObserver {   
-  void boardPanelUpdate();
-  void setPlayerPanel();
-  void playerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts); 
-  void showBag(int size); 
-  void update(boolean isPaused);
-  void disableButton(boolean turn);
-  void shuffleWagonTiles();
-  void startGame();
-  void endGame(); 
-  void message(String message);
-  }
+public interface IObserver { 
+	
+	  public void boardPanelUpdate();
+	  public void setPlayerPanel();
+	  public void playerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts); 
+	  public void showBag(int size); 
+	  public void update(boolean isPaused);
+	  public void disableButton(boolean turn);
+	  public void shuffleWagonTiles();
+	  public void startGame();
+	  public void endGame(); 
+	  public void message(String message);
+  
+}

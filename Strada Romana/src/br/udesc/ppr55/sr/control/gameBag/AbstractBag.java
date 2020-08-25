@@ -4,7 +4,7 @@
  * @since 12/08/2020
  * @version 1.0
  */
-package br.udesc.ppr55.sr.model;
+package br.udesc.ppr55.sr.control.gameBag;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.wagons.faceDownWagon;
  
 public abstract class AbstractBag {

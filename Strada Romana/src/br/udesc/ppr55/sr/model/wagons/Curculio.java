@@ -20,5 +20,6 @@ public class Curculio extends Piece {
 		super("images/curculio"+side+".png");
 		this.setMovable(true);
 		this.setWagon(true);
+		this.setWagonSide(side);
 	}
 }

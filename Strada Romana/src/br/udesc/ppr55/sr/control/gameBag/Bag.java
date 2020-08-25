@@ -5,11 +5,8 @@
  * @version 1.0
  */
 
-package br.udesc.ppr55.sr.model;
-
-import java.awt.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+package br.udesc.ppr55.sr.control.gameBag; 
+import br.udesc.ppr55.sr.model.Piece;
 
 public class Bag extends AbstractBag { 
 	

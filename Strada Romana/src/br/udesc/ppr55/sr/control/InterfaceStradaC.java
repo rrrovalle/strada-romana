@@ -24,6 +24,10 @@ public interface InterfaceStradaC extends IObserved {
     public String getPiece(int col, int row); 
     public void setFactory(PieceFactory factory);
     public AbstractPieceFactory getFactory();
+     
+    // Screen methods
+    public int getScreenSize();
+    public void setScreenSize(int size); 
     
     // Game basic control methods
     public void addWagon();
@@ -32,13 +36,10 @@ public interface InterfaceStradaC extends IObserved {
     public void removeWagonTile();
     public boolean confirmWareTilePick(int iCol, int iRow);
     public boolean confirmOccupiedCubeConnectedTile(int iCol, int iRow);
-    public void controlPlayerTurn();
+    public int giveCubes(String color);
+    public void controlPlayerTurn(boolean pass);
     public void passPlay();   
     public void startGame();  
-
-    // Screen methods
-    public int getScreenSize();
-    public void setScreenSize(int size); 
     
     // Game Control methods
     public void moveWagon(int icol,int irow, int finalColumn, int finalRow);
@@ -48,6 +49,6 @@ public interface InterfaceStradaC extends IObserved {
     public void takingWareTile(int iCol,int iRow);
     public void takingCube(int iCol, int iRow); 
     public boolean checkMovement(int iCol, int iRow, int col, int row);
-    public int findWagons(int iCol, int iRow);
-    
+    public int findWagons(int iCol, int iRow); 
+    public boolean checkTrafficBlock(int iCol, int col);
 }

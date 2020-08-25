@@ -17,7 +17,7 @@ public class EndTurnCommand extends StradaCommander {
 	
 	@Override
 	public void execute() {
-		controller.controlPlayerTurn();
+		controller.controlPlayerTurn(false);
 	}
 
 }

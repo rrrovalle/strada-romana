@@ -16,6 +16,7 @@ public abstract class Piece {
     private boolean isCube;
     private boolean isWareTile;
     private boolean isWagon;
+    private int wagonSide;
     
     public Piece(String image){
         this.image = image;
@@ -36,6 +37,14 @@ public abstract class Piece {
     
     public void setColor(String color) {
     	this.color = color;
+    }
+    
+    public int getWagonSide() {
+    	return wagonSide;
+    }
+    
+    public void setWagonSide(int side) {
+    	this.wagonSide = side;
     }
     
     public int getPlace(){

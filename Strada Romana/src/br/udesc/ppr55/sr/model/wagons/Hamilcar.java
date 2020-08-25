@@ -13,5 +13,6 @@ public class Hamilcar extends Piece {
 		super("images/hamilcar"+side+".png");
 		this.setMovable(true);
 		this.setWagon(true);
+		this.setWagonSide(side);
 	}
 }

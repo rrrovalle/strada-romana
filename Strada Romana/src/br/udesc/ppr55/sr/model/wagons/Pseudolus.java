@@ -13,5 +13,6 @@ public class Pseudolus extends Piece {
 		super("images/pseudolus"+side+".png");
 		this.setMovable(true);
 		this.setWagon(true);
+		this.setWagonSide(side);
 	}
 }

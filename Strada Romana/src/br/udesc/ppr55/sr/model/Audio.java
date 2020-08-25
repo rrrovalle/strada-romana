@@ -8,8 +8,7 @@ package br.udesc.ppr55.sr.model;
 import java.io.File; 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import br.udesc.ppr55.sr.control.observer.IObserver; 
+import javax.sound.sampled.Clip; 
 
 public class Audio {  
 	private String path;

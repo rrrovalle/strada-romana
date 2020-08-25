@@ -21,6 +21,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel; 
+ 
 public class PlayerPanel extends JPanel implements IObserver {
 
 	private static final long serialVersionUID = 5040820868743358336L;
@@ -37,6 +38,7 @@ public class PlayerPanel extends JPanel implements IObserver {
 	private JLabel lbContracts;
 	private JLabel lbCoins;
 	private JLabel lbVictoryPoints; 
+	
 	private InterfaceStradaC stradaController;
 	private CommandInvoker commandInvoker;
 	
@@ -102,13 +104,7 @@ public class PlayerPanel extends JPanel implements IObserver {
 	
     public void update() {
         this.updateUI();
-    } 
-    
-	@Override
-	public void boardPanelUpdate() { }
-
-	@Override
-	public void setPlayerPanel() { }
+    }  
 
 	@Override
 	public void playerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {
@@ -119,31 +115,34 @@ public class PlayerPanel extends JPanel implements IObserver {
 		this.lbCubes.setText("Cubes: \n"+cubes); 
 		this.lbWareTiles.setText("Ware Tiles: \n"+wareTiles);
 		this.lbContracts.setText("Contracts: \n"+contracts); 
-	}
-
-	@Override
-	public void showBag(int size) {}
-
-	@Override
-	public void update(boolean isPaused) {} 
-
-	@Override
-	public void shuffleWagonTiles() {}
+	} 
 	
-	@Override
-	public void endGame() { }
-
-	@Override
-	public void message(String message) { }
-
 	@Override
 	public void disableButton(boolean isEnabled) {
 		this.btnPass.setEnabled(isEnabled);
 	}
 
 	@Override
-	public void startGame() { }
-	
+	public void boardPanelUpdate() {}
 
-	 
+	@Override
+	public void setPlayerPanel() {}
+
+	@Override
+	public void showBag(int size) {}
+
+	@Override
+	public void update(boolean isPaused) {}
+
+	@Override
+	public void shuffleWagonTiles() {}
+
+	@Override
+	public void startGame() {}
+
+	@Override
+	public void endGame() {}
+
+	@Override
+	public void message(String message) {} 
 }
