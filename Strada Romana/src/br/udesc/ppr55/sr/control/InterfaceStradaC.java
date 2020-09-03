@@ -7,7 +7,10 @@
 package br.udesc.ppr55.sr.control; 
 import javax.swing.JPanel;
 
-import br.udesc.ppr55.sr.control.observer.IObserved; 
+import br.udesc.ppr55.sr.control.observer.IObserved;
+import br.udesc.ppr55.sr.control.state.MoveState;
+import br.udesc.ppr55.sr.model.Piece;
+import br.udesc.ppr55.sr.model.Player;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory; 
 
@@ -24,7 +27,16 @@ public interface InterfaceStradaC extends IObserved {
     public String getPiece(int col, int row); 
     public void setFactory(PieceFactory factory);
     public AbstractPieceFactory getFactory();
-     
+    
+    public Piece[][] getGrid();
+    public void setStradaState(MoveState moveState); 
+    public Player getRoundPlayer();
+    public int getWareLimit();
+    public int getCubeLimit();
+    public void changeWareLimit(int limit);
+    public void changeCubeLimit(int limit);
+    public String getActualState();
+    
     // Screen methods
     public int getScreenSize();
     public void setScreenSize(int size); 
@@ -38,6 +50,8 @@ public interface InterfaceStradaC extends IObserved {
     public boolean confirmOccupiedCubeConnectedTile(int iCol, int iRow);
     public int giveCubes(String color);
     public void controlPlayerTurn(boolean pass);
+    public void playerPanelUpdate();
+    public void resetGameTurn();
     public void passPlay();   
     public void startGame();  
     

@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.udesc.ppr55.sr.control.InterfaceStradaC;
 import br.udesc.ppr55.sr.control.StradaController;
+import br.udesc.ppr55.sr.control.state.MoveWagon;
 import br.udesc.ppr55.sr.view.command.CommandInvoker;
 import br.udesc.ppr55.sr.view.command.stradaCommands.CreatePlayerPanelCommand; 
 import br.udesc.ppr55.sr.view.command.stradaCommands.SetScreenSizeCommand;
@@ -114,6 +115,7 @@ public class SelectionFrame extends JFrame {
 						 cppc = new CreatePlayerPanelCommand(stradaController, txtPlayer1.getText(), txtPlayer2.getText()); 
 	                     commandInvoker.add(cppc);
 	                     commandInvoker.execute(); 
+	                stradaController.setStradaState(new MoveWagon(stradaController));     
 					new GameFrame().setVisible(true);
 				}
 			}

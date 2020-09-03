@@ -24,6 +24,5 @@ public class EmperorDirector {
         builder.buildCubes(abstractPieceFactory);
         builder.buildAltCubes(abstractPieceFactory);
         builder.buildWagonsCards(abstractPieceFactory);
-    }
-
+    } 
 }

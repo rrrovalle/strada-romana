@@ -8,12 +8,16 @@
 package br.udesc.ppr55.sr.control;
 
 import br.udesc.ppr55.sr.control.observer.IObserver;
+import br.udesc.ppr55.sr.control.state.TakingCube;
+import br.udesc.ppr55.sr.control.state.TakingWareTile;
+import br.udesc.ppr55.sr.control.state.MoveState;
+import br.udesc.ppr55.sr.control.state.MoveWagon;
 import br.udesc.ppr55.sr.model.Audio;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.Player;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
-import br.udesc.ppr55.sr.model.builder.GameBuilder;
+import br.udesc.ppr55.sr.model.builder.LocalMultiplayerBuilder;
 import br.udesc.ppr55.sr.model.builder.AbstractBuilder;
 import br.udesc.ppr55.sr.model.builder.EmperorDirector;
 import br.udesc.ppr55.sr.model.components.CubeSpotTile;
@@ -41,7 +45,8 @@ public class StradaController implements InterfaceStradaC {
 	private static StradaController instance;
 	private EmperorDirector director;
 	private AbstractBuilder builderGameTable;
-
+	private MoveState moveState;
+	
 	private Audio audio;
 
 	private Border yellowBorder;
@@ -92,14 +97,14 @@ public class StradaController implements InterfaceStradaC {
 	 *  Start the builder to create the game board
 	 */
 	public void initializeBoard() {
-		this.builderGameTable = new GameBuilder();
+		this.builderGameTable = new LocalMultiplayerBuilder();
 		this.director = new EmperorDirector(builderGameTable);
 		this.director.build(this.factory);
 	}
 
 	@Override
 	/**
-	 * Define the list with both players on game 
+	 *  Define the list with both players on game 
 	 */
 	public void createPlayerPanel(String n1, String n2) {
 		players.add(new Player(new PlayerPanel(), n1));
@@ -159,6 +164,26 @@ public class StradaController implements InterfaceStradaC {
 		return factory;
 	}
 
+	@Override
+	public int getWareLimit() {
+		return wareLimit;
+	}
+	
+	@Override
+	public void changeWareLimit(int limit) {
+		this.wareLimit = limit;
+	}
+	
+	@Override
+	public int getCubeLimit() {
+		return cubeLimit;
+	}
+
+	@Override
+	public void changeCubeLimit(int limit) {
+		this.cubeLimit = limit;
+	}
+	
 	/*
 	 * Screen methods
 	 */
@@ -175,6 +200,11 @@ public class StradaController implements InterfaceStradaC {
 	/*
 	 * Game basic control methods
 	 */
+	
+	@Override
+	public Player getRoundPlayer() {
+		return players.get(pos);
+	}
 
 	@Override
 	/**
@@ -369,8 +399,8 @@ public class StradaController implements InterfaceStradaC {
 		addWareTiles();
 		fillCubesAndWareTiles();
 		removeWagonTile();
-		//System.out.println(this.builderGameTable.getBag().toString());
-
+		//System.out.println(this.builderGameTable.getBag().toString()); 
+		
 		this.yellowBorder = BorderFactory.createLineBorder(Color.yellow);
 		this.blackBorder = BorderFactory.createLineBorder(Color.black);
 
@@ -392,24 +422,24 @@ public class StradaController implements InterfaceStradaC {
 
 	/*
 	 * Game Control methods
-	 */
+	 */ 
+    @Override
+    public Piece[][] getGrid() {
+        return builderGameTable.getTable().getGrid();
+    }
+    
+    
+    @Override
+    public void setStradaState(MoveState moveState) {
+        this.moveState = moveState;
+    } 
 
 	@Override
 	/**
 	 * Move a selected wagon through the board
 	 */
 	public void moveWagon(int iCol, int iRow, int col, int row) {
-		if (iCol == 0 || iCol == 16) {
-			grid[row][col] = grid[iRow][iCol];
-			grid[iRow][iCol] = this.factory.createWagonTilePortus();
-		} else if (iCol >= 6 && iCol <= 10) {
-			grid[row][col] = grid[iRow][iCol];
-			grid[iRow][iCol] = this.factory.createRomaTile();
-		} else if (iCol >= 1 && iCol <= 5 || iCol >= 11 && iCol <= 15) {
-			grid[row][col] = grid[iRow][iCol];
-			grid[iRow][iCol] = this.factory.createStradaTile();
-		}
-		notifyBoardUpdate();
+		this.moveState.movingWagon(iCol, iRow, col, row);  
 	}
 
 	@Override
@@ -466,46 +496,21 @@ public class StradaController implements InterfaceStradaC {
 	 *  Confirm if there's a wagon close to it/check if 
 	 */
 	public void takingWareTile(int iCol, int iRow) {
-
-		if (confirmWareTilePick(iCol, iRow)) {
-			if (wareLimit == 0 && cubeLimit == 0) {
-				players.get(pos).setWareTiles((Piece) (grid[iRow][iCol]));
-				players.get(pos).setGold(giveCubes(grid[iRow][iCol].getColor()));
-				notifyMessage("You took the ware tile!");
-				grid[iRow][iCol] = factory.createWareSpotTile(grid[iRow][iCol].getPlace());
-				wareLimit++; 
-			} else {
-				notifyMessage("You already got a piece on this round.");
-			}
-		} else {
-			notifyMessage("You need to get closer to the piece before try to pick up it.");
-		}
-		notifyBoardUpdate();
-		playerPanelUpdate();
+		setStradaState(new TakingWareTile(this));
+		this.moveState.takingWareTile(iCol, iRow); 
 	}
 
 	@Override
 	public void takingCube(int iCol, int iRow) {
-		if (confirmOccupiedCubeConnectedTile(iCol, iRow)) {
-			if (cubeLimit == 0 && wareLimit == 0) {
-				notifyMessage("You took the cube!");
-				players.get(pos).setCubes((Piece) (grid[iRow][iCol]));
-				cubeLimit++;
-				if (iRow >= 2) {
-					grid[iRow][iCol] = factory.createCubeSpotTile();
-				} else {
-					grid[iRow][iCol] = factory.createInverseCubeTile();
-				}
-			} else {
-				notifyMessage("You already got a piece on this round.");
-			}
-		} else {
-			notifyMessage("You need to get closer to the piece before try to pick up it.");
-		}
-		notifyBoardUpdate();
-		playerPanelUpdate();
+		 this.setStradaState(new TakingCube(this));
+		 this.moveState.takingCube(iCol, iRow);
 	}
-
+	 
+	@Override
+	public String getActualState() {
+		return this.moveState.toString();
+	}
+	
 	@Override
 	/**
 	 * check if there are still possibilities to move a wagon
@@ -655,6 +660,7 @@ public class StradaController implements InterfaceStradaC {
 		return isBlocked;
 	}
 
+	@Override
 	public void resetGameTurn() {
 		players.get(pos).setTurn(true);
 		players.get(pos).setMoves(3);
@@ -662,6 +668,7 @@ public class StradaController implements InterfaceStradaC {
 		wareLimit = 0;
 	}
 
+	@Override
 	public void playerPanelUpdate() {
 		notifyPlayerPanelUpdate(players.get(pos).getScore(), players.get(pos).getGold(), players.get(pos).getVPoints(),
 				players.get(pos).getCubes().size(), players.get(pos).getWareTiles().size(),

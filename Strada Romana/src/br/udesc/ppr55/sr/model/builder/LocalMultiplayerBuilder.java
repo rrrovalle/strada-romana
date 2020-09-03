@@ -12,7 +12,7 @@ import br.udesc.ppr55.sr.control.gameBag.Bag;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 
-public class GameBuilder extends AbstractBuilder {
+public class LocalMultiplayerBuilder extends AbstractBuilder {
 	 
     @Override
     public void buildStradaBoard(AbstractPieceFactory factory) {

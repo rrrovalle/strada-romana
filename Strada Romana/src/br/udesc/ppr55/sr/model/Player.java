@@ -102,12 +102,12 @@ public class Player {
 	}
 
 	public void setWareTiles(Piece wareTile) {
+		this.wareTiles.add(wareTile);
 		for(int i=0; i<cubes.size(); i++) {  
 			if(cubes.get(i).getColor() == wareTile.getColor()) {
 				contracts.add(wareTile.getColor());
 				cubes.remove(i);
-			}else {
-				this.wareTiles.add(wareTile);
+				wareTiles.remove(wareTile);
 			}
 		}
 	}
@@ -118,6 +118,13 @@ public class Player {
 
 	public void setCubes(Piece cube) { 
 		this.cubes.add(cube);
+		for(int i=0; i<wareTiles.size(); i++) {  
+			if(wareTiles.get(i).getColor() == cube.getColor()) {
+				contracts.add(cube.getColor());
+				wareTiles.remove(i);
+				cubes.remove(cube);
+			}
+		}
 	}
 
 	public List<String> getContracts() {

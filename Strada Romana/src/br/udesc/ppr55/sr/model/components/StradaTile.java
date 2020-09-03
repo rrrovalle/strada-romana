@@ -10,9 +10,14 @@ import br.udesc.ppr55.sr.model.Piece;
 
 public class StradaTile extends Piece {
 	
-	public StradaTile() {
+	private boolean isOccupied;
+	
+	public StradaTile(boolean isOccupied) {
 		super("images/stradaTile.png"); 
+		this.isOccupied = isOccupied;
 	}
 	
-	
+    public boolean isOccupied() {
+        return isOccupied;
+    }
 }

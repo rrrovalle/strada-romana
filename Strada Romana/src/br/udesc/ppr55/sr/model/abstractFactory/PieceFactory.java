@@ -92,7 +92,7 @@ public class PieceFactory extends AbstractPieceFactory {
 
 	@Override
 	public Piece createStradaTile() {
-		return new StradaTile();
+		return new StradaTile(false);
 	}
 
 	@Override
