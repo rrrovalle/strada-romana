@@ -11,6 +11,6 @@ import br.udesc.ppr55.sr.model.Piece;
 public class CubeSpotTile extends Piece {
 	
 	public CubeSpotTile() {
-		super("images/cubeSpotTile.png" );
+		super("images/cubeSpotTile.png");
 	}
 }

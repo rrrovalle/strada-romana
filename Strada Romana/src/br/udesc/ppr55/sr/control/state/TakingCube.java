@@ -2,6 +2,10 @@ package br.udesc.ppr55.sr.control.state;
 
 import br.udesc.ppr55.sr.control.InterfaceStradaC;
 import br.udesc.ppr55.sr.model.Piece;
+import br.udesc.ppr55.sr.model.components.CubeSpotTile;
+import br.udesc.ppr55.sr.model.components.InverseCubeSpot;
+import br.udesc.ppr55.sr.model.decorator.InverseMarkedCubeSpot;
+import br.udesc.ppr55.sr.model.decorator.MarkedCubeSpot;
 
 public class TakingCube extends MoveState {
 
@@ -16,10 +20,13 @@ public class TakingCube extends MoveState {
 				stradaController.notifyMessage("You took the cube!");
 				stradaController.getRoundPlayer().setCubes((Piece) (stradaController.getGrid()[iRow][iCol]));
 				stradaController.changeCubeLimit(1); 
-				if (iRow >= 2) {
-					stradaController.getGrid()[iRow][iCol] = stradaController.getFactory().createCubeSpotTile();
+				if (iRow >= 2) { 
+					/* Create decorator class to mark the empty cube spot*/
+					MarkedCubeSpot markedCubeSpot = new MarkedCubeSpot((CubeSpotTile) stradaController.getFactory().createCubeSpotTile()); 
+					stradaController.getGrid()[iRow][iCol] = markedCubeSpot.getCubeSpotTile();
 				} else {
-					stradaController.getGrid()[iRow][iCol] = stradaController.getFactory().createInverseCubeTile();
+					InverseMarkedCubeSpot inverseMarkedCubeSpot = new InverseMarkedCubeSpot((InverseCubeSpot) stradaController.getFactory().createInverseCubeTile()); 
+					stradaController.getGrid()[iRow][iCol] = inverseMarkedCubeSpot.getInverseCubeSpotTile();
 				}
 			} else {
 				stradaController.notifyMessage("You already got a piece on this round.");
