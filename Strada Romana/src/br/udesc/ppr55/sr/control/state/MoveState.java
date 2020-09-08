@@ -21,4 +21,8 @@ public abstract class MoveState  {
     public void movingWagon(int iCol, int iRow, int col, int row) {
     	stradaController.notifyMessage("Invalid action!");
     } 
+    
+    public void takingWagonTile(String cardName) {
+    	stradaController.notifyMessage("Invalid action!");
+    }
 }

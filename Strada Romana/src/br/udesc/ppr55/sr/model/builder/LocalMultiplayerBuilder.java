@@ -7,7 +7,9 @@
 package br.udesc.ppr55.sr.model.builder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
+import br.udesc.ppr55.sr.model.composite.Card;
 import br.udesc.ppr55.sr.control.gameBag.Bag;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
@@ -256,14 +258,15 @@ public class LocalMultiplayerBuilder extends AbstractBuilder {
 		 super.bag.setAltCubeList(altCubes);
 	} 
 	 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void buildWagonsCards(AbstractPieceFactory factory) {
-		wagonsCards = new ArrayList<>();
-		wagonsCards.addAll(Arrays.asList(factory.createCard(1),factory.createCard(2),
-									  factory.createCard(3),factory.createCard(4),
-									  factory.createCard(5),factory.createCard(6),
-									  factory.createCard(7),factory.createCard(8),
-									  factory.createCard(9),factory.createCard(10)
+		wagonsCards = new ArrayList<Card>();
+		wagonsCards.addAll((Collection<? extends Card>) Arrays.asList(factory.createCard(1,"Ballio"),factory.createCard(2,"Cannopites"),
+									  factory.createCard(3,"Curculio"),factory.createCard(4,"Demetrius"),
+									  factory.createCard(5,"Hamilcar"),factory.createCard(6,"Herennius"),
+									  factory.createCard(7,"Maccus"),factory.createCard(8,"Persa"),
+									  factory.createCard(9,"Plotus"),factory.createCard(10,"Pseudolus")
 									  ));
 		
 		super.bag.addPiece(10);

@@ -52,5 +52,5 @@ public abstract class AbstractPieceFactory {
 	// Wagons deck of cards
 	public abstract Piece createDeck();
 	public abstract Piece createSpqrCard();
-	public abstract Piece createCard(int number);
+	public abstract Piece createCard(int number, String name);
 }

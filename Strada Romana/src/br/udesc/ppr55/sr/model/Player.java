@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+
+import br.udesc.ppr55.sr.model.composite.Card;
 public class Player {
 	
     protected String name; 
@@ -21,17 +23,19 @@ public class Player {
     protected List<Piece> wareTiles;
 	protected List<Piece> cubes;
 	protected List<String> contracts;
+	protected List<String> cards;
 	
 	protected boolean myTurn;
 	
 	public Player(JPanel panel, String name){ 
-    	this.panelPlayer = panel; 
-    	this.name = name;
-    	this.score = 0;
+    	this.panelPlayer   = panel; 
+    	this.name          = name;
+    	this.score         = 0;
     	this.victoryPoints = 0;
-    	this.wareTiles = new ArrayList<>();
-    	this.cubes = new ArrayList<>();
-    	this.contracts = new ArrayList<>();
+    	this.wareTiles     = new ArrayList<>();
+    	this.cubes         = new ArrayList<>();
+    	this.contracts     = new ArrayList<>();
+    	this.cards         = new ArrayList<>();
     }
  
     public String getName() {
@@ -133,6 +137,14 @@ public class Player {
 
 	public void setContracts(String pieceColor) {
 		contracts.add(pieceColor);
+	}
+	
+	public List<String> getCards() {
+		return cards;
+	}
+	
+	public void addCard(String card) {
+		cards.add(card);
 	}
 
 	@Override

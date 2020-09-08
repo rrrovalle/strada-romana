@@ -5,6 +5,8 @@
  * @version 1.0
  */
 package br.udesc.ppr55.sr.control; 
+import java.util.List;
+
 import javax.swing.JPanel;
 
 import br.udesc.ppr55.sr.control.observer.IObserved;
@@ -13,6 +15,7 @@ import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.Player;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory; 
+import br.udesc.ppr55.sr.model.composite.DeckComposite; 
 
 public interface InterfaceStradaC extends IObserved {
     
@@ -33,9 +36,12 @@ public interface InterfaceStradaC extends IObserved {
     public Player getRoundPlayer();
     public int getWareLimit();
     public int getCubeLimit();
+    public int getCardLimit();
     public void changeWareLimit(int limit);
     public void changeCubeLimit(int limit);
+    public void changeCardLimit(int limit);
     public String getActualState();
+    public DeckComposite getDeck();
     
     // Screen methods
     public int getScreenSize();
@@ -62,7 +68,9 @@ public interface InterfaceStradaC extends IObserved {
     public void movingWagon(int iCol,int  iRow, int col, int row);
     public void takingWareTile(int iCol,int iRow);
     public void takingCube(int iCol, int iRow); 
+    public void takingWagonTile();
     public boolean checkMovement(int iCol, int iRow, int col, int row);
     public int findWagons(int iCol, int iRow); 
+    public void chooseCard(String cardName);
     public boolean checkTrafficBlock(int iCol, int col);
 }

@@ -11,11 +11,13 @@ public abstract class Piece {
     private String image;
     private int place;
     private String color;
+    private String cardName;
     
     private boolean movable;
     private boolean isCube;
     private boolean isWareTile;
     private boolean isWagon;
+    private boolean isDeck;
     private int wagonSide;
     
     public Piece(String image){
@@ -86,4 +88,20 @@ public abstract class Piece {
     public void setWagon(boolean isWagon) {
     	this.isWagon = isWagon;
     }  
+    
+    public boolean isDeck() {
+    	return isDeck;
+    }
+    
+    public void setDeck(boolean isDeck) {
+    	this.isDeck = isDeck;
+    }
+    
+    public String getCardName() {
+    	return cardName;
+    }
+    
+    public void setCardName(String name) {
+    	this.cardName = name;
+    }
 }

@@ -9,9 +9,9 @@ package br.udesc.ppr55.sr.control;
 
 import br.udesc.ppr55.sr.control.observer.IObserver;
 import br.udesc.ppr55.sr.control.state.TakingCube;
+import br.udesc.ppr55.sr.control.state.TakingWagonTile;
 import br.udesc.ppr55.sr.control.state.TakingWareTile;
-import br.udesc.ppr55.sr.control.state.MoveState;
-import br.udesc.ppr55.sr.control.state.MoveWagon;
+import br.udesc.ppr55.sr.control.state.MoveState; 
 import br.udesc.ppr55.sr.model.Audio;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.Player;
@@ -29,6 +29,8 @@ import br.udesc.ppr55.sr.model.components.StradaTile;
 import br.udesc.ppr55.sr.model.components.WagonTilePortus;
 import br.udesc.ppr55.sr.model.components.WagonTileRoma;
 import br.udesc.ppr55.sr.model.components.WareSpotTile;
+import br.udesc.ppr55.sr.model.composite.Card;
+import br.udesc.ppr55.sr.model.composite.DeckComposite; 
 import br.udesc.ppr55.sr.view.PlayerPanel;
 
 import java.awt.Color;
@@ -45,7 +47,9 @@ public class StradaController implements InterfaceStradaC {
 	private static StradaController instance;
 	private EmperorDirector director;
 	private AbstractBuilder builderGameTable;
+	
 	private MoveState moveState;
+	private DeckComposite deck;
 	
 	private Audio audio;
 
@@ -56,6 +60,7 @@ public class StradaController implements InterfaceStradaC {
 	private int pos;
 	private boolean gameStatus;
 	private int round;
+	private int takeCard;
 	private Random random;
 
 	private int total;
@@ -89,9 +94,15 @@ public class StradaController implements InterfaceStradaC {
 		this.observers.add(observer);
 	}
 
+	public void createDeck() {  
+		deck = new DeckComposite(builderGameTable.getBag().getDeck()); 
+		removeWagonTile(); 
+	} 
+	
 	/*
 	 * Core Methods
 	 */
+	
 	@Override
 	/**
 	 *  Start the builder to create the game board
@@ -182,6 +193,21 @@ public class StradaController implements InterfaceStradaC {
 	@Override
 	public void changeCubeLimit(int limit) {
 		this.cubeLimit = limit;
+	}
+	
+	@Override
+	public int getCardLimit() {
+		return this.takeCard;
+	}
+	
+	@Override
+	public void changeCardLimit(int limit) {
+		this.takeCard = limit;
+	}
+	
+	@Override
+	public DeckComposite getDeck(){
+		return this.deck;
 	}
 	
 	/*
@@ -398,7 +424,7 @@ public class StradaController implements InterfaceStradaC {
 		addWagon();
 		addWareTiles();
 		fillCubesAndWareTiles();
-		removeWagonTile();
+		this.createDeck();
 		//System.out.println(this.builderGameTable.getBag().toString()); 
 		
 		this.yellowBorder = BorderFactory.createLineBorder(Color.yellow);
@@ -414,10 +440,9 @@ public class StradaController implements InterfaceStradaC {
 		controlPlayerTurn(false);
 		notifyStart();
 
-		playerPanelUpdate();
-
+		playerPanelUpdate(); 
 		this.notifyBagSize(this.builderGameTable.getBag().getBagSize());
-		this.notifyMessage("To move a wagon just grab and drag it to a different place!");
+		this.notifyMessage("To move a wagon just grab and drag it to a different place!"); 
 	}
 
 	/*
@@ -458,6 +483,9 @@ public class StradaController implements InterfaceStradaC {
 		case 3:
 			takingWareTile(iCol, iRow);
 			break;
+		case 4:
+			takingWagonTile();
+			break;
 		default:
 			notifyMessage("First you need to select the wagon to move!");
 			break;
@@ -475,6 +503,8 @@ public class StradaController implements InterfaceStradaC {
 			return 2;
 		} else if (grid[iRow][iCol].isWareTile()) {
 			return 3;
+		}else if(grid[iRow][iCol].isDeck()) {
+			return 4;
 		}
 		return 0;
 	}
@@ -538,6 +568,31 @@ public class StradaController implements InterfaceStradaC {
 			return false;
 		}
 	} 
+	
+	@Override
+	public void takingWagonTile() {
+		notifyDeckPanel(this.deck.getDeck());
+	}
+	
+	@Override
+	public void chooseCard(String cardName) {
+		this.setStradaState(new TakingWagonTile(this));
+		this.moveState.takingWagonTile(cardName);
+	}
+	
+	@Override
+	public void notifyDeckPanel(List<Card> deck) {
+		for (IObserver observer : observers) {
+			observer.openDeckPanel(deck);
+		}
+	}
+	
+	@Override
+	public void notifyChooseWagon() {
+		for (IObserver observer : observers) {
+			observer.closeDeckPanel();
+		}
+	}
 	
 	@Override
 	/**
@@ -666,18 +721,19 @@ public class StradaController implements InterfaceStradaC {
 		players.get(pos).setMoves(3);
 		cubeLimit = 0;
 		wareLimit = 0;
+		takeCard  = 0;
 	}
 
 	@Override
 	public void playerPanelUpdate() {
 		notifyPlayerPanelUpdate(players.get(pos).getScore(), players.get(pos).getGold(), players.get(pos).getVPoints(),
 				players.get(pos).getCubes().size(), players.get(pos).getWareTiles().size(),
-				players.get(pos).getContracts().size());
+				players.get(pos).getContracts().size(), players.get(pos).getCards().size());
 	}
 
 	@Override
-	public void notifyPlayerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {
-		observers.get(pos).playerPanelUpdate(score, coins, vp, cubes, wareTiles, contracts);
+	public void notifyPlayerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts, int cards) {
+		observers.get(pos).playerPanelUpdate(score, coins, vp, cubes, wareTiles, contracts, cards);
 	}
 
 	// Notifications
@@ -702,8 +758,7 @@ public class StradaController implements InterfaceStradaC {
 	}
 
 	@Override
-	public void notifyEndGame() {
-	}
+	public void notifyEndGame() {}
 
 	@Override
 	public void notifyMessage(String message) {

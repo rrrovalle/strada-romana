@@ -5,7 +5,7 @@
  * @version 1.0
  */
 package br.udesc.ppr55.sr.view; 
-import javax.swing.JPanel;
+import javax.swing.JPanel; 
 
 import br.udesc.ppr55.sr.control.InterfaceStradaC;
 import br.udesc.ppr55.sr.control.StradaController;
@@ -13,11 +13,16 @@ import br.udesc.ppr55.sr.control.observer.IObserver;
 import br.udesc.ppr55.sr.view.command.CommandInvoker;
 import br.udesc.ppr55.sr.view.command.stradaCommands.PassPlay; 
 
+import br.udesc.ppr55.sr.model.composite.Card;
+
+import java.util.List;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 
-import javax.swing.BorderFactory; 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel; 
@@ -32,15 +37,17 @@ public class PlayerPanel extends JPanel implements IObserver {
 	private JButton btnBag;  
 	
 	private JDialog playerBag;
-	private JPanel panelBag;
+	private JPanel panelBag; 
 	private JLabel lbCubes;
 	private JLabel lbWareTiles;
 	private JLabel lbContracts;
 	private JLabel lbCoins;
 	private JLabel lbVictoryPoints; 
+	private JLabel lbCards;
 	
 	private InterfaceStradaC stradaController;
 	private CommandInvoker commandInvoker;
+	
 	
 	public PlayerPanel() {  
 		super(); 
@@ -80,11 +87,13 @@ public class PlayerPanel extends JPanel implements IObserver {
 		lbContracts = new JLabel("Contracts:"); 
 		lbCoins = new JLabel("Coins:");
 		lbVictoryPoints = new JLabel("VP:");
+		lbCards = new JLabel("Cards");
 		panelBag.add(lbCubes);
 		panelBag.add(lbWareTiles);
 		panelBag.add(lbContracts); 
 		panelBag.add(lbCoins);
 		panelBag.add(lbVictoryPoints);
+		panelBag.add(lbCards);
 		playerBag.add(panelBag); 
 		 
 		btnBag.addActionListener((ActionEvent e) -> {
@@ -98,6 +107,8 @@ public class PlayerPanel extends JPanel implements IObserver {
 		}); 
 	} 
 	
+
+	
 	public void setName(String name) {
 		this.lbName.setText("Player: "+name);
 	} 
@@ -105,9 +116,12 @@ public class PlayerPanel extends JPanel implements IObserver {
     public void update() {
         this.updateUI();
     }  
+    
+    @Override
+    public void openDeckPanel(List<Card> deck) {}
 
 	@Override
-	public void playerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts) {
+	public void playerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts, int cards) {
 		this.lbScore.setText("Score:\n"+score); 
 		// bag items
 		this.lbCoins.setText("Coins: \n"+coins);
@@ -115,6 +129,7 @@ public class PlayerPanel extends JPanel implements IObserver {
 		this.lbCubes.setText("Cubes: \n"+cubes); 
 		this.lbWareTiles.setText("Ware Tiles: \n"+wareTiles);
 		this.lbContracts.setText("Contracts: \n"+contracts); 
+		this.lbCards.setText("Cards: \n"+cards); 
 	} 
 	
 	@Override
@@ -142,7 +157,10 @@ public class PlayerPanel extends JPanel implements IObserver {
 
 	@Override
 	public void endGame() {}
-
+	
+	@Override
+	public void closeDeckPanel() {}
+	
 	@Override
 	public void message(String message) {} 
 }

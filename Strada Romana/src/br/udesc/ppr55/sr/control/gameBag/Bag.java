@@ -7,6 +7,8 @@
 
 package br.udesc.ppr55.sr.control.gameBag; 
 import br.udesc.ppr55.sr.model.Piece;
+import br.udesc.ppr55.sr.model.composite.Card;
+import br.udesc.ppr55.sr.model.composite.WagonCard;
 
 public class Bag extends AbstractBag { 
 	
@@ -71,9 +73,9 @@ public class Bag extends AbstractBag {
 	
 	@Override
 	public Piece removeCard() {
-		shufflePieces(wagonsDeck);
-		Piece card = wagonsDeck.get(random.nextInt(wagonsDeck.size()));
-		discard.setWagon(card);
+		shuffleCards(wagonsDeck);
+		Card card = wagonsDeck.get(random.nextInt(wagonsDeck.size()));
+		//discard.setWagon(card.getCard());
 		wagonsDeck.remove(card);
 		bagSize--;
 		return discard;

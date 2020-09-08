@@ -12,5 +12,6 @@ public class Deck extends Piece {
 	
 	public Deck() {
 		super("images/deck.png");
+		super.setDeck(true);
 	}
 }

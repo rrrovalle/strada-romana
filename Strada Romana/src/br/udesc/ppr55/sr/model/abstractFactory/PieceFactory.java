@@ -17,6 +17,7 @@ import br.udesc.ppr55.sr.model.components.StradaTile;
 import br.udesc.ppr55.sr.model.components.WagonTilePortus;
 import br.udesc.ppr55.sr.model.components.WagonTileRoma;
 import br.udesc.ppr55.sr.model.components.WareSpotTile;
+import br.udesc.ppr55.sr.model.composite.WagonCard;
 import br.udesc.ppr55.sr.model.cubes.BlueCube;
 import br.udesc.ppr55.sr.model.cubes.BrownCube;
 import br.udesc.ppr55.sr.model.cubes.GreenCube;
@@ -34,7 +35,6 @@ import br.udesc.ppr55.sr.model.wagons.Maccus;
 import br.udesc.ppr55.sr.model.wagons.Persa;
 import br.udesc.ppr55.sr.model.wagons.Plotus;
 import br.udesc.ppr55.sr.model.wagons.Pseudolus;
-import br.udesc.ppr55.sr.model.wagons.WagonCard;
 import br.udesc.ppr55.sr.model.wagons.faceDownWagon;
 import br.udesc.ppr55.sr.model.wareTiles.BlueWareTile;
 import br.udesc.ppr55.sr.model.wareTiles.BrownWareTile;
@@ -211,8 +211,8 @@ public class PieceFactory extends AbstractPieceFactory {
 	}
 
 	@Override
-	public Piece createCard(int number) {
-		return new WagonCard(number);
+	public Piece createCard(int number, String name) {
+		return new WagonCard(number,name);
 	}
 
 	@Override

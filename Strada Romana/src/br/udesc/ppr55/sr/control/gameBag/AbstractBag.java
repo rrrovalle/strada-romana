@@ -11,7 +11,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
+import br.udesc.ppr55.sr.model.composite.Card;
+ 
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.wagons.faceDownWagon;
  
@@ -22,7 +23,7 @@ public abstract class AbstractBag {
 	protected List<Piece> wareTiles    = new ArrayList<>();
 	protected List<Piece> wagonsRoma   = new ArrayList<>();
 	protected List<Piece> wagonsPortus = new ArrayList<>();  
-	protected List<Piece> wagonsDeck   = new ArrayList<>();
+	protected List<Card> wagonsDeck    = new ArrayList<>();
 	protected faceDownWagon discard    = new faceDownWagon();
 	
 	protected ArrayList<Piece> first;
@@ -32,7 +33,7 @@ public abstract class AbstractBag {
 	protected Random random; 
 
 	/* set pieces to both sides */
-	public List<Piece> getDeck() {
+	public List<Card> getDeck() {
 		return wagonsDeck;
 	}
 	
@@ -61,7 +62,7 @@ public abstract class AbstractBag {
 	}
 
 	/* access methods */
-	public void setDeck(List<Piece> wagons) {
+	public void setDeck(List<Card> wagons) {
 		this.wagonsDeck = wagons;
 	}
 	
@@ -94,6 +95,13 @@ public abstract class AbstractBag {
 		Collections.shuffle(Arrays.asList(pieces));
 		
 		return pieces;
+	}
+	
+	public List<Card> shuffleCards(List<Card> deck) {
+		random = new Random(); 
+		Collections.shuffle(Arrays.asList(deck));
+		
+		return deck;
 	}
 	
 	public void loadFirstWareTiles() { 

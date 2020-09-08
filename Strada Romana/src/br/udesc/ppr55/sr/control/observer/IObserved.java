@@ -7,13 +7,17 @@
 
 package br.udesc.ppr55.sr.control.observer;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
+import br.udesc.ppr55.sr.model.composite.Card;
+
+import java.util.List;
+ 
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 
 public interface IObserved {
 	
 	public void addObserver(IObserver observer);
     public void removeObserver(IObserver observer);   
-    public void notifyPlayerPanelUpdate(int score, int gold, int vp, int cubes, int wareTiles, int contracts);  
+    public void notifyPlayerPanelUpdate(int score, int gold, int vp, int cubes, int wareTiles, int contracts, int cards);  
     public void notifyStart(); 
     public void notifyBoardUpdate();
     public void notifyEndGame();
@@ -23,5 +27,7 @@ public interface IObserved {
     public String getPiece(int col, int row); 
     public void setFactory(PieceFactory factory);
     public AbstractPieceFactory getFactory();
+    public void notifyDeckPanel(List<Card> cards);
+    public void notifyChooseWagon();
     public void startGame();  
 }

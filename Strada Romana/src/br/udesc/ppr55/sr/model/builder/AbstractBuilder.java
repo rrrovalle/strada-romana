@@ -10,6 +10,7 @@ import java.util.List;
 import br.udesc.ppr55.sr.control.gameBag.Bag;
 import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.Table; 
+import br.udesc.ppr55.sr.model.composite.Card;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 
 public abstract class AbstractBuilder {
@@ -23,7 +24,7 @@ public abstract class AbstractBuilder {
 	   protected List<Piece> wareTiles;
 	   protected List<Piece> cubes;
 	   protected List<Piece> altCubes; 
-	   protected List<Piece> wagonsCards;
+	   protected List<Card> wagonsCards;
  
 	    public Table getTable() {
 	        return table;
