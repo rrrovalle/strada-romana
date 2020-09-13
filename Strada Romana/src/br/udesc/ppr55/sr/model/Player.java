@@ -11,11 +11,14 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import br.udesc.ppr55.sr.control.visitor.Acceptor;
+import br.udesc.ppr55.sr.control.visitor.IPlayerVisitor;
 import br.udesc.ppr55.sr.model.composite.Card;
-public class Player {
+public class Player implements Acceptor {
 	
     protected String name; 
     protected int moves;
+    protected int moveStatus;
     protected int score;
     protected int gold;
     protected int victoryPoints;
@@ -76,6 +79,18 @@ public class Player {
     
     public int getGold() {
         return gold;
+    }
+    
+    /**
+     * 1: Sideways, 2: Diagonal, 3: Extra Move and 4: Staking
+     * @param moveStatus
+     */
+    public void setMoveStatus(int moveStatus) {
+    	this.moveStatus = moveStatus;
+    }
+    
+    public int getMoveStatus() {
+    	return this.moveStatus;
     }
     
     public void setGold(int value) { 
@@ -150,6 +165,11 @@ public class Player {
 	@Override
 	public String toString() {
 		return "Player [name=" + name + ", score=" + score + ", panelPlayer=" + panelPlayer +", Turn=" + myTurn +"]";
+	}
+
+	@Override
+	public int accept(IPlayerVisitor visitor) {
+		return visitor.visit(this);
 	} 
     
 }

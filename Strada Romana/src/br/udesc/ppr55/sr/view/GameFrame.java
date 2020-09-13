@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ import br.udesc.ppr55.sr.view.command.stradaCommands.ChooseCardCommand;
 import br.udesc.ppr55.sr.view.command.stradaCommands.EndTurnCommand;
 import br.udesc.ppr55.sr.view.command.stradaCommands.FulfilPiecesCommand;
 import br.udesc.ppr55.sr.view.command.stradaCommands.PlayMusicCommand;
+import br.udesc.ppr55.sr.view.command.stradaCommands.SpecialMoveCommand;
 import br.udesc.ppr55.sr.view.command.stradaCommands.StartGameCommand;
 import br.udesc.ppr55.sr.view.command.stradaCommands.StopMusicCommand;
 
@@ -47,12 +49,15 @@ public class GameFrame extends JFrame implements IObserver {
 
 	private JPanel contentPane;
 	private JPanel panelDeck;
+	private JPanel panelMoves;
 	private JDialog deckDialog;
+	private JDialog movesDialog;
 	private BoardFrame boardFrame;
 
 	private JButton btnRadio;
 	private JButton btnStart;
 	private JButton btnClose;
+	private JButton btnMove;
 	private JButton btnEndTurn;
 
 	private JButton btnPlayerBag;
@@ -65,6 +70,7 @@ public class GameFrame extends JFrame implements IObserver {
 	private StopMusicCommand smc;
 	private FulfilPiecesCommand fpc;
 	private ChooseCardCommand ccc;
+	private SpecialMoveCommand smcmm; 
 
 	public GameFrame() {
 		super("Strada Romana");
@@ -161,8 +167,17 @@ public class GameFrame extends JFrame implements IObserver {
 			sgc = new StartGameCommand(stradaController);
 			commandInvoker.add(sgc);
 			commandInvoker.execute();
+		}); 
+        
+		btnMove = new JButton("Shop");
+		c.gridx = 4;
+		c.gridy = 0;
+		c.insets = new Insets(0, -150, 5, 0);
+		contentPane.add(btnMove,c);
+		btnMove.addActionListener((ActionEvent e) -> {
+			initializeMovesDeck();
 		});
-
+		
 		btnClose = new JButton("Exit");
 		c.gridx = 5;
 		c.gridy = 0;
@@ -197,6 +212,29 @@ public class GameFrame extends JFrame implements IObserver {
 		deckDialog.setLocationRelativeTo(null);
 		deckDialog.setResizable(false);
 		deckDialog.setVisible(true);
+	}
+	
+	public void initializeMovesDeck() {
+		panelMoves  = new JPanel();
+		movesDialog = new JDialog();
+		movesDialog.add(panelMoves);
+		
+		String[] moves = {"Sideways Move - 1 Gold","Diagonal Move - 2 Gold","Extra Move - 3 Gold", "Staking - 4 Gold"};
+		for(int i=0; i<moves.length;i++) {
+			JButton b = new JButton(moves[i]); 
+			b.setName(Integer.toString(i+1));
+			b.addActionListener((ActionEvent e)->{ 
+				smcmm = new SpecialMoveCommand(stradaController, Integer.parseInt(b.getName()));
+				commandInvoker.add(smcmm);
+				commandInvoker.execute();
+			});
+			panelMoves.add(b);
+		}
+		movesDialog.setTitle("Special Moves"); 
+		movesDialog.setSize(200,170);  
+		movesDialog.setLocationRelativeTo(null);
+		movesDialog.setResizable(false);
+		movesDialog.setVisible(true);
 	}
 
 	@Override
@@ -254,5 +292,10 @@ public class GameFrame extends JFrame implements IObserver {
 	@Override
 	public void closeDeckPanel() {
 		this.deckDialog.setVisible(false);
+	}
+	
+	@Override
+	public void closeFeaturePanel() {
+		this.movesDialog.setVisible(false);
 	}
 }

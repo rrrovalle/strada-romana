@@ -162,5 +162,8 @@ public class PlayerPanel extends JPanel implements IObserver {
 	public void closeDeckPanel() {}
 	
 	@Override
+	public void closeFeaturePanel() {}
+	
+	@Override
 	public void message(String message) {} 
 }

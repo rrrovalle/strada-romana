@@ -21,8 +21,8 @@ public interface IObserver {
 	  public void shuffleWagonTiles();
 	  public void openDeckPanel(List<Card> cards);
 	  public void closeDeckPanel();
+	  public void closeFeaturePanel();
 	  public void startGame();
 	  public void endGame(); 
-	  public void message(String message);
-  
+	  public void message(String message); 
 }

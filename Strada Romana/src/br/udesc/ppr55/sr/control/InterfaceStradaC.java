@@ -42,6 +42,7 @@ public interface InterfaceStradaC extends IObserved {
     public void changeCardLimit(int limit);
     public String getActualState();
     public DeckComposite getDeck();
+    public void buySpecialFeature(int gold);
     
     // Screen methods
     public int getScreenSize();

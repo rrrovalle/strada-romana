@@ -29,5 +29,6 @@ public interface IObserved {
     public AbstractPieceFactory getFactory();
     public void notifyDeckPanel(List<Card> cards);
     public void notifyChooseWagon();
+    public void notifyFeaturePanel();
     public void startGame();  
 }

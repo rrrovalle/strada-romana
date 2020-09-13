@@ -15,7 +15,7 @@ public class TakingWagonTile extends MoveState {
 			stradaController.getRoundPlayer().addCard(cardName); 
 			stradaController.getDeck().remove(stradaController.getDeck().findByName(cardName));
 			stradaController.changeCardLimit(1);
-			stradaController.notifyMessage("Your card has been saved");
+			stradaController.notifyMessage("You took a card!");
 			stradaController.playerPanelUpdate();
 			stradaController.notifyChooseWagon();
 			}else {
