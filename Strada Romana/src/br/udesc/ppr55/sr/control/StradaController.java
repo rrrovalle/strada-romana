@@ -594,7 +594,8 @@ public class StradaController implements InterfaceStradaC {
 		} 
 		return false;
 	}
-
+	
+	@Override
 	public boolean normalMove(int iCol, int iRow, int col, int row) {
 		playerMoves = players.get(pos).getMoves();
 		total = col - iCol;
@@ -619,7 +620,8 @@ public class StradaController implements InterfaceStradaC {
 			return false;
 		}
 	}
-
+	
+	@Override
 	public boolean sidewayMove(int iCol, int iRow, int col, int row) {
 		playerMoves = players.get(pos).getMoves();
 		total = col - iCol;
@@ -649,6 +651,7 @@ public class StradaController implements InterfaceStradaC {
 		}
 	}
 
+	@Override
 	public boolean checkDiagonalMove(int iCol, int iRow, int col, int row) {
 		boolean sit = false;
 		//check first quadrant
@@ -692,6 +695,9 @@ public class StradaController implements InterfaceStradaC {
 		}
 		return sit;
 	}
+	
+	
+	@Override
 	public boolean diagonalMove(int iCol, int iRow, int col, int row) {
 		playerMoves = players.get(pos).getMoves();
 		total = col - iCol;
@@ -725,6 +731,7 @@ public class StradaController implements InterfaceStradaC {
 		}
 	}
 
+	@Override
 	public boolean extraMove(int iCol, int iRow, int col, int row) {
 		count++;
 		if(count == 1) {
@@ -764,6 +771,7 @@ public class StradaController implements InterfaceStradaC {
 		}
 	}
 
+	@Override
 	public boolean stakingMove(int iCol, int iRow, int col, int row) {  
 		count++;
 		if(count == 1) {

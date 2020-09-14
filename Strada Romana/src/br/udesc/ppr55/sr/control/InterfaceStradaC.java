@@ -4,8 +4,7 @@
  * @since 12/08/2020
  * @version 1.0
  */
-package br.udesc.ppr55.sr.control; 
-import java.util.List;
+package br.udesc.ppr55.sr.control;  
 
 import javax.swing.JPanel;
 
@@ -74,4 +73,12 @@ public interface InterfaceStradaC extends IObserved {
     public int findWagons(int iCol, int iRow); 
     public void chooseCard(String cardName);
     public boolean checkTrafficBlock(int iCol, int col);
+    
+    // Moving Wagon methods
+    public boolean normalMove(int iCol, int iRow, int col, int row);
+    public boolean sidewayMove(int iCol, int iRow, int col, int row);
+    public boolean checkDiagonalMove(int iCol, int iRow, int col, int row);
+    public boolean diagonalMove(int iCol, int iRow, int col, int row);
+ 	public boolean extraMove(int iCol, int iRow, int col, int row);
+  	public boolean stakingMove(int iCol, int iRow, int col, int row); 
 }
