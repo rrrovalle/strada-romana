@@ -262,11 +262,11 @@ public class LocalMultiplayerBuilder extends AbstractBuilder {
 	@Override
 	public void buildWagonsCards(AbstractPieceFactory factory) {
 		wagonsCards = new ArrayList<Card>();
-		wagonsCards.addAll((Collection<? extends Card>) Arrays.asList(factory.createCard(1,"Ballio"),factory.createCard(2,"Cannopites"),
-									  factory.createCard(3,"Curculio"),factory.createCard(4,"Demetrius"),
-									  factory.createCard(5,"Hamilcar"),factory.createCard(6,"Herennius"),
-									  factory.createCard(7,"Maccus"),factory.createCard(8,"Persa"),
-									  factory.createCard(9,"Plotus"),factory.createCard(10,"Pseudolus")
+		wagonsCards.addAll((Collection<? extends Card>) Arrays.asList(factory.createCard(1,"ballio"),factory.createCard(2,"cannopites"),
+									  factory.createCard(3,"curculio"),factory.createCard(4,"demetrius"),
+									  factory.createCard(5,"hamilcar"),factory.createCard(6,"Hherennius"),
+									  factory.createCard(7,"paccus"),factory.createCard(8,"persa"),
+									  factory.createCard(9,"plotus"),factory.createCard(10,"pseudolus")
 									  ));
 		
 		super.bag.addPiece(10);

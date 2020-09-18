@@ -4,16 +4,16 @@ public class ResolutionAdapter extends DefaultResolution implements HighQualityR
 
 	private DefaultResolution defaultResolution;
 	
-	public ResolutionAdapter(int screenSize) {
-		if(screenSize == 50) {
-			provideHighQualityResolution();
-		}else {
-			defaultResolution.provideDefaultResolution();
-		}
+	public ResolutionAdapter(DefaultResolution defaultResolution) {
+		this.defaultResolution = defaultResolution;
 	}
 	
 	@Override
 	public int provideHighQualityResolution() {
-		return 5;
+		return changeResolution(defaultResolution.provideDefaultResolution());
+	}
+	
+	private int changeResolution(int resolution) {
+		return resolution * 2;
 	}
 }

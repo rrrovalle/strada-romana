@@ -60,6 +60,9 @@ public interface InterfaceStradaC extends IObserved {
     public void resetGameTurn();
     public void passPlay();   
     public void startGame();  
+    public boolean checkRomaMerchantPlace();
+    public boolean checkPortusMerchantPlace();
+    public boolean checkEndGame();
     
     // Game Control methods
     public void moveWagon(int icol,int irow, int finalColumn, int finalRow);

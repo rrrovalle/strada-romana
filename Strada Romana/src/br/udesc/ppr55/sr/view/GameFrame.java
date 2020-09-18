@@ -264,6 +264,8 @@ public class GameFrame extends JFrame implements IObserver {
 
 	@Override
 	public void endGame() {
+		btnStart.setEnabled(true);
+		btnEndTurn.setEnabled(false);
 	}
 
 	@Override

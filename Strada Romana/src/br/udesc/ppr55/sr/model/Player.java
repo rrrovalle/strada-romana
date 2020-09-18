@@ -94,7 +94,7 @@ public class Player implements Acceptor {
     }
     
     public void setGold(int value) { 
-    	if(this.gold < 5) {
+    	if(this.gold < 4) {
     		this.gold += value;
     	}else {
         	this.victoryPoints++;
@@ -161,15 +161,19 @@ public class Player implements Acceptor {
 	public void addCard(String card) {
 		cards.add(card);
 	}
-
+	
+	public void removeCard(String card) {
+		cards.remove(card);
+	}
+	
 	@Override
 	public String toString() {
 		return "Player [name=" + name + ", score=" + score + ", panelPlayer=" + panelPlayer +", Turn=" + myTurn +"]";
 	}
 
 	@Override
-	public int accept(IPlayerVisitor visitor) {
-		return visitor.visit(this);
+	public void accept(IPlayerVisitor visitor) {
+		visitor.visit(this);
 	} 
     
 }

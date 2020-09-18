@@ -18,6 +18,8 @@ import br.udesc.ppr55.sr.model.Piece;
 import br.udesc.ppr55.sr.model.Player;
 import br.udesc.ppr55.sr.model.abstractFactory.AbstractPieceFactory;
 import br.udesc.ppr55.sr.model.abstractFactory.PieceFactory;
+import br.udesc.ppr55.sr.model.adapter.DefaultResolution;
+import br.udesc.ppr55.sr.model.adapter.ResolutionAdapter;
 import br.udesc.ppr55.sr.model.builder.LocalMultiplayerBuilder;
 import br.udesc.ppr55.sr.model.builder.AbstractBuilder;
 import br.udesc.ppr55.sr.model.builder.EmperorDirector;
@@ -48,7 +50,10 @@ public class StradaController implements InterfaceStradaC {
 	private static StradaController instance;
 	private EmperorDirector director;
 	private AbstractBuilder builderGameTable;
-
+	
+	private DefaultResolution defaultResolution;
+	private ResolutionAdapter resolutionAdapter;
+	
 	private MoveState moveState;
 	private DeckComposite deck;
 
@@ -78,6 +83,7 @@ public class StradaController implements InterfaceStradaC {
 	private List<IObserver> observers = new ArrayList<>();
 
 	private ArrayList<Player> players = new ArrayList<>();
+	private ArrayList<String> wagonsTiles = new ArrayList<>();
 
 	public static StradaController getInstance() {
 		if (instance == null) {
@@ -124,9 +130,10 @@ public class StradaController implements InterfaceStradaC {
 		players.add(new Player(new PlayerPanel(), n2));
 	}
 
-	public void sumContractPoints() {
-		ContractsVisitor pv = new ContractsVisitor();
-		System.out.println(players.get(pos).accept(pv));
+	public int sumContractPoints(Player player) {
+		ContractsVisitor pv = new ContractsVisitor(); 
+		player.accept(pv);
+		return pv.visit(player);
 	}
 
 	@Override
@@ -142,7 +149,8 @@ public class StradaController implements InterfaceStradaC {
 
 	@Override
 	public void playRadio() {
-		this.audio.play();
+		this.builderGameTable.getBag().addPiece(-52);
+		//this.audio.play();
 	}
 
 	@Override
@@ -227,7 +235,15 @@ public class StradaController implements InterfaceStradaC {
 
 	@Override
 	public void setScreenSize(int size) {
-		this.screenSize = size;
+		if(size == 50) {
+			defaultResolution = new DefaultResolution();
+			this.screenSize = defaultResolution.provideDefaultResolution();
+		}else {
+			// Applying the adapter pattern
+			defaultResolution = new DefaultResolution();
+			resolutionAdapter = new ResolutionAdapter(defaultResolution);
+			this.screenSize = resolutionAdapter.provideHighQualityResolution();
+		}
 	}
 
 	/*
@@ -406,7 +422,6 @@ public class StradaController implements InterfaceStradaC {
 				getRoundPlayer().setGold(1);
 			}
 			// set the player turn and yellow border
-			sumContractPoints();
 			resetGameTurn();
 			notifyPassButton(true);
 			getRoundPlayer().getPanel().setBorder(yellowBorder);
@@ -422,21 +437,20 @@ public class StradaController implements InterfaceStradaC {
 	public void passPlay() {
 		if (getRoundPlayer().isMyTurn() == true && getRoundPlayer().getMoves() == 3) {
 			getRoundPlayer().setGold(1);
-			playerPanelUpdate();
-
+			playerPanelUpdate(); 
 			controlPlayerTurn(true);
 			notifyMessage("It's " + getRoundPlayer().getName() + " turn!");
 		}
 	}
 
 	@Override
-	public void startGame() {
+	public void startGame() { 
 		this.grid = this.builderGameTable.getTable().getGrid();
 		this.builderGameTable.getBag().loadFirstWareTiles();
 		addWagon();
 		addWareTiles();
 		fillCubesAndWareTiles();
-		this.createDeck();
+		this.createDeck(); 
 		// System.out.println(this.builderGameTable.getBag().toString());
 
 		this.yellowBorder = BorderFactory.createLineBorder(Color.yellow);
@@ -455,6 +469,18 @@ public class StradaController implements InterfaceStradaC {
 		playerPanelUpdate();
 		this.notifyBagSize(this.builderGameTable.getBag().getBagSize());
 		this.notifyMessage("To move a wagon just grab and drag it to a different place!");
+	}
+	
+	public void popularPlayers() {
+		players.get(0).addCard("ballio");
+		players.get(0).addCard("demetrius");
+		players.get(0).addCard("persa");
+		
+		players.get(1).addCard("hamilcar");
+		players.get(1).addCard("maccus");
+		players.get(1).addCard("canopites");
+		
+		playerPanelUpdate();
 	}
 
 	/*
@@ -553,8 +579,7 @@ public class StradaController implements InterfaceStradaC {
 	}
 
 	@Override
-	public void buySpecialFeature(int gold) {
-		System.out.println("GOLD " + gold);
+	public void buySpecialFeature(int gold) { 
 		if (getRoundPlayer().getGold() >= gold) {
 			notifyMessage("Now you can move like a real merchant!");
 			getRoundPlayer().setMoveStatus(gold);
@@ -601,7 +626,8 @@ public class StradaController implements InterfaceStradaC {
 		total = col - iCol;
 		totalInv = iCol - col;
 		if (!checkTrafficBlock(iCol, col) && grid[iRow][iCol].isMovable()
-				&& (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)) {
+				&& (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class 
+						|| grid[row][col].getClass() == WagonTileRoma.class || grid[row][col].getClass() == WagonTilePortus.class)) {
 			if (playerMoves > 0 && iCol != col) {
 				// left side
 				if (iCol < col && total <= playerMoves && total == 1 && grid[iRow][iCol].getWagonSide() == 1) {
@@ -627,7 +653,8 @@ public class StradaController implements InterfaceStradaC {
 		total = col - iCol;
 		totalInv = iCol - col;  
 		if (!checkTrafficBlock(iCol, col) && grid[iRow][iCol].isMovable() 
-				&& (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)) {
+				&& (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)
+				|| grid[row][col].getClass() == WagonTileRoma.class || grid[row][col].getClass() == WagonTilePortus.class) {
 			if (playerMoves > 0) {
 				// left side
 				if (!checkDiagonalMove(iCol, iRow, col, row) && (iCol < col || iCol == col) && total <= playerMoves && (total == 1 || total == 0) && grid[iRow][iCol].getWagonSide() == 1) {
@@ -703,7 +730,8 @@ public class StradaController implements InterfaceStradaC {
 		total = col - iCol;
 		totalInv = iCol - col;
 		if (!checkTrafficBlock(iCol, col) && grid[iRow][iCol].isMovable() 
-				&& (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)) {
+				&& (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)
+				|| grid[row][col].getClass() == WagonTileRoma.class || grid[row][col].getClass() == WagonTilePortus.class) {
 			if (playerMoves > 0) {
 				// left side
 				if ((iCol < col || iCol == col) && total <= playerMoves && (total == 1 || total == 0) && grid[iRow][iCol].getWagonSide() == 1) {
@@ -743,7 +771,8 @@ public class StradaController implements InterfaceStradaC {
 		totalInv = iCol - col;
 		System.out.println(playerMoves);
 		if (!checkTrafficBlock(iCol, col) && grid[iRow][iCol].isMovable() 
-				&& (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)) {
+				&& (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)
+				|| grid[row][col].getClass() == WagonTileRoma.class || grid[row][col].getClass() == WagonTilePortus.class) {
 			if (playerMoves > 0) {
 				// left side
 				if ((iCol < col || iCol == col) && total <= playerMoves && (total == 1 || total == 0) && grid[iRow][iCol].getWagonSide() == 1) {
@@ -782,7 +811,8 @@ public class StradaController implements InterfaceStradaC {
 		total = col - iCol;
 		totalInv = iCol - col; 
 		if (grid[iRow][iCol].isMovable() 
-				&& (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)) {
+				&& (grid[row][col].getClass() == StradaTile.class || grid[row][col].getClass() == RomaTile.class)
+				|| grid[row][col].getClass() == WagonTileRoma.class || grid[row][col].getClass() == WagonTilePortus.class) {
 			if (playerMoves > 0) {
 				// left side
 				if ((iCol < col || iCol == col) && total <= playerMoves && (total == 1 || total == 2 || total == 0) && grid[iRow][iCol].getWagonSide() == 1) {
@@ -960,13 +990,117 @@ public class StradaController implements InterfaceStradaC {
 
 	@Override
 	public void resetGameTurn() {
-		getRoundPlayer().setTurn(true);
-		getRoundPlayer().setMoves(3);
-		getRoundPlayer().setMoveStatus(0);
-		cubeLimit = 0;
-		wareLimit = 0;
-		takeCard  = 0;
-		count     = 0;
+		if(!checkEndGame()) { 
+			getRoundPlayer().setTurn(true);
+			getRoundPlayer().setMoves(3);
+			getRoundPlayer().setMoveStatus(4);
+			cubeLimit = 0;
+			wareLimit = 0;
+			takeCard  = 0;
+			count     = 0;
+		}else { 
+			gameStatus = false;
+			playerPanelUpdate();
+			notifyEndGame(); 
+			notifyMessage("The travel is over. All the merchantors finish their path!");
+			wagonTilesOwned();
+			checkWinner();
+		}
+	}
+	
+	@Override
+	public boolean checkEndGame() {
+		if(checkRomaMerchantPlace() || checkPortusMerchantPlace()) {
+			return true;
+		}else if(builderGameTable.getBag().getBagSize() == 0) {
+			return true;
+		}else if(getRoundPlayer().getVPoints() == 20) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean checkRomaMerchantPlace() {
+		int cont = 0;
+		//Roma Side 
+			for (int i = 0; i <= 0; i++) {
+				for (int j = 2; j <= 6; j++) { 
+					if (grid[j][i].getWagonSide() == 1) {
+						wagonsTiles.add(grid[j][i].getImage());
+						cont++;
+					}
+				}
+			} 
+			
+			return (cont >= 4 ? true : false);  
+	}
+	
+	@Override
+	public boolean checkPortusMerchantPlace() {
+		int cont = 0;  
+			for (int i = 16; i <= 16; i++) {
+				for (int j = 2; j <= 6; j++) { 
+					if (grid[j][i].getWagonSide() == 2) {
+						wagonsTiles.add(grid[j][i].getImage());
+						cont++;
+					}
+				}
+			}
+			return (cont >= 4 ? true : false); 
+	}
+	
+	public void checkWinner() {  
+		int[] fScore = new int [2];
+		int cubes = 0;
+		int wares = 0;
+		int contracts = 0;
+		
+		for(int i=0; i<players.size();i++) {
+			cubes = players.get(i).getCubes().size();
+			wares = players.get(i).getWareTiles().size(); 
+			contracts = sumContractPoints(players.get(i));
+			
+			contracts = contracts - (cubes - wares);
+			fScore[i] = contracts + players.get(i).getScore();
+		}
+		
+		//check tie
+		if(fScore[0] == fScore[1]) {
+			int p1 = players.get(0).getGold();
+			int p2 = players.get(1).getGold();
+			if(p1 == p2) {
+				notifyMessage("You win!"+getRoundPlayer().getName());
+			}else if(p1 > p2) {
+				notifyMessage("You win! "+players.get(0).getName());
+			}else {
+				notifyMessage("You win! "+players.get(1).getName());
+			} // check normal score
+		}else if(fScore[0] > fScore[1]) { 
+			notifyMessage("You win! "+players.get(0).getName()+"Final Score: "+fScore[0]); 
+		}else {  
+			notifyMessage("You win! "+players.get(1).getName()+"Final Score: "+fScore[1]);
+		}	 
+	}
+	
+	public void wagonTilesOwned() {
+		for(int i=0; i<players.size(); i++) {
+			for(int j=0; j<wagonsTiles.size(); j++) {
+				if(wagonsTiles.get(j).contains(players.get(i).getCards().get(i))) { 
+					players.get(i).setScore(1);
+					players.get(i).removeCard(players.get(i).getCards().get(i));
+				}
+			}
+		} 
+		checkWrongTiles();
+	}
+	
+	public void checkWrongTiles() {
+		int total = 0;
+		for(int i=0; i<players.size(); i++) {
+			total = players.get(i).getCards().size();
+			players.get(i).setScore(-total); 
+		}
 	}
 
 	@Override
@@ -977,8 +1111,7 @@ public class StradaController implements InterfaceStradaC {
 	}
 
 	@Override
-	public void notifyPlayerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts,
-			int cards) {
+	public void notifyPlayerPanelUpdate(int score, int coins, int vp, int cubes, int wareTiles, int contracts, int cards) {
 		observers.get(pos).playerPanelUpdate(score, coins, vp, cubes, wareTiles, contracts, cards);
 	}
 
@@ -1005,6 +1138,10 @@ public class StradaController implements InterfaceStradaC {
 
 	@Override
 	public void notifyEndGame() {
+		for (IObserver observer : observers) {
+			observer.boardPanelUpdate();
+			observer.endGame();
+		}
 	}
 
 	@Override
