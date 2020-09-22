@@ -130,6 +130,9 @@ public class StradaController implements InterfaceStradaC {
 		players.add(new Player(new PlayerPanel(), n2));
 	}
 
+	/**
+	 * Sum the contract points from each player */
+	@Override
 	public int sumContractPoints(Player player) {
 		ContractsVisitor pv = new ContractsVisitor(); 
 		player.accept(pv);
@@ -149,8 +152,7 @@ public class StradaController implements InterfaceStradaC {
 
 	@Override
 	public void playRadio() {
-		this.builderGameTable.getBag().addPiece(-52);
-		//this.audio.play();
+		this.audio.play();
 	}
 
 	@Override
@@ -451,8 +453,7 @@ public class StradaController implements InterfaceStradaC {
 		addWareTiles();
 		fillCubesAndWareTiles();
 		this.createDeck(); 
-		// System.out.println(this.builderGameTable.getBag().toString());
-
+	 
 		this.yellowBorder = BorderFactory.createLineBorder(Color.yellow);
 		this.blackBorder = BorderFactory.createLineBorder(Color.black);
 
@@ -469,19 +470,7 @@ public class StradaController implements InterfaceStradaC {
 		playerPanelUpdate();
 		this.notifyBagSize(this.builderGameTable.getBag().getBagSize());
 		this.notifyMessage("To move a wagon just grab and drag it to a different place!");
-	}
-	
-	public void popularPlayers() {
-		players.get(0).addCard("ballio");
-		players.get(0).addCard("demetrius");
-		players.get(0).addCard("persa");
-		
-		players.get(1).addCard("hamilcar");
-		players.get(1).addCard("maccus");
-		players.get(1).addCard("canopites");
-		
-		playerPanelUpdate();
-	}
+	} 
 
 	/*
 	 * Game Control methods
@@ -993,7 +982,7 @@ public class StradaController implements InterfaceStradaC {
 		if(!checkEndGame()) { 
 			getRoundPlayer().setTurn(true);
 			getRoundPlayer().setMoves(3);
-			getRoundPlayer().setMoveStatus(4);
+			getRoundPlayer().setMoveStatus(0);
 			cubeLimit = 0;
 			wareLimit = 0;
 			takeCard  = 0;
@@ -1002,9 +991,10 @@ public class StradaController implements InterfaceStradaC {
 			gameStatus = false;
 			playerPanelUpdate();
 			notifyEndGame(); 
-			notifyMessage("The travel is over. All the merchantors finish their path!");
+			notifyMessage("The travel is over. All the merchantors reached their destination!");
 			wagonTilesOwned();
 			checkWinner();
+			initializeBoard();
 		}
 	}
 	
@@ -1026,13 +1016,12 @@ public class StradaController implements InterfaceStradaC {
 		//Roma Side 
 			for (int i = 0; i <= 0; i++) {
 				for (int j = 2; j <= 6; j++) { 
-					if (grid[j][i].getWagonSide() == 1) {
+					if (grid[j][i].getWagonSide() == 2) {
 						wagonsTiles.add(grid[j][i].getImage());
 						cont++;
 					}
 				}
-			} 
-			
+			}  
 			return (cont >= 4 ? true : false);  
 	}
 	
@@ -1041,7 +1030,7 @@ public class StradaController implements InterfaceStradaC {
 		int cont = 0;  
 			for (int i = 16; i <= 16; i++) {
 				for (int j = 2; j <= 6; j++) { 
-					if (grid[j][i].getWagonSide() == 2) {
+					if (grid[j][i].getWagonSide() == 1) {
 						wagonsTiles.add(grid[j][i].getImage());
 						cont++;
 					}
@@ -1050,6 +1039,7 @@ public class StradaController implements InterfaceStradaC {
 			return (cont >= 4 ? true : false); 
 	}
 	
+	@Override
 	public void checkWinner() {  
 		int[] fScore = new int [2];
 		int cubes = 0;
@@ -1083,6 +1073,10 @@ public class StradaController implements InterfaceStradaC {
 		}	 
 	}
 	
+	/**
+	 * Check all the wagons tiles collected by players that reached the destination
+	 */
+	@Override
 	public void wagonTilesOwned() {
 		for(int i=0; i<players.size(); i++) {
 			for(int j=0; j<wagonsTiles.size(); j++) {
@@ -1092,10 +1086,14 @@ public class StradaController implements InterfaceStradaC {
 				}
 			}
 		} 
-		checkWrongTiles();
+		checkWrongWagonTiles();
 	}
 	
-	public void checkWrongTiles() {
+	/**
+	 *  Check all the player cards that not finished their path
+	 */
+	@Override
+	public void checkWrongWagonTiles() {
 		int total = 0;
 		for(int i=0; i<players.size(); i++) {
 			total = players.get(i).getCards().size();

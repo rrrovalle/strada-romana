@@ -42,6 +42,8 @@ public interface InterfaceStradaC extends IObserved {
     public String getActualState();
     public DeckComposite getDeck();
     public void buySpecialFeature(int gold);
+    public void wagonTilesOwned();
+    public void checkWrongWagonTiles();
     
     // Screen methods
     public int getScreenSize();
@@ -62,7 +64,9 @@ public interface InterfaceStradaC extends IObserved {
     public void startGame();  
     public boolean checkRomaMerchantPlace();
     public boolean checkPortusMerchantPlace();
+    public int sumContractPoints(Player player);
     public boolean checkEndGame();
+    public void checkWinner();
     
     // Game Control methods
     public void moveWagon(int icol,int irow, int finalColumn, int finalRow);
